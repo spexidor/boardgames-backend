@@ -1,20 +1,19 @@
 package se.hiq.boardgamesbackend.game.coordinates;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import se.hiq.boardgamesbackend.game.Facing;
+
+import javax.persistence.*;
 
 @Entity @IdClass(CoordinateId.class)
 public class Coordinate {
 
     @Id
-    private int x;
+    protected int x;
     @Id
-    private int y;
+    protected int y;
 
     public Coordinate(){
-        this.x = 0;
-        this.y = 0;
+        this(0, 0);
     }
 
     public Coordinate(int x, int y){
@@ -27,8 +26,13 @@ public class Coordinate {
         this.y = anotherCoordinate.getY();
     }
 
-    public boolean equals(Coordinate a){
-        return (this.x == a.x && this.y == a.y) ? true:false;
+    @Override
+    public boolean equals(Object a){
+        if (a instanceof Coordinate){
+            Coordinate ac = (Coordinate) a;
+            return ac.x == this.x && ac.y == this.y ? true:false;
+        }
+            else return false;
     }
 
     public void moveUp(){

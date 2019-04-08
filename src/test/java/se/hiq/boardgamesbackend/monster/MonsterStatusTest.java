@@ -2,8 +2,8 @@ package se.hiq.boardgamesbackend.monster;
 
 import org.junit.Test;
 import se.hiq.boardgamesbackend.game.Board;
-import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
-import se.hiq.boardgamesbackend.game.coordinates.CoordinateList;
+import se.hiq.boardgamesbackend.game.coordinates.MonsterPosition;
+import se.hiq.boardgamesbackend.game.coordinates.MonsterPositionList;
 
 import java.util.List;
 
@@ -16,15 +16,15 @@ public class MonsterStatusTest {
     public void newMonsterStatusTest(){
         MonsterStatus monsterStatus = new MonsterStatus();
         MonsterStatus monsterStatusInvalid = new MonsterStatus();
-        monsterStatusInvalid.setPosition(new Coordinate(-1, -1));
+        monsterStatusInvalid.setPosition(new MonsterPosition(-1, -1));
 
-        Board testBoard = new Board(10, 10);
-        CoordinateList movementOpts = monsterStatus.getMovementOptions(testBoard);
+        Board testBoard = new Board();
+        MonsterPositionList movementOpts = monsterStatus.getMovementOptions(testBoard);
 
         assertNotNull(monsterStatus);
-        assertEquals(10, movementOpts.getCoordinateList().size()); //10 possible spaces with move 3 from corner
+        assertEquals(10, movementOpts.getMonsterPositionList().size()); //10 possible spaces with move 3 from corner
 
-        assertEquals(false, movementOpts.hasCoordinate(new Coordinate(-1, -1)));
+        assertEquals(false, movementOpts.hasMonsterPosition(new MonsterPosition(-1, -1)));
         assertEquals(false, monsterStatus.validUpdate(monsterStatusInvalid));
     }
 }

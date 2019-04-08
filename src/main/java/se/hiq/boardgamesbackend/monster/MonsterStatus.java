@@ -4,10 +4,10 @@ import se.hiq.boardgamesbackend.game.Board;
 import se.hiq.boardgamesbackend.game.Facing;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.game.coordinates.CoordinateList;
+import se.hiq.boardgamesbackend.game.coordinates.MonsterPosition;
+import se.hiq.boardgamesbackend.game.coordinates.MonsterPositionList;
 
 import javax.persistence.*;
-import java.io.Serializable;
-
 
 @Entity
 public class MonsterStatus {
@@ -15,52 +15,38 @@ public class MonsterStatus {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-    @ManyToOne(cascade=CascadeType.ALL)
-    private Coordinate position;
-    @Enumerated(EnumType.STRING)
-    private Facing facing;
 
-    @Transient
-    private Monster monsterType;
+    @ManyToOne
+    private MonsterPosition monsterPosition;
 
     public MonsterStatus(){
         this.id = 0L;
-        this.position = new Coordinate(0, 0);
-        this.facing = Facing.UP;
-        //this.monsterType = new TestLion();
+        this.monsterPosition = new MonsterPosition(0, 0);
     }
 
     public Long getId() {
         return id;
     }
 
-    public Coordinate getPosition() {
-        return position;
+    public MonsterPosition getPosition() {
+        return monsterPosition;
     }
 
-    public void setPosition(Coordinate position) {
-        this.position = position;
+    public void setPosition(MonsterPosition monsterPosition) {
+        this.monsterPosition = monsterPosition;
     }
 
-    public Facing getFacing() {
-        return facing;
-    }
+    public MonsterPositionList getMovementOptions(Board board){
+        MonsterPositionList monsterPositionList = new MonsterPositionList(this.monsterPosition);
+        monsterPositionList.addMultipleSteps(3, board);
 
-    public Monster getMonsterType() {
-        return monsterType;
-    }
-
-    public CoordinateList getMovementOptions(Board board){
-        CoordinateList coordinates = new CoordinateList(this.position);
-        coordinates.addMultipleSteps(3, board);
-
-        return coordinates;
+        return monsterPositionList;
     }
 
     public boolean validUpdate(MonsterStatus monsterStatus){
 
-        Coordinate newPos = monsterStatus.getPosition();
-        if(getMovementOptions(new Board(10, 10)).hasCoordinate(newPos)){
+        MonsterPosition newPos = monsterStatus.getPosition();
+        if(getMovementOptions(new Board()).hasMonsterPosition(newPos)){
             return true;
         }
         else {
@@ -68,4 +54,11 @@ public class MonsterStatus {
         }
     }
 
+    public MonsterPosition getMonsterPosition() {
+        return monsterPosition;
+    }
+
+    public void setMonsterPosition(MonsterPosition monsterPosition) {
+        this.monsterPosition = monsterPosition;
+    }
 }

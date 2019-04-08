@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import se.hiq.boardgamesbackend.game.Board;
 import se.hiq.boardgamesbackend.game.coordinates.CoordinateList;
+import se.hiq.boardgamesbackend.game.coordinates.MonsterPositionList;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
@@ -28,10 +29,10 @@ public class MonsterStatusController {
 
     @GetMapping("/monsterStatus/{id}/openMoves")
     public @ResponseBody
-    CoordinateList coordinateList(@PathVariable long id, HttpServletResponse response) {
+    MonsterPositionList coordinateList(@PathVariable long id, HttpServletResponse response) {
         Optional<MonsterStatus> optMonsterStatus = monsterStatusRepository.findById(id);
         if(optMonsterStatus.isPresent()) {
-            return optMonsterStatus.get().getMovementOptions(new Board(10,10));
+            return optMonsterStatus.get().getMovementOptions(new Board());
         }
         else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
