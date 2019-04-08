@@ -39,7 +39,7 @@ public class ShowdownControllerTest {
 
     @Test
     public void getShowdownByIdTest() {
-        Showdown showdown = restTemplate.getForObject("/showdown/100", Showdown.class);
+        Showdown showdown = restTemplate.getForObject("/showdown/11", Showdown.class);
         System.out.println("Loaded showdown");
         System.out.println("Description=" +showdown.getDescription());
 
