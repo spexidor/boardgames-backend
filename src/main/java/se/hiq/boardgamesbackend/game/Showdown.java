@@ -1,5 +1,6 @@
 package se.hiq.boardgamesbackend.game;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.hiq.boardgamesbackend.monster.MonsterStatus;
 import se.hiq.boardgamesbackend.survivor.Survivor;
 
@@ -16,6 +17,7 @@ public class Showdown {
     @Enumerated(EnumType.STRING)
     private GameStatus gameStatus;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @OneToOne(cascade=CascadeType.ALL)
     private MonsterStatus monsterStatus;
     //private List<Survivor> survivors;

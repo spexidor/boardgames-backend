@@ -33,7 +33,6 @@ public class ShowdownController {
         return showdownRepository.save(showdown);
     }
 
-    /*
     @PutMapping("/showdown/{id}")
     public Showdown updatehowdown(@RequestBody Showdown showdown, @PathVariable Long id, HttpServletResponse response){
         if(id == null || id == 0 ){
@@ -48,5 +47,4 @@ public class ShowdownController {
             return showdownRepository.save(showdown);
         }
     }
-    */
 }
