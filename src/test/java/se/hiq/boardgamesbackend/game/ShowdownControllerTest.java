@@ -51,6 +51,7 @@ public class ShowdownControllerTest {
         ResponseEntity<Showdown> response = restTemplate.postForEntity("/showdown", new Showdown("post test"), Showdown.class);
         assertEquals(200, response.getStatusCode().value());
         assertTrue(response.getBody().getMonsterStatus().getId() != null);
+        assertEquals(4, response.getBody().getSurvivors().size());
 
         System.out.println("monster status id: " +response.getBody().getMonsterStatus().getId());
     }

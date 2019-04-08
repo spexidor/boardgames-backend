@@ -5,8 +5,6 @@ import se.hiq.boardgamesbackend.game.Board;
 import se.hiq.boardgamesbackend.game.coordinates.MonsterPosition;
 import se.hiq.boardgamesbackend.game.coordinates.MonsterPositionList;
 
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -16,7 +14,7 @@ public class MonsterStatusTest {
     public void newMonsterStatusTest(){
         MonsterStatus monsterStatus = new MonsterStatus();
         MonsterStatus monsterStatusInvalid = new MonsterStatus();
-        monsterStatusInvalid.setPosition(new MonsterPosition(-1, -1));
+        monsterStatusInvalid.setMonsterPosition(new MonsterPosition(-1, -1));
 
         Board testBoard = new Board();
         MonsterPositionList movementOpts = monsterStatus.getMovementOptions(testBoard);

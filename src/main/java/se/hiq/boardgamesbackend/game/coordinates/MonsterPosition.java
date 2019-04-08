@@ -45,6 +45,7 @@ public class MonsterPosition {
         if (a instanceof MonsterPosition){
             MonsterPosition ac = (MonsterPosition) a;
             return ac.getX() == this.getX() && ac.getY() == this.getY() ? true:false;
+            //return ac.getX() == this.getX() && ac.getY() == this.getY() && ac.facing == this.facing? true:false;
         }
         else return false;
     }

@@ -1,9 +1,6 @@
 package se.hiq.boardgamesbackend.monster;
 
 import se.hiq.boardgamesbackend.game.Board;
-import se.hiq.boardgamesbackend.game.Facing;
-import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
-import se.hiq.boardgamesbackend.game.coordinates.CoordinateList;
 import se.hiq.boardgamesbackend.game.coordinates.MonsterPosition;
 import se.hiq.boardgamesbackend.game.coordinates.MonsterPositionList;
 
@@ -16,7 +13,7 @@ public class MonsterStatus {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     private MonsterPosition monsterPosition;
 
     public MonsterStatus(){
@@ -28,14 +25,6 @@ public class MonsterStatus {
         return id;
     }
 
-    public MonsterPosition getPosition() {
-        return monsterPosition;
-    }
-
-    public void setPosition(MonsterPosition monsterPosition) {
-        this.monsterPosition = monsterPosition;
-    }
-
     public MonsterPositionList getMovementOptions(Board board){
         MonsterPositionList monsterPositionList = new MonsterPositionList(this.monsterPosition);
         monsterPositionList.addMultipleSteps(3, board);
@@ -45,7 +34,7 @@ public class MonsterStatus {
 
     public boolean validUpdate(MonsterStatus monsterStatus){
 
-        MonsterPosition newPos = monsterStatus.getPosition();
+        MonsterPosition newPos = monsterStatus.getMonsterPosition();
         if(getMovementOptions(new Board()).hasMonsterPosition(newPos)){
             return true;
         }

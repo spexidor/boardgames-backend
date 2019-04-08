@@ -5,6 +5,7 @@ import se.hiq.boardgamesbackend.monster.MonsterStatus;
 import se.hiq.boardgamesbackend.survivor.Survivor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,7 +21,9 @@ public class Showdown {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @OneToOne(cascade=CascadeType.ALL)
     private MonsterStatus monsterStatus;
-    //private List<Survivor> survivors;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Survivor> survivors;
     //private Board board;
 
     public Showdown(){
@@ -32,6 +35,16 @@ public class Showdown {
         this.description = description;
         this.monsterStatus = new MonsterStatus();
         this.gameStatus = GameStatus.RUNNING;
+
+        this.survivors = createSurvivors();
+    }
+
+    private List<Survivor> createSurvivors() {
+        List<Survivor> survivors = new ArrayList<>();
+        for(int n=0;n<4;n++) {
+            survivors.add(new Survivor("Joe " +n));
+        }
+        return survivors;
     }
 
     public void validate(){
@@ -66,5 +79,9 @@ public class Showdown {
 
     public GameStatus getGameStatus() {
         return gameStatus;
+    }
+
+    public List<Survivor> getSurvivors() {
+        return survivors;
     }
 }

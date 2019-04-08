@@ -47,7 +47,7 @@ public class MonsterStatusControllerTest {
     public void putInvalidMonsterStatus(){
         //get existing test
         MonsterStatus monsterStatus = restTemplate.getForObject("/monsterStatus/10", MonsterStatus.class);
-        monsterStatus.setPosition(new MonsterPosition(-1, -1)); //invalid position
+        monsterStatus.setMonsterPosition(new MonsterPosition(-1, -1)); //invalid position
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MonsterStatus> requestEntity = new HttpEntity<>(monsterStatus, headers);
@@ -60,7 +60,7 @@ public class MonsterStatusControllerTest {
         //get existing test
         MonsterStatus monsterStatus = restTemplate.getForObject("/monsterStatus/10", MonsterStatus.class);
         MonsterPositionList monsterPositionList = monsterStatus.getMovementOptions(new Board());
-        monsterStatus.setPosition(monsterPositionList.getMonsterPositionList().get(0)); //valid position
+        monsterStatus.setMonsterPosition(monsterPositionList.getMonsterPositionList().get(0)); //valid position
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MonsterStatus> requestEntity = new HttpEntity<>(monsterStatus, headers);
