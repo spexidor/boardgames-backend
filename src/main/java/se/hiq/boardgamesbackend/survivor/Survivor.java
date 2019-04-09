@@ -1,9 +1,12 @@
 package se.hiq.boardgamesbackend.survivor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import se.hiq.boardgamesbackend.game.Board;
+import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
+import se.hiq.boardgamesbackend.game.coordinates.CoordinateList;
+import se.hiq.boardgamesbackend.monster.MonsterStatus;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Survivor {
@@ -15,8 +18,12 @@ public class Survivor {
     private String name;
     private boolean isAlive;
 
+    @ManyToOne(cascade=CascadeType.ALL)
+    private Coordinate position;
     private int activationsLeft;
     private int movesLeft;
+
+    private int movement;
 
     private int survival;
     private int insanity;
@@ -24,17 +31,22 @@ public class Survivor {
     private int armourArms;
     private int armourTorso;
     private int armourWaist;
-    private int amourLegs;
+    private int armourLegs;
 
     public Survivor(){
         this("By default constructor");
     }
 
     public Survivor(String s) {
+       this(s, new Coordinate(0,0));
+    }
+
+    public Survivor(String s, Coordinate position) {
         this.name = s;
         this.isAlive = true;
         this.activationsLeft = 1;
         this.movesLeft = 1;
+        this.position = position;
     }
 
     public Long getId() {
@@ -81,7 +93,30 @@ public class Survivor {
         return armourWaist;
     }
 
-    public int getAmourLegs() {
-        return amourLegs;
+    public int getArmourLegs() {
+        return armourLegs;
+    }
+
+    public boolean validUpdate(Survivor newSurvivorState) {
+        return true;
+    }
+
+    public Coordinate getPosition() {
+        return position;
+    }
+
+    public void setPosition(Coordinate position) {
+        this.position = position;
+    }
+
+    public CoordinateList getMovementOptions(Board board){
+        return getMovementOptions(board, null, new MonsterStatus());
+    }
+
+    public CoordinateList getMovementOptions(Board board, List<Survivor> otherSurvivors, MonsterStatus monsterStatus) {
+        CoordinateList movementOpts = new CoordinateList(this.position);
+        movementOpts.addMultipleSteps(this.movement, new Board());
+        movementOpts.removeInvalidMovements(monsterStatus, otherSurvivors);
+        return movementOpts;
     }
 }

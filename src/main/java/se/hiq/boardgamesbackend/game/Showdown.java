@@ -1,6 +1,7 @@
 package se.hiq.boardgamesbackend.game;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.monster.MonsterStatus;
 import se.hiq.boardgamesbackend.survivor.Survivor;
 
@@ -22,6 +23,7 @@ public class Showdown {
     @OneToOne(cascade=CascadeType.ALL)
     private MonsterStatus monsterStatus;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @OneToMany(cascade = CascadeType.ALL)
     private List<Survivor> survivors;
     //private Board board;
@@ -42,7 +44,7 @@ public class Showdown {
     private List<Survivor> createSurvivors() {
         List<Survivor> survivors = new ArrayList<>();
         for(int n=0;n<4;n++) {
-            survivors.add(new Survivor("Joe " +n));
+            survivors.add(new Survivor("Joe " +n, new Coordinate(n, 0)));
         }
         return survivors;
     }

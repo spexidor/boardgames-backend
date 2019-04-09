@@ -1,16 +1,14 @@
 package se.hiq.boardgamesbackend.game.coordinates;
 
-import se.hiq.boardgamesbackend.game.Facing;
-
 import javax.persistence.*;
 
 @Entity @IdClass(CoordinateId.class)
 public class Coordinate {
 
     @Id
-    protected int x;
+    private int x;
     @Id
-    protected int y;
+    private int y;
 
     public Coordinate(){
         this(0, 0);

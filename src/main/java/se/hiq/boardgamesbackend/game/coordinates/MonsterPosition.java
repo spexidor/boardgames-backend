@@ -77,6 +77,9 @@ public class MonsterPosition {
     public int getY(){
         return this.y;
     }
+    public Coordinate getPosition(){
+        return new Coordinate(x, y);
+    }
 
     public void setX(int x) {
         this.x = x;
