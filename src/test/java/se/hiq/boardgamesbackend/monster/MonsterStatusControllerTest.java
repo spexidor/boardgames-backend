@@ -12,8 +12,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import se.hiq.boardgamesbackend.game.Board;
-import se.hiq.boardgamesbackend.game.coordinates.MonsterPosition;
-import se.hiq.boardgamesbackend.game.coordinates.MonsterPositionList;
+import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
+import se.hiq.boardgamesbackend.game.coordinates.CoordinateList;
 
 import static org.junit.Assert.*;
 
@@ -46,7 +46,7 @@ public class MonsterStatusControllerTest {
     public void putInvalidMonsterStatus(){
         //get existing test
         MonsterStatus monsterStatus = restTemplate.getForObject("/monsterStatus/100", MonsterStatus.class);
-        monsterStatus.setMonsterPosition(new MonsterPosition(-1, -1)); //invalid position
+        monsterStatus.setMonsterPosition(new Coordinate(-1, -1)); //invalid position
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MonsterStatus> requestEntity = new HttpEntity<>(monsterStatus, headers);
@@ -58,8 +58,8 @@ public class MonsterStatusControllerTest {
     public void putValidMonsterStatus(){
         //get existing test
         MonsterStatus monsterStatus = restTemplate.getForObject("/monsterStatus/100", MonsterStatus.class);
-        MonsterPositionList monsterPositionList = monsterStatus.getMovementOptions(new Board());
-        monsterStatus.setMonsterPosition(monsterPositionList.getMonsterPositionList().get(0)); //valid position
+        CoordinateList monsterPositionList = monsterStatus.getMovementOptions(new Board());
+        monsterStatus.setMonsterPosition(monsterPositionList.getCoordinateList().get(0)); //valid position
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MonsterStatus> requestEntity = new HttpEntity<>(monsterStatus, headers);

@@ -1,6 +1,7 @@
 package se.hiq.boardgamesbackend.survivor;
 
 import se.hiq.boardgamesbackend.game.Board;
+import se.hiq.boardgamesbackend.game.Showdown;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.game.coordinates.CoordinateList;
 import se.hiq.boardgamesbackend.monster.MonsterStatus;
@@ -15,6 +16,9 @@ public class Survivor {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
+    @ManyToOne
+    private Showdown showdown; //Parent showdown
+
     private String name;
     private boolean isAlive;
 
@@ -27,11 +31,14 @@ public class Survivor {
 
     private int survival;
     private int insanity;
+
+    /*
     private int armourHead;
     private int armourArms;
     private int armourTorso;
     private int armourWaist;
     private int armourLegs;
+    */
 
     public Survivor(){
         this("By default constructor");
@@ -47,6 +54,7 @@ public class Survivor {
         this.activationsLeft = 1;
         this.movesLeft = 1;
         this.position = position;
+        this.movement = 5;
     }
 
     public Long getId() {
@@ -77,6 +85,7 @@ public class Survivor {
         return insanity;
     }
 
+    /*
     public int getArmourHead() {
         return armourHead;
     }
@@ -96,6 +105,7 @@ public class Survivor {
     public int getArmourLegs() {
         return armourLegs;
     }
+    */
 
     public boolean validUpdate(Survivor newSurvivorState) {
         return true;
@@ -109,14 +119,23 @@ public class Survivor {
         this.position = position;
     }
 
-    public CoordinateList getMovementOptions(Board board){
+    public List<Coordinate> getMovementOptions(Board board){
         return getMovementOptions(board, null, new MonsterStatus());
     }
 
-    public CoordinateList getMovementOptions(Board board, List<Survivor> otherSurvivors, MonsterStatus monsterStatus) {
+    public List<Coordinate> getMovementOptions(Board board, List<Survivor> otherSurvivors, MonsterStatus monsterStatus) {
         CoordinateList movementOpts = new CoordinateList(this.position);
         movementOpts.addMultipleSteps(this.movement, new Board());
         movementOpts.removeInvalidMovements(monsterStatus, otherSurvivors);
-        return movementOpts;
+        return movementOpts.getCoordinateList();
     }
+
+    public int getMovement() {
+        return movement;
+    }
+
+    public Showdown getShowdown() {
+        return showdown;
+    }
+
 }

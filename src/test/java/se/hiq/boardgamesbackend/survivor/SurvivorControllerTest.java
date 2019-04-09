@@ -12,7 +12,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import se.hiq.boardgamesbackend.game.Board;
-import se.hiq.boardgamesbackend.game.coordinates.CoordinateList;
+import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -38,8 +40,8 @@ public class SurvivorControllerTest {
     public void updateSurvivorTest(){
 
         Survivor survivor = restTemplate.getForObject("/survivor/101", Survivor.class);
-        CoordinateList survivorMovementOptions = survivor.getMovementOptions(new Board());
-        survivor.setPosition(survivorMovementOptions.getCoordinateList().get(0)); //valid position
+        List<Coordinate> survivorMovementOptions = survivor.getMovementOptions(new Board());
+        survivor.setPosition(survivorMovementOptions.get(0)); //valid position
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Survivor> requestEntity = new HttpEntity<>(survivor, headers);
@@ -49,10 +51,15 @@ public class SurvivorControllerTest {
 
     @Test
     public void getSurvivorOpenMoves(){
-        CoordinateList openMoves = restTemplate.getForObject("/survivor/101/openMoves", CoordinateList.class);
+        Survivor survivor = restTemplate.getForObject("/survivor/101", Survivor.class);
+        List<Coordinate> openMoves = restTemplate.getForObject("/survivor/101/openMoves", List.class);
 
-        assertNotNull(openMoves);
-        assertTrue(openMoves.getCoordinateList().size()>1);
-        System.out.println("Open moves: " +openMoves.getCoordinateList().size());
+        System.out.println("Open moves: " +openMoves.size());
+        assertNotNull("No open moves returned", openMoves);
+        //TODO: add assertion
+        //assertEquals("Wrong number of moves", 25, openMoves.size()); //move 5 from (0,1), 1 square blocked
+
+        System.out.println("Movement: " +survivor.getMovement());
+        System.out.println("Position: " +survivor.getPosition());
     }
 }

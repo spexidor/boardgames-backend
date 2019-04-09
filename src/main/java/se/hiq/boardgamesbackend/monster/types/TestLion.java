@@ -5,6 +5,6 @@ import se.hiq.boardgamesbackend.monster.Monster;
 public class TestLion extends Monster {
 
     public TestLion(){
-        super("Test Lion", 1, 1, 2, 0);
+        super("Test Lion", 2, 2, 2, 6);
     }
 }

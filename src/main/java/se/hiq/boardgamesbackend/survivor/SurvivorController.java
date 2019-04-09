@@ -3,9 +3,11 @@ package se.hiq.boardgamesbackend.survivor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import se.hiq.boardgamesbackend.game.Board;
+import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.game.coordinates.CoordinateList;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -27,8 +29,15 @@ public class SurvivorController {
 
     @GetMapping("/survivor/{id}/openMoves")
     public @ResponseBody
-    CoordinateList coordinateList(@PathVariable long id, HttpServletResponse response) {
+    List<Coordinate> coordinateList(@PathVariable long id, HttpServletResponse response) {
         Optional<Survivor> optionalSurvivor = survivorRepository.findById(id);
+
+        /*
+        if(optionalSurvivor.isPresent()) {
+            Long showdownId = optionalSurvivor.get().getShowdown().getId();
+        }
+        */
+
         if(optionalSurvivor.isPresent()) {
             return optionalSurvivor.get().getMovementOptions(new Board());
         }

@@ -1,9 +1,9 @@
 package se.hiq.boardgamesbackend.monster;
 
 import se.hiq.boardgamesbackend.game.Board;
+import se.hiq.boardgamesbackend.game.Facing;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
-import se.hiq.boardgamesbackend.game.coordinates.MonsterPosition;
-import se.hiq.boardgamesbackend.game.coordinates.MonsterPositionList;
+import se.hiq.boardgamesbackend.game.coordinates.CoordinateList;
 import se.hiq.boardgamesbackend.monster.types.TestLion;
 
 import javax.persistence.*;
@@ -18,11 +18,15 @@ public class MonsterStatus {
     private Long id;
 
     @ManyToOne(cascade=CascadeType.ALL)
-    private MonsterPosition monsterPosition;
+    private Coordinate position;
+
+    @Enumerated(EnumType.STRING)
+    private Facing facing;
 
     public MonsterStatus(){
         this.id = 0L;
-        this.monsterPosition = new MonsterPosition(0, 0);
+        this.position = new Coordinate(10, 6); //Center of board
+        this.facing = Facing.UP;
         this.monsterStatline = new TestLion();
     }
 
@@ -33,17 +37,17 @@ public class MonsterStatus {
         return id;
     }
 
-    public MonsterPositionList getMovementOptions(Board board){
-        MonsterPositionList monsterPositionList = new MonsterPositionList(this.monsterPosition);
-        monsterPositionList.addMultipleSteps(3, board);
+    public CoordinateList getMovementOptions(Board board){
+        CoordinateList positionList = new CoordinateList(this.position);
+        positionList.addMultipleSteps(3, board);
 
-        return monsterPositionList;
+        return positionList;
     }
 
     public boolean validUpdate(MonsterStatus monsterStatus){
 
-        MonsterPosition newPos = monsterStatus.getMonsterPosition();
-        if(getMovementOptions(new Board()).hasMonsterPosition(newPos)){
+        Coordinate newPos = monsterStatus.getMonsterPosition();
+        if(getMovementOptions(new Board()).hasCoordinate(newPos)){
             return true;
         }
         else {
@@ -51,18 +55,18 @@ public class MonsterStatus {
         }
     }
 
-    public MonsterPosition getMonsterPosition() {
-        return monsterPosition;
+    public Coordinate getMonsterPosition() {
+        return position;
     }
 
-    public void setMonsterPosition(MonsterPosition monsterPosition) {
-        this.monsterPosition = monsterPosition;
+    public void setMonsterPosition(Coordinate position) {
+        this.position = position;
     }
 
     public List<Coordinate> calculateBaseCoordinates() {
         List<Coordinate> baseCoordinates = new ArrayList<>();
-        int x = this.monsterPosition.getX();
-        int y = this.monsterPosition.getY();
+        int x = this.position.getX();
+        int y = this.position.getY();
 
         for(int i=0;i<this.monsterStatline.width; i++){
             for(int j=0;j<this.monsterStatline.height; j++){
