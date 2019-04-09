@@ -17,6 +17,7 @@ public class Survivor {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "showdown_id")
     private Showdown showdown; //Parent showdown
 
     private String name;
@@ -134,7 +135,7 @@ public class Survivor {
         return movement;
     }
 
-    public Showdown getShowdown() {
+    public Showdown getShowdownId() {
         return showdown;
     }
 

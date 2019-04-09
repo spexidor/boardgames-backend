@@ -24,7 +24,7 @@ public class Showdown {
     private MonsterStatus monsterStatus;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "showdown", cascade = CascadeType.ALL)
     private List<Survivor> survivors;
     //private Board board;
 
