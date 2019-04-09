@@ -48,28 +48,17 @@ public class ShowdownControllerTest {
 
     @Test
     public void postShowdownTest(){
-        ResponseEntity<Showdown> response = restTemplate.postForEntity("/showdown", new Showdown("post test"), Showdown.class);
+        ResponseEntity<Showdown> response = restTemplate.postForEntity("/showdown", "post from test", Showdown.class);
         assertEquals(200, response.getStatusCode().value());
-        assertTrue(response.getBody().getMonsterStatus().getId() != null);
-        assertEquals(4, response.getBody().getSurvivors().size());
+        assertTrue(response.getBody().getMonster().getId() != null);
+        assertEquals(2, response.getBody().getSurvivors().size());
 
-        System.out.println("monster status id: " +response.getBody().getMonsterStatus().getId());
-    }
-
-    @Test
-    public void postShowdownWithIdTest(){
-        Showdown[] showdowns = restTemplate.getForObject("/showdown", Showdown[].class);
-        Showdown showdown = showdowns[0];
-
-        ResponseEntity<Showdown> response = restTemplate.postForEntity("/showdown", showdown, Showdown.class);
-        assertEquals(200, response.getStatusCode().value());
-        assertTrue(response.getBody().getId() != showdown.getId());
+        System.out.println("monster status id: " +response.getBody().getMonster().getId());
     }
 
     @Test
     public void putShowdownNoIdExistTest(){ //need id in input when updating showdown
         Showdown showdown = new Showdown("put test");
-        showdown.cleanId();
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Showdown> requestEntity = new HttpEntity<>(showdown, headers);

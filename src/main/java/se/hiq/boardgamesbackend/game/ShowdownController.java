@@ -28,8 +28,8 @@ public class ShowdownController {
     }
 
     @PostMapping("/showdown")
-    public Showdown createShowdown(@RequestBody Showdown showdown){
-        showdown.cleanId();
+    public Showdown createShowdown(@RequestBody String name){
+        Showdown showdown = new Showdown(name);
         return showdownRepository.save(showdown);
     }
 

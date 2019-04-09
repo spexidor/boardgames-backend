@@ -4,7 +4,7 @@ import se.hiq.boardgamesbackend.game.Board;
 import se.hiq.boardgamesbackend.game.Showdown;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.game.coordinates.CoordinateList;
-import se.hiq.boardgamesbackend.monster.MonsterStatus;
+import se.hiq.boardgamesbackend.monster.Monster;
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,7 +17,6 @@ public class Survivor {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "showdown_id")
     private Showdown showdown; //Parent showdown
 
     private String name;
@@ -120,14 +119,10 @@ public class Survivor {
         this.position = position;
     }
 
-    public List<Coordinate> getMovementOptions(Board board){
-        return getMovementOptions(board, null, new MonsterStatus());
-    }
-
-    public List<Coordinate> getMovementOptions(Board board, List<Survivor> otherSurvivors, MonsterStatus monsterStatus) {
+    public List<Coordinate> getMovementOptions(Board board, List<Survivor> otherSurvivors, Monster monster) {
         CoordinateList movementOpts = new CoordinateList(this.position);
-        movementOpts.addMultipleSteps(this.movement, new Board());
-        movementOpts.removeInvalidMovements(monsterStatus, otherSurvivors);
+        movementOpts.addSteps(this.movement, new Board());
+        movementOpts.removeInvalidMovements(monster, otherSurvivors);
         return movementOpts.getCoordinateList();
     }
 
@@ -135,8 +130,7 @@ public class Survivor {
         return movement;
     }
 
-    public Showdown getShowdownId() {
+    public Showdown getShowdown() {
         return showdown;
     }
-
 }

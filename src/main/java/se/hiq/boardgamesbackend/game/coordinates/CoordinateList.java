@@ -1,7 +1,7 @@
 package se.hiq.boardgamesbackend.game.coordinates;
 
 import se.hiq.boardgamesbackend.game.Board;
-import se.hiq.boardgamesbackend.monster.MonsterStatus;
+import se.hiq.boardgamesbackend.monster.Monster;
 import se.hiq.boardgamesbackend.survivor.Survivor;
 
 import java.util.ArrayList;
@@ -17,6 +17,7 @@ public class CoordinateList {
     public CoordinateList(){
         this(new Coordinate(0,0));
     }
+
     public CoordinateList(Coordinate position) {
         this.coordinateList = new ArrayList<Coordinate>();
         this.tempCoordinateList = new ArrayList<Coordinate>();
@@ -31,7 +32,7 @@ public class CoordinateList {
     /**
     Add all possible movement options for a given movement and board
      */
-    public void addMultipleSteps(int movement, Board board){
+    public void addSteps(int movement, Board board){
         for(int i=0; i<movement;i++){
             for(int n=0; n<this.coordinateList.size(); n++){
                 Coordinate c = this.coordinateList.get(n);
@@ -129,7 +130,7 @@ public class CoordinateList {
         return hasCoordinate;
     }
 
-    public void removeInvalidMovements(MonsterStatus monsterStatus, List<Survivor> otherSurvivors) {
+    public void removeInvalidMovements(Monster monster, List<Survivor> otherSurvivors) {
         //Survivors
         if(otherSurvivors!=null) {
             for (Survivor n : otherSurvivors) {
@@ -140,7 +141,9 @@ public class CoordinateList {
         }
 
         //Monster
-        removeCoordinates(monsterStatus.calculateBaseCoordinates());
+        if(monster!=null) {
+            removeCoordinates(monster.calculateBaseCoordinates());
+        }
     }
 
     private void removeCoordinate(Coordinate coordinateToRemove){

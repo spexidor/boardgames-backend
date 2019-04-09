@@ -12,6 +12,5 @@ public class ShowdownTest {
 
         assertNotNull(showdown);
         assertNotNull("Unable to get description", showdown.getDescription()); //default no description
-        assertEquals("Id not init", (long) 0, (long) showdown.getId());
     }
 }

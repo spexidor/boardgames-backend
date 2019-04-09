@@ -32,14 +32,8 @@ public class SurvivorController {
     List<Coordinate> coordinateList(@PathVariable long id, HttpServletResponse response) {
         Optional<Survivor> optionalSurvivor = survivorRepository.findById(id);
 
-        /*
         if(optionalSurvivor.isPresent()) {
-            Long showdownId = optionalSurvivor.get().getShowdown().getId();
-        }
-        */
-
-        if(optionalSurvivor.isPresent()) {
-            return optionalSurvivor.get().getMovementOptions(new Board());
+            return optionalSurvivor.get().getMovementOptions(new Board(), null, null);
         }
         else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
