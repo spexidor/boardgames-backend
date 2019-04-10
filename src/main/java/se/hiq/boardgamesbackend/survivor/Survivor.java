@@ -5,6 +5,7 @@ import se.hiq.boardgamesbackend.game.Board;
 import se.hiq.boardgamesbackend.game.Showdown;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.game.coordinates.CoordinateList;
+import se.hiq.boardgamesbackend.game.coordinates.MovementHelper;
 import se.hiq.boardgamesbackend.monster.Monster;
 
 import javax.persistence.*;
@@ -110,9 +111,9 @@ public class Survivor {
     }
     */
 
-    public boolean validUpdate(Showdown showdown, Survivor newSurvivorState) {
+    public boolean validUpdate(Survivor newSurvivorState) {
 
-        List<Coordinate> movementOptions = getMovementOptions(showdown.getSurvivors(), showdown.getMonster());
+        List<Coordinate> movementOptions = movementOptions();
         boolean match = false;
 
         for(Coordinate n: movementOptions){
@@ -133,11 +134,8 @@ public class Survivor {
         this.position = position;
     }
 
-    public List<Coordinate> getMovementOptions(List<Survivor> survivors, Monster monster) {
-        CoordinateList movementOpts = new CoordinateList(this.position);
-        movementOpts.addSteps(this.movement);
-        movementOpts.removeInvalidMovements(monster, survivors);
-        return movementOpts.getCoordinateList();
+    public List<Coordinate> movementOptions() {
+        return MovementHelper.getSurvivorMovement(this, showdown.getSurvivors(), showdown.getMonster());
     }
 
     public int getMovement() {

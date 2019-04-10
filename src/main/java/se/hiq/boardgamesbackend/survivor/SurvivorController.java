@@ -2,11 +2,9 @@ package se.hiq.boardgamesbackend.survivor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import se.hiq.boardgamesbackend.game.Board;
 import se.hiq.boardgamesbackend.game.Showdown;
 import se.hiq.boardgamesbackend.game.ShowdownRepository;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
-import se.hiq.boardgamesbackend.game.coordinates.CoordinateList;
 import se.hiq.boardgamesbackend.monster.Monster;
 
 import javax.servlet.http.HttpServletResponse;
@@ -45,7 +43,7 @@ public class SurvivorController {
                     List<Survivor> survivors = showdown.get().getSurvivors();
                     //System.out.println("-----num survivors: " +survivors.size() +" in showdown " +showdown.get().getId());
                     Monster monster = showdown.get().getMonster();
-                    return optionalSurvivor.get().getMovementOptions(survivors, monster);
+                    return optionalSurvivor.get().movementOptions();
                 }
             }
         }
@@ -56,17 +54,18 @@ public class SurvivorController {
 
     @PutMapping("/survivor/{id}")
     public @ResponseBody Survivor updateSurvivor(@PathVariable Long id, @RequestBody Survivor newSurvivorState, HttpServletResponse response) {
-        System.out.println("-----Updating survivor "+id);
         Optional<Survivor> currentSurvivorState = survivorRepository.findById(id);
-        Optional<Showdown> showdown = showdownRepository.findById(currentSurvivorState.get().getShowdown().getId());
-        System.out.println("-----Loaded showdown "+showdown.get().getId());
 
-        if(currentSurvivorState.isPresent() && currentSurvivorState.get().validUpdate(showdown.get(), newSurvivorState)) {
-            System.out.println("-----New state valid");
+        if(currentSurvivorState.isPresent() && currentSurvivorState.get().validUpdate(newSurvivorState)) {
+
+            /**
+             * Survivor in request (newSurvivorState) is not valid input in survivorRepository
+             * because the link to parent showdown is missing in it.
+             */
+            newSurvivorState.setShowdown(currentSurvivorState.get().getShowdown());
             return survivorRepository.save(newSurvivorState);
         }
         else{
-            System.out.println("-----Invalid state ");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return null;
         }

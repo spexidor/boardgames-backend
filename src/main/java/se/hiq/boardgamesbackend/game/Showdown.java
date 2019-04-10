@@ -86,4 +86,8 @@ public class Showdown {
     public void setMonster(Monster monster) {
         this.monster = monster;
     }
+
+    public void setSurvivors(List<Survivor> survivors) {
+        this.survivors = survivors;
+    }
 }

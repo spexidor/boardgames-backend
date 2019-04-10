@@ -46,7 +46,9 @@ public class MonsterController {
     Monster updateMonsterStatus(@PathVariable long id, @RequestBody Monster newMonsterStatus, HttpServletResponse response){
 
         Optional<Monster> currentMonsterStatus = monsterRepository.findById(id);
+
         if(currentMonsterStatus.isPresent() && currentMonsterStatus.get().validUpdate(newMonsterStatus)) {
+            newMonsterStatus.setShowdown(currentMonsterStatus.get().getShowdown());
             return monsterRepository.save(newMonsterStatus);
         }
         else{
