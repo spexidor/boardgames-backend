@@ -1,10 +1,14 @@
 package se.hiq.boardgamesbackend.game;
 
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.*;
 
 public class ShowdownTest {
+
+    @Autowired
+    ShowdownRepository showdownRepository;
 
     @Test
     public void newShowdown() {
@@ -12,5 +16,15 @@ public class ShowdownTest {
 
         assertNotNull(showdown);
         assertNotNull("Unable to get description", showdown.getDescription()); //default no description
+
+        if(showdownRepository!=null) {
+            Showdown showdownResponse = showdownRepository.save(showdown);
+            assertNotNull("id not filled when saving", showdownResponse.getId());
+            System.out.println("New showdown posted, id=" +showdownResponse.getId());
+        }
+        else{
+            System.out.println("showdownRepository not init");
+        }
+
     }
 }

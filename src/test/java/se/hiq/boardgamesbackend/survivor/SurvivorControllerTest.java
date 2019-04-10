@@ -12,6 +12,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import se.hiq.boardgamesbackend.game.Board;
+import se.hiq.boardgamesbackend.game.Showdown;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
 
 import java.util.List;
@@ -40,23 +41,21 @@ public class SurvivorControllerTest {
     public void getSurvivorByIdTest() {
         Survivor survivor = restTemplate.getForObject("/survivor/101", Survivor.class);
 
-        assertNotNull(survivor);
+        assertNotNull("survivor null", survivor);
     }
 
-    /*
     @Test
     public void updateSurvivorTest(){
 
         Survivor survivor = restTemplate.getForObject("/survivor/101", Survivor.class);
-        List<Coordinate> survivorMovementOptions = survivor.getMovementOptions();
-        survivor.setPosition(survivorMovementOptions.get(0)); //valid position
+        List<Coordinate> survivorMovementOptions = survivor.getMovementOptions(new Board(), null, null);
+        survivor.setPosition(survivorMovementOptions.get(1)); //probably valid position
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Survivor> requestEntity = new HttpEntity<>(survivor, headers);
         HttpEntity<Survivor> response = restTemplate.exchange("/survivor/101", HttpMethod.PUT, requestEntity, Survivor.class);
         assertEquals(200, ((ResponseEntity<Survivor>) response).getStatusCode().value());
     }
-    */
 
     @Test
     public void getSurvivorOpenMoves(){
@@ -65,7 +64,7 @@ public class SurvivorControllerTest {
 
         System.out.println("Open moves: " +openMoves.size());
         assertNotNull("No open moves returned", openMoves);
-        assertEquals("Wrong number of moves", 25, openMoves.size()); //move 5 from (0,1), 1 square blocked
+        assertEquals("Wrong number of moves", 24, openMoves.size()); //move 5 from (0,1), 1 square blocked, origin not counted
 
         System.out.println("Movement: " +survivor.getMovement());
         System.out.println("Position: " +survivor.getPosition());

@@ -17,7 +17,6 @@ import java.util.List;
 public class Monster {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
     @ManyToOne(cascade=CascadeType.ALL)
@@ -27,12 +26,15 @@ public class Monster {
     private Facing facing;
 
     public Monster(){
-        this.id = 0L;
         this.position = new Coordinate(10, 6); //Center of board
         this.facing = Facing.UP;
         this.monsterStatline = new TestLion();
-        //this.showdown = showdown;
     }
+
+    @OneToOne
+    @MapsId
+    @JsonIgnore
+    private Showdown showdown;
 
     @Transient
     public MonsterStatline monsterStatline;
@@ -82,5 +84,13 @@ public class Monster {
 
     public Facing getFacing() {
         return facing;
+    }
+
+    public Showdown getShowdown() {
+        return showdown;
+    }
+
+    public void setShowdown(Showdown showdown) {
+        this.showdown = showdown;
     }
 }

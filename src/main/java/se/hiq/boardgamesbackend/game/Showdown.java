@@ -23,7 +23,7 @@ public class Showdown {
     private GameStatus gameStatus;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne(mappedBy = "showdown", cascade=CascadeType.ALL)
     private Monster monster;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -37,19 +37,20 @@ public class Showdown {
     }
 
     public Showdown(String description){
-        this.id = 0L;
         this.description = description;
         this.gameStatus = GameStatus.RUNNING;
         this.monster = new Monster();
-        //this.monster.setShowdown(this);
-
+        this.monster.setShowdown(this);
         this.survivors = createSurvivors();
     }
 
     private List<Survivor> createSurvivors() {
         List<Survivor> survivors = new ArrayList<>();
         for(int n=0;n<2;n++) {
-            survivors.add(new Survivor("Joe " +n, new Coordinate(n, 0)));
+            Survivor survivor = new Survivor("Joe " +n, new Coordinate(n, 0));
+            survivor.setShowdown(this);
+            survivors.add(survivor);
+
         }
         return survivors;
     }

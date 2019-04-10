@@ -1,5 +1,6 @@
 package se.hiq.boardgamesbackend.survivor;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import se.hiq.boardgamesbackend.game.Board;
 import se.hiq.boardgamesbackend.game.Showdown;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
@@ -17,6 +18,7 @@ public class Survivor {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     private Showdown showdown; //Parent showdown
 
     private String name;
@@ -24,6 +26,7 @@ public class Survivor {
 
     @ManyToOne(cascade=CascadeType.ALL)
     private Coordinate position;
+
     private int activationsLeft;
     private int movesLeft;
 
@@ -121,7 +124,7 @@ public class Survivor {
 
     public List<Coordinate> getMovementOptions(Board board, List<Survivor> otherSurvivors, Monster monster) {
         CoordinateList movementOpts = new CoordinateList(this.position);
-        movementOpts.addSteps(this.movement, new Board());
+        movementOpts.addSteps(this.movement, board);
         movementOpts.removeInvalidMovements(monster, otherSurvivors);
         return movementOpts.getCoordinateList();
     }
@@ -132,5 +135,9 @@ public class Survivor {
 
     public Showdown getShowdown() {
         return showdown;
+    }
+
+    public void setShowdown(Showdown showdown) {
+        this.showdown = showdown;
     }
 }

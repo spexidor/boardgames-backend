@@ -133,8 +133,10 @@ public class CoordinateList {
     public void removeInvalidMovements(Monster monster, List<Survivor> otherSurvivors) {
         //Survivors
         if(otherSurvivors!=null) {
+            System.out.println("-----removeInvalidMovements, num survivors: " +otherSurvivors.size());
             for (Survivor n : otherSurvivors) {
                 if (n != null) {
+                    System.out.println("-----Removing coordinate " +n.getPosition());
                     removeCoordinate(n.getPosition());
                 }
             }
@@ -142,6 +144,7 @@ public class CoordinateList {
 
         //Monster
         if(monster!=null) {
+            System.out.println("-----Removing coordinate for monster at " +monster.getPosition());
             removeCoordinates(monster.calculateBaseCoordinates());
         }
     }

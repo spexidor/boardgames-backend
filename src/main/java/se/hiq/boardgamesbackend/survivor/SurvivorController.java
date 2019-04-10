@@ -3,8 +3,11 @@ package se.hiq.boardgamesbackend.survivor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import se.hiq.boardgamesbackend.game.Board;
+import se.hiq.boardgamesbackend.game.Showdown;
+import se.hiq.boardgamesbackend.game.ShowdownRepository;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.game.coordinates.CoordinateList;
+import se.hiq.boardgamesbackend.monster.Monster;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -15,6 +18,9 @@ public class SurvivorController {
 
     @Autowired
     SurvivorRepository survivorRepository;
+
+    @Autowired
+    ShowdownRepository showdownRepository;
 
     @GetMapping("/survivor")
     public  @ResponseBody
@@ -33,12 +39,19 @@ public class SurvivorController {
         Optional<Survivor> optionalSurvivor = survivorRepository.findById(id);
 
         if(optionalSurvivor.isPresent()) {
-            return optionalSurvivor.get().getMovementOptions(new Board(), null, null);
+            if(optionalSurvivor.get().getShowdown()!=null) {
+                Optional<Showdown> showdown = showdownRepository.findById(optionalSurvivor.get().getShowdown().getId());
+                if(showdown.get().getId()!=null){
+                    List<Survivor> survivors = showdown.get().getSurvivors();
+                    //System.out.println("-----num survivors: " +survivors.size() +" in showdown " +showdown.get().getId());
+                    Monster monster = showdown.get().getMonster();
+                    return optionalSurvivor.get().getMovementOptions(new Board(), survivors, monster);
+                }
+            }
         }
-        else {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            return null;
-        }
+        //System.out.println("-----unable to get movement opts for survivor " +id);
+        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        return null;
     }
 
     @PutMapping("/survivor/{id}")
