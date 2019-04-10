@@ -110,8 +110,19 @@ public class Survivor {
     }
     */
 
-    public boolean validUpdate(Survivor newSurvivorState) {
-        return true;
+    public boolean validUpdate(Showdown showdown, Survivor newSurvivorState) {
+
+        List<Coordinate> movementOptions = getMovementOptions(showdown.getSurvivors(), showdown.getMonster());
+        boolean match = false;
+
+        for(Coordinate n: movementOptions){
+            if(n.equals(newSurvivorState.getPosition()))
+            {
+                match = true;
+                break;
+            }
+        }
+        return match;
     }
 
     public Coordinate getPosition() {
@@ -122,10 +133,10 @@ public class Survivor {
         this.position = position;
     }
 
-    public List<Coordinate> getMovementOptions(Board board, List<Survivor> otherSurvivors, Monster monster) {
+    public List<Coordinate> getMovementOptions(List<Survivor> survivors, Monster monster) {
         CoordinateList movementOpts = new CoordinateList(this.position);
-        movementOpts.addSteps(this.movement, board);
-        movementOpts.removeInvalidMovements(monster, otherSurvivors);
+        movementOpts.addSteps(this.movement);
+        movementOpts.removeInvalidMovements(monster, survivors);
         return movementOpts.getCoordinateList();
     }
 

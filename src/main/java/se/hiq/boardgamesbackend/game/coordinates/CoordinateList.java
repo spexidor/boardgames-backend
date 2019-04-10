@@ -32,11 +32,11 @@ public class CoordinateList {
     /**
     Add all possible movement options for a given movement and board
      */
-    public void addSteps(int movement, Board board){
+    public void addSteps(int movement){
         for(int i=0; i<movement;i++){
             for(int n=0; n<this.coordinateList.size(); n++){
                 Coordinate c = this.coordinateList.get(n);
-                addAllDirections(c, board);
+                addAllDirections(c, new Board());
             }
             mergeLists();
         }
@@ -133,10 +133,8 @@ public class CoordinateList {
     public void removeInvalidMovements(Monster monster, List<Survivor> otherSurvivors) {
         //Survivors
         if(otherSurvivors!=null) {
-            System.out.println("-----removeInvalidMovements, num survivors: " +otherSurvivors.size());
             for (Survivor n : otherSurvivors) {
                 if (n != null) {
-                    System.out.println("-----Removing coordinate " +n.getPosition());
                     removeCoordinate(n.getPosition());
                 }
             }
@@ -144,7 +142,6 @@ public class CoordinateList {
 
         //Monster
         if(monster!=null) {
-            System.out.println("-----Removing coordinate for monster at " +monster.getPosition());
             removeCoordinates(monster.calculateBaseCoordinates());
         }
     }

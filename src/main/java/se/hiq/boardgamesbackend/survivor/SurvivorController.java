@@ -45,7 +45,7 @@ public class SurvivorController {
                     List<Survivor> survivors = showdown.get().getSurvivors();
                     //System.out.println("-----num survivors: " +survivors.size() +" in showdown " +showdown.get().getId());
                     Monster monster = showdown.get().getMonster();
-                    return optionalSurvivor.get().getMovementOptions(new Board(), survivors, monster);
+                    return optionalSurvivor.get().getMovementOptions(survivors, monster);
                 }
             }
         }
@@ -56,11 +56,17 @@ public class SurvivorController {
 
     @PutMapping("/survivor/{id}")
     public @ResponseBody Survivor updateSurvivor(@PathVariable Long id, @RequestBody Survivor newSurvivorState, HttpServletResponse response) {
+        System.out.println("-----Updating survivor "+id);
         Optional<Survivor> currentSurvivorState = survivorRepository.findById(id);
-        if(currentSurvivorState.isPresent() && currentSurvivorState.get().validUpdate(newSurvivorState)) {
+        Optional<Showdown> showdown = showdownRepository.findById(currentSurvivorState.get().getShowdown().getId());
+        System.out.println("-----Loaded showdown "+showdown.get().getId());
+
+        if(currentSurvivorState.isPresent() && currentSurvivorState.get().validUpdate(showdown.get(), newSurvivorState)) {
+            System.out.println("-----New state valid");
             return survivorRepository.save(newSurvivorState);
         }
         else{
+            System.out.println("-----Invalid state ");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return null;
         }

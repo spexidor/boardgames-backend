@@ -1,6 +1,5 @@
 package se.hiq.boardgamesbackend.monster;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import se.hiq.boardgamesbackend.game.Board;
 import se.hiq.boardgamesbackend.game.Facing;
@@ -45,7 +44,7 @@ public class Monster {
 
     public CoordinateList getMovementOptions(Board board){
         CoordinateList positionList = new CoordinateList(this.position);
-        positionList.addSteps(3, board);
+        positionList.addSteps(3);
 
         return positionList;
     }

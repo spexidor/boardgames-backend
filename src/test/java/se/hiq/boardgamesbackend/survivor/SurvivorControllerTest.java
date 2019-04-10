@@ -15,6 +15,7 @@ import se.hiq.boardgamesbackend.game.Board;
 import se.hiq.boardgamesbackend.game.Showdown;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -45,19 +46,6 @@ public class SurvivorControllerTest {
     }
 
     @Test
-    public void updateSurvivorTest(){
-
-        Survivor survivor = restTemplate.getForObject("/survivor/101", Survivor.class);
-        List<Coordinate> survivorMovementOptions = survivor.getMovementOptions(new Board(), null, null);
-        survivor.setPosition(survivorMovementOptions.get(1)); //probably valid position
-
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<Survivor> requestEntity = new HttpEntity<>(survivor, headers);
-        HttpEntity<Survivor> response = restTemplate.exchange("/survivor/101", HttpMethod.PUT, requestEntity, Survivor.class);
-        assertEquals(200, ((ResponseEntity<Survivor>) response).getStatusCode().value());
-    }
-
-    @Test
     public void getSurvivorOpenMoves(){
         Survivor survivor = restTemplate.getForObject("/survivor/101", Survivor.class);
         List<Coordinate> openMoves = restTemplate.getForObject("/survivor/101/openMoves", List.class);
@@ -68,5 +56,23 @@ public class SurvivorControllerTest {
 
         System.out.println("Movement: " +survivor.getMovement());
         System.out.println("Position: " +survivor.getPosition());
+    }
+
+    @Test
+    public void updateSurvivorTest(){
+
+        Survivor survivor = restTemplate.getForObject("/survivor/101", Survivor.class);
+        List<Survivor> survivors = new ArrayList<>();
+        survivors.add(new Survivor("Test eve", new Coordinate(1,1))); //matches survivor 102 created in data.sql
+
+        List<Coordinate> survivorMovementOptions = survivor.getMovementOptions(survivors, null);
+
+        //System.out.println("-----Trying to move to " +survivorMovementOptions.get(1));
+        survivor.setPosition(survivorMovementOptions.get(1)); //probably valid position
+
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<Survivor> requestEntity = new HttpEntity<>(survivor, headers);
+        HttpEntity<Survivor> response = restTemplate.exchange("/survivor/101", HttpMethod.PUT, requestEntity, Survivor.class);
+        assertEquals(200, ((ResponseEntity<Survivor>) response).getStatusCode().value());
     }
 }
