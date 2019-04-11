@@ -1,11 +1,10 @@
 package se.hiq.boardgamesbackend.monster;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import se.hiq.boardgamesbackend.game.Board;
 import se.hiq.boardgamesbackend.game.Facing;
 import se.hiq.boardgamesbackend.game.Showdown;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
-import se.hiq.boardgamesbackend.game.coordinates.CoordinateList;
+import se.hiq.boardgamesbackend.game.coordinates.MovementHelper;
 import se.hiq.boardgamesbackend.monster.types.TestLion;
 
 import javax.persistence.*;
@@ -42,17 +41,14 @@ public class Monster {
         return id;
     }
 
-    public CoordinateList getMovementOptions(Board board){
-        CoordinateList positionList = new CoordinateList(this.position);
-        positionList.addSteps(3);
-
-        return positionList;
+    public List<Coordinate> movementOptions(){
+        return MovementHelper.getMonsterMovement(this);
     }
 
     public boolean validUpdate(Monster monster){
 
         Coordinate newPos = monster.getPosition();
-        if(getMovementOptions(new Board()).hasCoordinate(newPos)){
+        if(MovementHelper.coordinateInList(MovementHelper.getMonsterMovement(this), newPos)){
             return true;
         }
         else {
@@ -92,4 +88,6 @@ public class Monster {
     public void setShowdown(Showdown showdown) {
         this.showdown = showdown;
     }
+
+    public MonsterStatline getMonsterStatline() { return monsterStatline; }
 }
