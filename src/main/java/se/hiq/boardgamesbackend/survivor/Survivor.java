@@ -1,12 +1,9 @@
 package se.hiq.boardgamesbackend.survivor;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import se.hiq.boardgamesbackend.game.Board;
 import se.hiq.boardgamesbackend.game.Showdown;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
-import se.hiq.boardgamesbackend.game.coordinates.CoordinateList;
 import se.hiq.boardgamesbackend.game.coordinates.MovementHelper;
-import se.hiq.boardgamesbackend.monster.Monster;
 
 import javax.persistence.*;
 import java.util.List;

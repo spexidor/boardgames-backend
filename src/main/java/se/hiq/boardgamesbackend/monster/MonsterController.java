@@ -2,9 +2,7 @@ package se.hiq.boardgamesbackend.monster;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import se.hiq.boardgamesbackend.game.Board;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
-import se.hiq.boardgamesbackend.game.coordinates.CoordinateList;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -33,7 +31,7 @@ public class MonsterController {
     List<Coordinate> getMonsterOpenMoves(@PathVariable long id, HttpServletResponse response) {
         Optional<Monster> monsterStatus = monsterRepository.findById(id);
         if(monsterStatus.isPresent()) {
-            return monsterStatus.get().getMovementOptions(new Board()).getCoordinateList();
+            return monsterStatus.get().movementOptions();
         }
         else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);

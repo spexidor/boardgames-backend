@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import se.hiq.boardgamesbackend.game.Showdown;
 import se.hiq.boardgamesbackend.game.ShowdownRepository;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
+import se.hiq.boardgamesbackend.game.coordinates.CoordinateRepository;
 import se.hiq.boardgamesbackend.monster.Monster;
 
 import javax.servlet.http.HttpServletResponse;

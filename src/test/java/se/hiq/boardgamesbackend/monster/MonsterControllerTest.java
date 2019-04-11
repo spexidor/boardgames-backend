@@ -11,9 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import se.hiq.boardgamesbackend.game.Board;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
-import se.hiq.boardgamesbackend.game.coordinates.CoordinateList;
 
 import java.util.List;
 
@@ -60,8 +58,8 @@ public class MonsterControllerTest {
     public void putValidMonsterStatus(){
         //get existing test
         Monster monster = restTemplate.getForObject("/monster/100", Monster.class);
-        CoordinateList monsterPositionList = monster.getMovementOptions(new Board());
-        monster.setMonsterPosition(monsterPositionList.getCoordinateList().get(0)); //valid position
+        List<Coordinate> monsterPositionList = monster.movementOptions();
+        monster.setMonsterPosition(monsterPositionList.get(0)); //valid position
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Monster> requestEntity = new HttpEntity<>(monster, headers);
@@ -73,7 +71,7 @@ public class MonsterControllerTest {
     public void getOpenMoves(){
         List<Coordinate> openMoves = restTemplate.getForObject("/monster/100/openMoves", List.class);
 
-        assertTrue(openMoves.size()==25);
+        assertEquals(12, openMoves.size());
 
         ResponseEntity response = restTemplate.getForEntity("/monster/999/openMoves", List.class);
         assertEquals("Error 404 expected", 404, response.getStatusCodeValue());
