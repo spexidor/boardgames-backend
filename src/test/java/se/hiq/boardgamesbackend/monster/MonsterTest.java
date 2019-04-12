@@ -2,7 +2,7 @@ package se.hiq.boardgamesbackend.monster;
 
 import org.junit.Test;
 import se.hiq.boardgamesbackend.game.Board;
-import se.hiq.boardgamesbackend.game.Showdown;
+import se.hiq.boardgamesbackend.showdown.Showdown;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.game.coordinates.MovementHelper;
 

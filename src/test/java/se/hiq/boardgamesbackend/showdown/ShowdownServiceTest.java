@@ -1,4 +1,4 @@
-package se.hiq.boardgamesbackend.game;
+package se.hiq.boardgamesbackend.showdown;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

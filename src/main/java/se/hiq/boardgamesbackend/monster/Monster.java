@@ -2,7 +2,7 @@ package se.hiq.boardgamesbackend.monster;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import se.hiq.boardgamesbackend.game.Facing;
-import se.hiq.boardgamesbackend.game.Showdown;
+import se.hiq.boardgamesbackend.showdown.Showdown;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.game.coordinates.MovementHelper;
 import se.hiq.boardgamesbackend.monster.types.TestLion;

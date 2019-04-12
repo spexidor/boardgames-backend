@@ -1,7 +1,7 @@
-package se.hiq.boardgamesbackend.game;
+package se.hiq.boardgamesbackend.showdown;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import se.hiq.boardgamesbackend.game.GameStatus;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.monster.Monster;
 import se.hiq.boardgamesbackend.survivor.Survivor;

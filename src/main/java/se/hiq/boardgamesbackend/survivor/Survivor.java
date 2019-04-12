@@ -1,7 +1,7 @@
 package se.hiq.boardgamesbackend.survivor;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import se.hiq.boardgamesbackend.game.Showdown;
+import se.hiq.boardgamesbackend.showdown.Showdown;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.game.coordinates.MovementHelper;
 
@@ -21,6 +21,7 @@ public class Survivor {
 
     private String name;
     private boolean isAlive;
+    private boolean knockedDown;
 
     @ManyToOne//(cascade=CascadeType.ALL)
     private Coordinate position;
@@ -145,5 +146,9 @@ public class Survivor {
 
     public void setShowdown(Showdown showdown) {
         this.showdown = showdown;
+    }
+
+    public boolean isKnockedDown() {
+        return knockedDown;
     }
 }

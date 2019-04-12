@@ -1,11 +1,9 @@
-package se.hiq.boardgamesbackend.game;
+package se.hiq.boardgamesbackend.showdown;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import se.hiq.boardgamesbackend.monster.Monster;
 
 import javax.servlet.http.HttpServletResponse;
-import java.time.Month;
 import java.util.Optional;
 
 
