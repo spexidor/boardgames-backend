@@ -22,7 +22,7 @@ public class Survivor {
     private String name;
     private boolean isAlive;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne//(cascade=CascadeType.ALL)
     private Coordinate position;
 
     private int activationsLeft;

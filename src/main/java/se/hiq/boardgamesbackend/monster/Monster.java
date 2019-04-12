@@ -17,7 +17,7 @@ public class Monster {
     @Id
     private Long id;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne//(cascade=CascadeType.ALL)
     private Coordinate position;
 
     @Enumerated(EnumType.STRING)
