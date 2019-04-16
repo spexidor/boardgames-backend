@@ -13,7 +13,7 @@ public class MovementHelper {
         List<Coordinate> coordinateList = new ArrayList<>();
         coordinateList.add(new Coordinate(survivor.getPosition()));
 
-        addSteps(coordinateList, survivor.getMovement());
+        addSteps(coordinateList, survivor.getMovement(), monster, survivors);
         removeInvalidMovements(coordinateList, monster, survivors);
 
         return coordinateList;
@@ -25,10 +25,30 @@ public class MovementHelper {
         coordinateList.add(new Coordinate(monster.getPosition()));
         //System.out.println(("Calculating moves for monster with move " +monster.getMonsterStatline().getMovement()));
 
-        addSteps(coordinateList, monster.getMonsterStatline().getMovement());
+        addSteps(coordinateList, monster.getStatline().getMovement());
         removeCoordinate(coordinateList, monster.getPosition());
 
         return coordinateList;
+    }
+
+    public static void addSteps(List<Coordinate> coordinateList, int movement, Monster monster, List<Survivor> survivors){
+        List<Coordinate> newCoordinates = new ArrayList<>();
+        List<Coordinate> blockedCoordinates = monster.calculateBaseCoordinates();
+        List<Coordinate> blockedCoordinatesSurvivors = new ArrayList<>();
+
+        for(Survivor s: survivors){
+            blockedCoordinatesSurvivors.add(s.getPosition());
+        }
+        mergeLists(blockedCoordinatesSurvivors, blockedCoordinates);
+
+        for(int i=0; i<movement;i++){
+            for(int n=0; n<coordinateList.size(); n++){
+                Coordinate c = coordinateList.get(n);
+                addAllDirections(newCoordinates, c);
+                removeCoordinates(newCoordinates, blockedCoordinates);
+            }
+            mergeLists(newCoordinates, coordinateList);
+        }
     }
 
     public static void addSteps(List<Coordinate> coordinateList, int movement){

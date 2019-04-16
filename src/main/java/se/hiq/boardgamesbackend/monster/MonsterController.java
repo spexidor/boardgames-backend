@@ -8,7 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Funny name of class. Haha.
+ */
+
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class MonsterController {
 
     @Autowired
@@ -42,10 +47,12 @@ public class MonsterController {
     @PutMapping("/monster/{id}")
     public @ResponseBody
     Monster updateMonsterStatus(@PathVariable long id, @RequestBody Monster newMonsterStatus, HttpServletResponse response){
-
+        System.out.println("---PUT monster request received, id=" +id +", body=" +newMonsterStatus);
         Optional<Monster> currentMonsterStatus = monsterRepository.findById(id);
+        System.out.println("---Existing monster loaded");
 
         if(currentMonsterStatus.isPresent() && currentMonsterStatus.get().validUpdate(newMonsterStatus)) {
+            System.out.println("---New monster state is valid");
             newMonsterStatus.setShowdown(currentMonsterStatus.get().getShowdown());
             return monsterRepository.save(newMonsterStatus);
         }

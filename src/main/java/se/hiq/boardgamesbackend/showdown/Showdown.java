@@ -22,6 +22,8 @@ public class Showdown {
     @Enumerated(EnumType.STRING)
     private GameStatus gameStatus;
 
+    private int turn;
+
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @OneToOne(mappedBy = "showdown", cascade=CascadeType.ALL)
     private Monster monster;
@@ -42,6 +44,7 @@ public class Showdown {
         this.monster = new Monster();
         this.monster.setShowdown(this);
         this.survivors = createSurvivors();
+        this.turn = 0;
     }
 
     private List<Survivor> createSurvivors() {
@@ -90,4 +93,6 @@ public class Showdown {
     public void setSurvivors(List<Survivor> survivors) {
         this.survivors = survivors;
     }
+
+    public int getTurn() { return turn; }
 }

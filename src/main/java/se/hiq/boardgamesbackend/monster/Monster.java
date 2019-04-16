@@ -26,7 +26,7 @@ public class Monster {
     public Monster(){
         this.position = new Coordinate(10, 6); //Center of board
         this.facing = Facing.UP;
-        this.monsterStatline = new TestLion();
+        this.statline = new TestLion();
     }
 
     @OneToOne
@@ -35,7 +35,7 @@ public class Monster {
     private Showdown showdown;
 
     @Transient
-    public MonsterStatline monsterStatline;
+    public MonsterStatline statline;
 
     public Long getId() {
         return id;
@@ -65,8 +65,8 @@ public class Monster {
         int x = this.position.getX();
         int y = this.position.getY();
 
-        for(int i=0;i<this.monsterStatline.width; i++){
-            for(int j=0;j<this.monsterStatline.height; j++){
+        for(int i=0;i<this.statline.width; i++){
+            for(int j=0;j<this.statline.height; j++){
                 baseCoordinates.add(new Coordinate(x+i, y+j));
             }
         }
@@ -89,5 +89,5 @@ public class Monster {
         this.showdown = showdown;
     }
 
-    public MonsterStatline getMonsterStatline() { return monsterStatline; }
+    public MonsterStatline getStatline() { return statline; }
 }

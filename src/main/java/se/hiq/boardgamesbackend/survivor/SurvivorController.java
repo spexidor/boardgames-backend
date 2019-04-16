@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class SurvivorController {
 
     @Autowired
@@ -54,9 +55,13 @@ public class SurvivorController {
 
     @PutMapping("/survivor/{id}")
     public @ResponseBody Survivor updateSurvivor(@PathVariable Long id, @RequestBody Survivor newSurvivorState, HttpServletResponse response) {
+        System.out.println("---PUT survivor request received, id=" +id +", body=" +newSurvivorState);
         Optional<Survivor> currentSurvivorState = survivorRepository.findById(id);
+        System.out.println("---Existing survivor loaded");
 
         if(currentSurvivorState.isPresent() && currentSurvivorState.get().validUpdate(newSurvivorState)) {
+
+            System.out.println("---New survivor state is valid");
 
             /**
              * Survivor in request (newSurvivorState) is not valid input in survivorRepository
