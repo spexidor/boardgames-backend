@@ -48,32 +48,8 @@ public class Monster {
         return MovementHelper.getMonsterMovement(this);
     }
 
-    public boolean validUpdate(Monster newState){
-
-        Coordinate newPos = newState.getPosition();
-        if(MovementHelper.coordinateInList(MovementHelper.getMonsterMovement(this), newPos)){
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
     public void setMonsterPosition(Coordinate position) {
         this.position = position;
-    }
-
-    public List<Coordinate> calculateBaseCoordinates() {
-        List<Coordinate> baseCoordinates = new ArrayList<>();
-        int x = this.position.getX();
-        int y = this.position.getY();
-
-        for(int i=0;i<this.statline.width; i++){
-            for(int j=0;j<this.statline.height; j++){
-                baseCoordinates.add(new Coordinate(x+i, y+j));
-            }
-        }
-        return  baseCoordinates;
     }
 
     public Coordinate getPosition() {
@@ -96,6 +72,19 @@ public class Monster {
 
     public boolean isActivatedThisTurn() { return activatedThisTurn; }
 
+    public List<Coordinate> calculateBaseCoordinates() {
+        List<Coordinate> baseCoordinates = new ArrayList<>();
+        int x = this.position.getX();
+        int y = this.position.getY();
+
+        for(int i=0;i<this.statline.width; i++){
+            for(int j=0;j<this.statline.height; j++){
+                baseCoordinates.add(new Coordinate(x+i, y+j));
+            }
+        }
+        return  baseCoordinates;
+    }
+
     public void updateValues(Monster newMonsterStatus) {
         System.out.println("Updating values in monster, position: " +this.position +", facing: " +this.facing +", statline: " +this.statline);
         if(newMonsterStatus.position != null){
@@ -109,6 +98,17 @@ public class Monster {
         if(newMonsterStatus.statline != null){
             System.out.println("new statline: " +newMonsterStatus.statline);
             this.statline = newMonsterStatus.statline;
+        }
+    }
+
+    public boolean validUpdate(Monster newState){
+
+        Coordinate newPos = newState.getPosition();
+        if(MovementHelper.coordinateInList(MovementHelper.getMonsterMovement(this), newPos)){
+            return true;
+        }
+        else {
+            return false;
         }
     }
 }

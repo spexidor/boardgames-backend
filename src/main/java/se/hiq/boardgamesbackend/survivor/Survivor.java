@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import se.hiq.boardgamesbackend.showdown.Showdown;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.game.coordinates.MovementHelper;
+import se.hiq.boardgamesbackend.survivor.gear.GearGrid;
 
 import javax.persistence.*;
 import java.util.List;
@@ -34,13 +35,8 @@ public class Survivor {
     private int survival;
     private int insanity;
 
-    /*
-    private int armourHead;
-    private int armourArms;
-    private int armourTorso;
-    private int armourWaist;
-    private int armourLegs;
-    */
+    @OneToOne(mappedBy = "survivor", cascade=CascadeType.ALL)
+    private GearGrid gearGrid;
 
     public Survivor(){
         this("By default constructor");
@@ -57,6 +53,8 @@ public class Survivor {
         this.movesLeft = 1;
         this.position = position;
         this.movement = 5;
+        this.gearGrid = new GearGrid();
+        this.gearGrid.setSurvivor(this);
     }
 
     public Long getId() {
