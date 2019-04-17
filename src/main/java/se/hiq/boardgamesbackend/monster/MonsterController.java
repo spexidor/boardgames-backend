@@ -50,16 +50,9 @@ public class MonsterController {
         System.out.println("---PUT monster request received, id=" +id +", body=" +newMonsterStatus);
         Optional<Monster> currentMonsterStatus = monsterRepository.findById(id);
 
-        //newMonsterStatus.fillNullValues(currentMonsterStatus.get());
-        System.out.println("---Existing monster loaded");
-
         if(currentMonsterStatus.isPresent() && currentMonsterStatus.get().validUpdate(newMonsterStatus)) {
-            System.out.println("---New monster state is valid");
-
             Monster currentMonster = currentMonsterStatus.get();
             currentMonster.updateValues(newMonsterStatus);
-            //newMonsterStatus.setShowdown(currentMonsterStatus.get().getShowdown());
-            //return monsterRepository.save(newMonsterStatus);
             return monsterRepository.save(currentMonster);
         }
         else{

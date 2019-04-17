@@ -23,6 +23,8 @@ public class Monster {
     @Enumerated(EnumType.STRING)
     private Facing facing;
 
+    private boolean activatedThisTurn;
+
     @OneToOne
     @MapsId
     @JsonIgnore
@@ -35,6 +37,7 @@ public class Monster {
         this.position = new Coordinate(6, 4); //Center of board
         this.facing = Facing.UP;
         this.statline = new TestLion();
+        this.activatedThisTurn = false;
     }
 
     public Long getId() {
@@ -91,28 +94,7 @@ public class Monster {
 
     public MonsterStatline getStatline() { return statline; }
 
-    /*
-    public void fillNullValues(Monster monster) {
-        System.out.println("Checking null values in monster, position: " +this.position +", facing: " +this.facing +", statline: " +this.statline);
-        if(this.position == null){
-            System.out.println("position null");
-            this.position = monster.position;
-        }
-        if(this.facing == null){
-            System.out.println("facing null");
-            this.facing = monster.facing;
-        }
-        if(this.statline == null){
-            System.out.println("statline null");
-            this.statline = monster.statline;
-        }
-        if(this.showdown == null){
-            System.out.println("showdown null");
-            this.showdown = monster.showdown;
-        }
-
-    }
-    */
+    public boolean isActivatedThisTurn() { return activatedThisTurn; }
 
     public void updateValues(Monster newMonsterStatus) {
         System.out.println("Updating values in monster, position: " +this.position +", facing: " +this.facing +", statline: " +this.statline);

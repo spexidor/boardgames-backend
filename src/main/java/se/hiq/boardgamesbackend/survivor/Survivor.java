@@ -113,16 +113,19 @@ public class Survivor {
 
     public boolean validUpdate(Survivor newSurvivorState) {
 
+        System.out.println("Checking survivor valid state...");
         List<Coordinate> movementOptions = movementOptions();
         boolean match = false;
 
         for(Coordinate n: movementOptions){
             if(n.equals(newSurvivorState.getPosition()))
             {
+                System.out.println("Valid move found...");
                 match = true;
                 break;
             }
         }
+        System.out.println("Valid state: " +match);
         return match;
     }
 

@@ -6,6 +6,7 @@ import se.hiq.boardgamesbackend.showdown.Showdown;
 
 import java.util.List;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -21,6 +22,7 @@ public class SurvivorTest {
         Survivor survivor1 = survivors.get(0);
         survivor1.setMovesLeft(0);
 
-        assertEquals(0, survivor1.movementOptions().size());
+        assertEquals(1, survivor1.movementOptions().size());
+        assertTrue(survivor1.movementOptions().get(0).equals(survivor1.getPosition()));
     }
 }

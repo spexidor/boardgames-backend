@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 
@@ -37,7 +38,8 @@ public class ShowdownController {
     }
 
     @PutMapping("/showdown/{id}")
-    public Showdown updatehowdown(@RequestBody Showdown showdown, @PathVariable Long id, HttpServletResponse response){
+    public Showdown updatehowdown(@RequestBody Showdown newShowdownState, @PathVariable Long id, HttpServletResponse response){
+        System.out.println("---PUT showdown request received, id=" +id +", body=" +newShowdownState);
         if(id == null || id == 0 ){
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return null;
@@ -47,7 +49,10 @@ public class ShowdownController {
             return null;
         }
         else {
-            return showdownService.save(showdown);
+            Optional<Showdown> optionalShowdown = showdownService.findById(id);
+            Showdown currentShowdown = optionalShowdown.get();
+            currentShowdown.updateState(newShowdownState);
+            return showdownService.save(currentShowdown);
         }
     }
 }

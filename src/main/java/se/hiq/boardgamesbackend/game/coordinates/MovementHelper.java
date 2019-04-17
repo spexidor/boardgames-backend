@@ -11,13 +11,11 @@ public class MovementHelper {
     public static List<Coordinate> getSurvivorMovement(Survivor survivor, List<Survivor> survivors, Monster monster) {
 
         List<Coordinate> coordinateList = new ArrayList<>();
+        coordinateList.add(new Coordinate(survivor.getPosition())); //current position
         if(survivor.getMovesLeft() > 0) {
-
-            coordinateList.add(new Coordinate(survivor.getPosition()));
             addSteps(coordinateList, survivor.getMovement(), monster, survivors);
-            removeInvalidMovements(coordinateList, monster, survivors);
-
-
+            removeInvalidMovements(coordinateList, monster, survivors); //remove monster and all survivor coordinates
+            coordinateList.add(new Coordinate(survivor.getPosition())); //... then add back own position
         }
         return coordinateList;
     }

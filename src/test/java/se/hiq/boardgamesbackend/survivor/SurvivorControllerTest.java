@@ -55,7 +55,7 @@ public class SurvivorControllerTest {
         System.out.println("Position: " +survivor.getPosition());
 
         assertNotNull("No open moves returned", openMoves);
-        assertEquals("Wrong number of moves", 30, openMoves.size()); //move 5 from (1,1), 1 square blocked, origin not counted
+        assertEquals("Wrong number of moves", 31, openMoves.size()); //move 5 from (1,1), 1 square blocked
     }
 
     @Test

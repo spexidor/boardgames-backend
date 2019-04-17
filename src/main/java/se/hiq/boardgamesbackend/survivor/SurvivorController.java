@@ -57,7 +57,7 @@ public class SurvivorController {
     public @ResponseBody Survivor updateSurvivor(@PathVariable Long id, @RequestBody Survivor newSurvivorState, HttpServletResponse response) {
         System.out.println("---PUT survivor request received, id=" +id +", body=" +newSurvivorState);
         Optional<Survivor> currentSurvivorState = survivorRepository.findById(id);
-        System.out.println("---Existing survivor loaded");
+        System.out.println("---Existing survivor loaded, present=" +currentSurvivorState.isPresent());
 
         if(currentSurvivorState.isPresent() && currentSurvivorState.get().validUpdate(newSurvivorState)) {
 
@@ -71,6 +71,7 @@ public class SurvivorController {
             return survivorRepository.save(newSurvivorState);
         }
         else{
+            System.out.println("---New survivor state is not valid");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return null;
         }

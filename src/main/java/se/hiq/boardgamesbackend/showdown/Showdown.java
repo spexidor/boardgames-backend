@@ -22,7 +22,7 @@ public class Showdown {
     @Enumerated(EnumType.STRING)
     private GameStatus gameStatus;
 
-    private int turn;
+    private Integer turn;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @OneToOne(mappedBy = "showdown", cascade=CascadeType.ALL)
@@ -35,7 +35,7 @@ public class Showdown {
     //private Board board;
 
     public Showdown(){
-        this("Default showdown constructor");
+        this("AUTO-GEN");
     }
 
     public Showdown(String description){
@@ -44,7 +44,7 @@ public class Showdown {
         this.monster = new Monster();
         this.monster.setShowdown(this);
         this.survivors = createSurvivors();
-        this.turn = 0;
+        this.turn = 1;
     }
 
     private List<Survivor> createSurvivors() {
@@ -94,5 +94,20 @@ public class Showdown {
         this.survivors = survivors;
     }
 
-    public int getTurn() { return turn; }
+    public Integer getTurn() { return turn; }
+
+    public void updateState(Showdown newShowdownState) {
+        if(newShowdownState.turn != null){
+            System.out.println("new turn: " +newShowdownState.turn);
+            this.turn = newShowdownState.turn;
+        }
+        if(newShowdownState.description != null && !newShowdownState.description.equals("") && !newShowdownState.equals("AUTO-GEN")){
+            System.out.println("new desc: " +newShowdownState.description);
+            this.description = newShowdownState.description;
+        }
+        if(newShowdownState.gameStatus != null){
+            System.out.println("new status: " +newShowdownState.gameStatus);
+            this.gameStatus = newShowdownState.gameStatus;
+        }
+    }
 }
