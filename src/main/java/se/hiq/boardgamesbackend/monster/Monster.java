@@ -23,12 +23,6 @@ public class Monster {
     @Enumerated(EnumType.STRING)
     private Facing facing;
 
-    public Monster(){
-        this.position = new Coordinate(10, 6); //Center of board
-        this.facing = Facing.UP;
-        this.statline = new TestLion();
-    }
-
     @OneToOne
     @MapsId
     @JsonIgnore
@@ -36,6 +30,12 @@ public class Monster {
 
     @Transient
     public MonsterStatline statline;
+
+    public Monster(){
+        this.position = new Coordinate(6, 4); //Center of board
+        this.facing = Facing.UP;
+        this.statline = new TestLion();
+    }
 
     public Long getId() {
         return id;
@@ -45,9 +45,9 @@ public class Monster {
         return MovementHelper.getMonsterMovement(this);
     }
 
-    public boolean validUpdate(Monster monster){
+    public boolean validUpdate(Monster newState){
 
-        Coordinate newPos = monster.getPosition();
+        Coordinate newPos = newState.getPosition();
         if(MovementHelper.coordinateInList(MovementHelper.getMonsterMovement(this), newPos)){
             return true;
         }
@@ -90,4 +90,43 @@ public class Monster {
     }
 
     public MonsterStatline getStatline() { return statline; }
+
+    /*
+    public void fillNullValues(Monster monster) {
+        System.out.println("Checking null values in monster, position: " +this.position +", facing: " +this.facing +", statline: " +this.statline);
+        if(this.position == null){
+            System.out.println("position null");
+            this.position = monster.position;
+        }
+        if(this.facing == null){
+            System.out.println("facing null");
+            this.facing = monster.facing;
+        }
+        if(this.statline == null){
+            System.out.println("statline null");
+            this.statline = monster.statline;
+        }
+        if(this.showdown == null){
+            System.out.println("showdown null");
+            this.showdown = monster.showdown;
+        }
+
+    }
+    */
+
+    public void updateValues(Monster newMonsterStatus) {
+        System.out.println("Updating values in monster, position: " +this.position +", facing: " +this.facing +", statline: " +this.statline);
+        if(newMonsterStatus.position != null){
+            System.out.println("new position: " +newMonsterStatus.position);
+            this.position = newMonsterStatus.position;
+        }
+        if(newMonsterStatus.facing != null){
+            System.out.println("new facing: " +newMonsterStatus.facing);
+            this.facing = newMonsterStatus.facing;
+        }
+        if(newMonsterStatus.statline != null){
+            System.out.println("new statline: " +newMonsterStatus.statline);
+            this.statline = newMonsterStatus.statline;
+        }
+    }
 }

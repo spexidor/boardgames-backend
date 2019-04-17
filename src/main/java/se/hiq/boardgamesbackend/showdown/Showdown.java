@@ -50,7 +50,7 @@ public class Showdown {
     private List<Survivor> createSurvivors() {
         List<Survivor> survivors = new ArrayList<>();
         for(int n=0;n<2;n++) {
-            Survivor survivor = new Survivor("Joe " +n, new Coordinate(n, 0));
+            Survivor survivor = new Survivor("Joe " +n, new Coordinate(n+2, 0));
             survivor.setShowdown(this);
             survivors.add(survivor);
 

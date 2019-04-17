@@ -79,6 +79,8 @@ public class Survivor {
         return movesLeft;
     }
 
+    public void setMovesLeft(int movesLeft) { this.movesLeft = movesLeft; }
+
     public int getSurvival() {
         return survival;
     }
