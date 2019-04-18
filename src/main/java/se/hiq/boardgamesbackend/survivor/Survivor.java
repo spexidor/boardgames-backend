@@ -55,59 +55,34 @@ public class Survivor {
         this.movement = 5;
         this.gearGrid = new GearGrid();
         this.gearGrid.setSurvivor(this);
+        this.knockedDown = false;
+        this.survival = 1;
+        this.insanity = 0;
     }
 
     public Long getId() {
         return id;
     }
-
     public String getName() {
         return name;
     }
-
     public boolean isAlive() {
         return isAlive;
     }
-
     public int getActivationsLeft() {
         return activationsLeft;
     }
-
     public int getMovesLeft() {
         return movesLeft;
     }
-
     public void setMovesLeft(int movesLeft) { this.movesLeft = movesLeft; }
-
     public int getSurvival() {
         return survival;
     }
-
     public int getInsanity() {
         return insanity;
     }
-
-    /*
-    public int getArmourHead() {
-        return armourHead;
-    }
-
-    public int getArmourArms() {
-        return armourArms;
-    }
-
-    public int getArmourTorso() {
-        return armourTorso;
-    }
-
-    public int getArmourWaist() {
-        return armourWaist;
-    }
-
-    public int getArmourLegs() {
-        return armourLegs;
-    }
-    */
+    public GearGrid getGearGrid() { return gearGrid; }
 
     public boolean validUpdate(Survivor newSurvivorState) {
 
@@ -130,11 +105,9 @@ public class Survivor {
     public Coordinate getPosition() {
         return position;
     }
-
     public void setPosition(Coordinate position) {
         this.position = position;
     }
-
     public List<Coordinate> movementOptions() {
         return MovementHelper.getSurvivorMovement(this, showdown.getSurvivors(), showdown.getMonster());
     }
@@ -142,16 +115,26 @@ public class Survivor {
     public int getMovement() {
         return movement;
     }
-
     public Showdown getShowdown() {
         return showdown;
     }
-
     public void setShowdown(Showdown showdown) {
         this.showdown = showdown;
     }
-
     public boolean isKnockedDown() {
         return knockedDown;
+    }
+
+    public void updateState(Survivor newState){
+        System.out.println("Updating values in survivor, position: " +this.position +", id: " +this.id);
+
+        this.isAlive = newState.isAlive;
+        this.activationsLeft = newState.activationsLeft;
+        this.movesLeft = newState.movesLeft;
+        this.position = newState.position;
+        this.movement = newState.movement;
+        this.knockedDown = newState.knockedDown;
+        this.survival = newState.survival;
+        this.insanity = newState.insanity;
     }
 }

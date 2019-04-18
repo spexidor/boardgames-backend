@@ -18,6 +18,18 @@ public class Weapon extends Gear {
         this.strengthBonus = strengthBonus;
     }
 
+    public int getSpeed() {
+        return speed;
+    }
+
+    public int getToHitValue() {
+        return toHitValue;
+    }
+
+    public int getStrengthBonus() {
+        return strengthBonus;
+    }
+
     public void setSpeed(int speed) {
         this.speed = speed;
     }

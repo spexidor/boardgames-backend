@@ -1,7 +1,5 @@
 package se.hiq.boardgamesbackend.monster;
 
-import se.hiq.boardgamesbackend.game.Deck;
-
 public class MonsterStatline {
 
     protected String name;

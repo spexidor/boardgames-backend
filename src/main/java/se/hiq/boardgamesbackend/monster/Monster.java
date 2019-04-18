@@ -1,7 +1,10 @@
 package se.hiq.boardgamesbackend.monster;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.hiq.boardgamesbackend.game.Facing;
+import se.hiq.boardgamesbackend.monster.ai.AIDeck;
+import se.hiq.boardgamesbackend.monster.ai.HLDeck;
 import se.hiq.boardgamesbackend.showdown.Showdown;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.game.coordinates.MovementHelper;
@@ -30,14 +33,26 @@ public class Monster {
     @JsonIgnore
     private Showdown showdown;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private AIDeck aiDeck;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private HLDeck hlDeck;
+
     @Transient
     public MonsterStatline statline;
 
     public Monster(){
-        this.position = new Coordinate(6, 4); //Center of board
+        this.position = new Coordinate(6, 4);
         this.facing = Facing.UP;
         this.statline = new TestLion();
         this.activatedThisTurn = false;
+        this.aiDeck = new AIDeck();
+        this.aiDeck.setMonster(this);
+        this.hlDeck = new HLDeck();
+        this.hlDeck.setMonster(this);
     }
 
     public Long getId() {
@@ -71,6 +86,39 @@ public class Monster {
     public MonsterStatline getStatline() { return statline; }
 
     public boolean isActivatedThisTurn() { return activatedThisTurn; }
+
+    public List<Coordinate> getBlindspot() {
+        List <Coordinate> blindspot= new ArrayList<>();
+        for(int i =0; i<this.statline.width; i++){
+            Coordinate blindSpotCoord;
+
+            if(this.facing.equals(Facing.UP)) {
+                blindSpotCoord =new Coordinate(this.position.getX()+i, this.position.getY()+this.statline.getHeight());
+            }
+            else if(this.facing.equals(Facing.DOWN)){
+                blindSpotCoord =new Coordinate(this.position.getX()+i, this.position.getY()-1);
+            }
+            else if(this.facing.equals(Facing.LEFT)){
+                blindSpotCoord =new Coordinate(this.position.getX()+this.statline.getHeight(), this.position.getY()+i);
+            }
+            else if(this.facing.equals(Facing.RIGHT)){
+                blindSpotCoord =new Coordinate(this.position.getX()-1, this.position.getY()+i);
+            }
+            else{
+                throw new RuntimeException("No matching Facing: " +this.facing);
+            }
+            blindspot.add(blindSpotCoord);
+        }
+        return blindspot;
+    }
+
+    public AIDeck getAiDeck() {
+        return aiDeck;
+    }
+
+    public HLDeck getHlDeck() {
+        return hlDeck;
+    }
 
     public List<Coordinate> calculateBaseCoordinates() {
         List<Coordinate> baseCoordinates = new ArrayList<>();

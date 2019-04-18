@@ -15,7 +15,7 @@ public class GearGrid {
 
     private final int WIDTH=3;
     private final int HEIGHT= 3;
-    private final int MAX_GEAR = WIDTH*HEIGHT;
+    private final int MAX_GEAR = WIDTH*HEIGHT+1;
 
     @OneToOne
     @MapsId
@@ -28,12 +28,6 @@ public class GearGrid {
     public GearGrid(){
 
         this.gearList = new ArrayList<>();
-
-        /*
-        Gear newGear = new Gear();
-        newGear.setGearGrid(this);
-        this.gearList.add(newGear);
-        */
         this.gearList.add(new Weapon("Fist and tooth", 2, 7, 1));
         this.gearList.add(new Armour("Cloth", 0, 0, 0, 1, 0));
         this.gearList.add(new Weapon("Founding stone", 2, 6, 2));
