@@ -23,14 +23,14 @@ public class GearGrid {
     private Survivor survivor;
 
     @OneToMany(cascade= CascadeType.ALL)
-    private List<Gear> gearList;
+    private List<Gear> gear;
 
     public GearGrid(){
 
-        this.gearList = new ArrayList<>();
-        this.gearList.add(new Weapon("Fist and tooth", 2, 7, 1));
-        this.gearList.add(new Armour("Cloth", 0, 0, 0, 1, 0));
-        this.gearList.add(new Weapon("Founding stone", 2, 6, 2));
+        this.gear = new ArrayList<>();
+        this.gear.add(new Weapon("Fist and tooth", 2, 7, 0));
+        this.gear.add(new Armour("Cloth", 0, 0, 0, 1, 0));
+        this.gear.add(new Weapon("Founding stone", 2, 6, 1));
     }
 
     public Long getId() { return id; }
@@ -41,5 +41,5 @@ public class GearGrid {
 
     public void setSurvivor(Survivor survivor) { this.survivor = survivor; }
 
-    public List<Gear> getGearList() { return gearList; }
+    public List<Gear> getGearList() { return gear; }
 }

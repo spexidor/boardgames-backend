@@ -45,7 +45,7 @@ public class Monster {
     public MonsterStatline statline;
 
     public Monster(){
-        this.position = new Coordinate(6, 4);
+        this.position = new Coordinate(2, 1);
         this.facing = Facing.UP;
         this.statline = new TestLion();
         this.activatedThisTurn = false;
@@ -120,7 +120,7 @@ public class Monster {
         return hlDeck;
     }
 
-    public List<Coordinate> calculateBaseCoordinates() {
+    public List<Coordinate> getBaseCoordinates() {
         List<Coordinate> baseCoordinates = new ArrayList<>();
         int x = this.position.getX();
         int y = this.position.getY();

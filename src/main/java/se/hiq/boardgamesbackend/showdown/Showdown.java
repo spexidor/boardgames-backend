@@ -101,7 +101,7 @@ public class Showdown {
             System.out.println("new turn: " +newShowdownState.turn);
             this.turn = newShowdownState.turn;
         }
-        if(newShowdownState.description != null && !newShowdownState.description.equals("") && !newShowdownState.equals("AUTO-GEN")){
+        if(newShowdownState.description != null && !newShowdownState.description.equals("") && !newShowdownState.description.equals("AUTO-GEN")){
             System.out.println("new desc: " +newShowdownState.description);
             this.description = newShowdownState.description;
         }

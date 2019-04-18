@@ -1,10 +1,7 @@
 package se.hiq.boardgamesbackend.monster.ai;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import se.hiq.boardgamesbackend.monster.Monster;
 import se.hiq.boardgamesbackend.monster.MonsterRepository;
 
@@ -12,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class MonsterDeckController {
 
     @Autowired

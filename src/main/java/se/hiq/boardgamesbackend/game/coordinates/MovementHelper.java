@@ -34,7 +34,7 @@ public class MovementHelper {
 
     public static void addSteps(List<Coordinate> coordinateList, int movement, Monster monster, List<Survivor> survivors){
         List<Coordinate> newCoordinates = new ArrayList<>();
-        List<Coordinate> blockedCoordinates = monster.calculateBaseCoordinates();
+        List<Coordinate> blockedCoordinates = monster.getBaseCoordinates();
         List<Coordinate> blockedCoordinatesSurvivors = new ArrayList<>();
 
         for(Survivor s: survivors){
@@ -156,7 +156,7 @@ public class MovementHelper {
 
         //Monster
         if(monster!=null) {
-            removeCoordinates(coordinateList, monster.calculateBaseCoordinates());
+            removeCoordinates(coordinateList, monster.getBaseCoordinates());
         }
     }
 
