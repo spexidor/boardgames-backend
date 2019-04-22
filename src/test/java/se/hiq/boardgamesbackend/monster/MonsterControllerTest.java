@@ -42,24 +42,26 @@ public class MonsterControllerTest {
         assertNotNull(monster);
     }
 
+    /*
     @Test
     public void putInvalidMonsterStatus(){
         //get existing test
         Monster monster = restTemplate.getForObject("/monster/100", Monster.class);
-        monster.setMonsterPosition(new Coordinate(-1, -1)); //invalid position
+        monster.setPosition(new Coordinate(-1, -1)); //invalid position
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Monster> requestEntity = new HttpEntity<>(monster, headers);
         HttpEntity<Monster> response = restTemplate.exchange("/monster/100", HttpMethod.PUT, requestEntity, Monster.class);
         assertEquals(400, ((ResponseEntity<Monster>) response).getStatusCode().value());
     }
+    */
 
     @Test
     public void putValidMonsterStatus(){
         //get existing test
         Monster monster = restTemplate.getForObject("/monster/100", Monster.class);
         List<Coordinate> monsterPositionList = monster.movementOptions();
-        monster.setMonsterPosition(monsterPositionList.get(0)); //valid position
+        monster.setPosition(monsterPositionList.get(0)); //valid position
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Monster> requestEntity = new HttpEntity<>(monster, headers);

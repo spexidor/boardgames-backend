@@ -18,21 +18,21 @@ public class TargetRule {
     private AICard aiCard;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Target> targetList;
+    private List<Target> targetOrder;
 
     public TargetRule(){
         this(new Target());
     }
 
     public TargetRule(Target... targets){
-        this.targetList = new ArrayList<>();
+        this.targetOrder = new ArrayList<>();
         for(Target n: targets){
-            this.targetList.add(n);
+            this.targetOrder.add(n);
         }
     }
 
-    public List<Target> getTargetList() {
-        return targetList;
+    public List<Target> getTargetOrder() {
+        return targetOrder;
     }
 
     public AICard getAiCard() {
@@ -41,5 +41,16 @@ public class TargetRule {
 
     public void setAiCard(AICard aiCard) {
         this.aiCard = aiCard;
+    }
+
+    @Override
+    public String toString(){
+        String str = "TargetRule id=" +this.id;
+        int index = 0;
+        for(Target n: this.targetOrder){
+            str = str +"Rule " +index +": " +n.toString();
+        }
+
+        return str;
     }
 }

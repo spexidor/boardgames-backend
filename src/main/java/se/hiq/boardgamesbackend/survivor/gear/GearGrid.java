@@ -41,5 +41,5 @@ public class GearGrid {
 
     public void setSurvivor(Survivor survivor) { this.survivor = survivor; }
 
-    public List<Gear> getGearList() { return gear; }
+    public List<Gear> getGear() { return gear; }
 }

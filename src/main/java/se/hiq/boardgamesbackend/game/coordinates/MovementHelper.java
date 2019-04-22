@@ -176,4 +176,22 @@ public class MovementHelper {
         }
     }
 
+    /**
+     **   Returns closest distance between and and several coordinates
+     **/
+    public static int distance(Coordinate coordinate, List<Coordinate> coordinates){
+        int min = Integer.MAX_VALUE;
+        for (Coordinate c: coordinates){
+            int tempDist = distance(c, coordinate);
+            if(tempDist < min){
+                min = tempDist;
+            }
+        }
+        return min;
+    }
+
+    public static int distance(Coordinate c1, Coordinate c2){
+        return Math.abs(c1.getX()-c2.getX())+Math.abs(c1.getY()-c2.getY());
+    }
+
 }

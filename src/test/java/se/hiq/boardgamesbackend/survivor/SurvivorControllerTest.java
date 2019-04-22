@@ -71,4 +71,11 @@ public class SurvivorControllerTest {
         HttpEntity<Survivor> response = restTemplate.exchange("/survivor/101", HttpMethod.PUT, requestEntity, Survivor.class);
         assertEquals(200, ((ResponseEntity<Survivor>) response).getStatusCode().value());
     }
+
+    @Test
+    public void getSevereInjuryTest(){
+        Injury headInjury = restTemplate.getForObject("/survivor/injury?table=head", Injury.class);
+        assertNotNull("null injury returned", headInjury);
+        assertEquals("Head", headInjury.getLocation());
+    }
 }

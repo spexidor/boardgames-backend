@@ -29,7 +29,7 @@ public class DiceControllerTest {
         List<DiceResult> diceResultList = restTemplate.getForObject("/dice", List.class);
 
         assertNotNull(diceResultList);
-        assertTrue(diceResultList.size() == 3);
+        assertTrue(diceResultList.size() == 1);
     }
 
     @Test

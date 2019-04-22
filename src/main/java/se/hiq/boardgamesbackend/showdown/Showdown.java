@@ -49,8 +49,21 @@ public class Showdown {
 
     private List<Survivor> createSurvivors() {
         List<Survivor> survivors = new ArrayList<>();
-        for(int n=0;n<2;n++) {
-            Survivor survivor = new Survivor("Joe " +n, new Coordinate(n+2, 0));
+        for(int n=0;n<4;n++) {
+            String name = "";
+            if(n==0){
+                name = "Allister";
+            }
+            if(n==1){
+                name = "Lucy";
+            }
+            if(n==2){
+                name = "Erza";
+            }
+            if(n==3){
+                name = "Zachary";
+            }
+            Survivor survivor = new Survivor(name, new Coordinate(n+5, 0));
             survivor.setShowdown(this);
             survivors.add(survivor);
 

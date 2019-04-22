@@ -78,4 +78,13 @@ public class SurvivorController {
             return null;
         }
     }
+
+    @GetMapping("/survivor/injury")
+    public  @ResponseBody
+    Injury getSevereInjury(@RequestParam(value="table", defaultValue="head") String table) {
+
+        assert(table.equals("head") || table.equals("torso"));
+
+        return InjuryTable.randomHeadResult();
+    }
 }

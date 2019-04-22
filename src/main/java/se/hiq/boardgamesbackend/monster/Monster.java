@@ -5,10 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import se.hiq.boardgamesbackend.game.Facing;
 import se.hiq.boardgamesbackend.monster.ai.AIDeck;
 import se.hiq.boardgamesbackend.monster.ai.HLDeck;
+import se.hiq.boardgamesbackend.monster.ai.Target;
+import se.hiq.boardgamesbackend.monster.ai.TargetRule;
 import se.hiq.boardgamesbackend.showdown.Showdown;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.game.coordinates.MovementHelper;
 import se.hiq.boardgamesbackend.monster.types.TestLion;
+import se.hiq.boardgamesbackend.survivor.Survivor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -27,6 +30,7 @@ public class Monster {
     private Facing facing;
 
     private boolean activatedThisTurn;
+    private int level;
 
     @OneToOne
     @MapsId
@@ -45,7 +49,7 @@ public class Monster {
     public MonsterStatline statline;
 
     public Monster(){
-        this.position = new Coordinate(2, 1);
+        this.position = new Coordinate(6, 1);
         this.facing = Facing.UP;
         this.statline = new TestLion();
         this.activatedThisTurn = false;
@@ -53,6 +57,7 @@ public class Monster {
         this.aiDeck.setMonster(this);
         this.hlDeck = new HLDeck();
         this.hlDeck.setMonster(this);
+        this.level = 1;
     }
 
     public Long getId() {
@@ -63,7 +68,7 @@ public class Monster {
         return MovementHelper.getMonsterMovement(this);
     }
 
-    public void setMonsterPosition(Coordinate position) {
+    public void setPosition(Coordinate position) {
         this.position = position;
     }
 
@@ -83,9 +88,13 @@ public class Monster {
         this.showdown = showdown;
     }
 
+    public void setFacing(Facing facing) { this.facing = facing; }
+
     public MonsterStatline getStatline() { return statline; }
 
     public boolean isActivatedThisTurn() { return activatedThisTurn; }
+
+    public int getLevel() { return level; }
 
     public List<Coordinate> getBlindspot() {
         List <Coordinate> blindspot= new ArrayList<>();
@@ -151,12 +160,54 @@ public class Monster {
 
     public boolean validUpdate(Monster newState){
 
+        /*
         Coordinate newPos = newState.getPosition();
         if(MovementHelper.coordinateInList(MovementHelper.getMonsterMovement(this), newPos)){
             return true;
         }
         else {
             return false;
+        }
+        */
+        return true;
+    }
+
+    public List<Survivor> targetOptions(List<Survivor> survivors, TargetRule targetRule){
+        List<Survivor> validTargets = new ArrayList<>();
+
+        for(int i=0; i<targetRule.getTargetOrder().size(); i++){
+
+            Target targetOption = targetRule.getTargetOrder().get(i);
+            for(Survivor s: survivors){
+                if(targetOption.validTarget(this, survivors, s)){
+                    validTargets.add(s);
+                }
+            }
+
+            if(validTargets.size() > 0){
+                break;
+            }
+        }
+
+        return validTargets;
+    }
+
+    public boolean facingSurvivor(Survivor survivor) {
+        if(facing.equals(Facing.UP)){
+            System.out.println("Facing up. Survivor y pos: " +survivor.getPosition().getY() +", monster y pos: " +this.position.getY());
+            return survivor.getPosition().getY() < this.position.getY();
+        }
+        else if(facing.equals(Facing.DOWN)){
+            return survivor.getPosition().getY() > (this.position.getY()+this.statline.getHeight()-1);
+        }
+        else if(facing.equals(Facing.LEFT)){
+            return survivor.getPosition().getX() < this.position.getX();
+        }
+        else if(facing.equals(Facing.RIGHT)){
+            return survivor.getPosition().getX() > (this.position.getX()+this.statline.getHeight()-1);
+        }
+        else {
+            throw new RuntimeException("Facing not set in monster " +this.id);
         }
     }
 }

@@ -18,6 +18,14 @@ public class Attack {
     private int speed;
     private int toHitValue;
     private int damage;
+    private boolean brainDamage;
+    private boolean ignoreEvasion;
+
+    @OneToOne
+    private Trigger trigger;
+
+    @OneToOne
+    private TriggerEffect triggerEffect;
 
     public Attack(){
         this(0, 0, 0);
@@ -43,5 +51,37 @@ public class Attack {
 
     public void setAiCard(AICard aiCard) {
         this.aiCard = aiCard;
+    }
+
+    public boolean isBrainDamage() {
+        return brainDamage;
+    }
+
+    public void setBrainDamage(boolean brainDamage) {
+        this.brainDamage = brainDamage;
+    }
+
+    public boolean isIgnoreEvasion() {
+        return ignoreEvasion;
+    }
+
+    public void setIgnoreEvasion(boolean ignoreEvasion) {
+        this.ignoreEvasion = ignoreEvasion;
+    }
+
+    public Trigger getTrigger() {
+        return trigger;
+    }
+
+    public void setTrigger(Trigger trigger) {
+        this.trigger = trigger;
+    }
+
+    public TriggerEffect getTriggerEffect() {
+        return triggerEffect;
+    }
+
+    public void setTriggerEffect(TriggerEffect triggerEffect) {
+        this.triggerEffect = triggerEffect;
     }
 }

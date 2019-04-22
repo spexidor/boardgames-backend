@@ -23,6 +23,11 @@ public class Survivor {
     private String name;
     private boolean isAlive;
     private boolean knockedDown;
+    private boolean lightInjury;
+    private boolean heavyInjury;
+
+    @OneToOne(mappedBy = "survivor", cascade=CascadeType.ALL)
+    private Hitpoints hitpoints;
 
     @ManyToOne//(cascade=CascadeType.ALL)
     private Coordinate position;
@@ -84,8 +89,10 @@ public class Survivor {
     }
     public GearGrid getGearGrid() { return gearGrid; }
 
+
     public boolean validUpdate(Survivor newSurvivorState) {
 
+        /*
         System.out.println("Checking survivor valid state...");
         List<Coordinate> movementOptions = movementOptions();
         boolean match = false;
@@ -100,6 +107,8 @@ public class Survivor {
         }
         System.out.println("Valid state: " +match);
         return match;
+        */
+        return true;
     }
 
     public Coordinate getPosition() {
@@ -136,5 +145,20 @@ public class Survivor {
         this.knockedDown = newState.knockedDown;
         this.survival = newState.survival;
         this.insanity = newState.insanity;
+        this.lightInjury = newState.lightInjury;
+        this.heavyInjury = newState.heavyInjury;
+        this.hitpoints = newState.hitpoints;
+    }
+
+    public boolean isLightInjury() {
+        return lightInjury;
+    }
+
+    public boolean isHeavyInjury() {
+        return heavyInjury;
+    }
+
+    public Hitpoints getHitpoints() {
+        return hitpoints;
     }
 }
