@@ -21,10 +21,10 @@ public class Attack {
     private boolean brainDamage;
     private boolean ignoreEvasion;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Trigger trigger;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private TriggerEffect triggerEffect;
 
     public Attack(){

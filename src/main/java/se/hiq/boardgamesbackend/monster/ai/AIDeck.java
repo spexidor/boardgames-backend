@@ -6,9 +6,9 @@ import javax.persistence.Entity;
 public class AIDeck extends Deck {
 
     public AIDeck(){
-
-        /*
-        int monsterLevel = this.getMonster().getLevel();
+        this(1);
+    }
+    public AIDeck(int monsterLevel){
 
         //Basic action
         Target a1t1 = new Target(true);
@@ -16,6 +16,7 @@ public class AIDeck extends Deck {
         TargetRule a1t = new TargetRule(a1t1);
         Attack a1a = new Attack(2,2,1);
         AICard a1 =  new AICard("Basic Action", a1t, a1a);
+
 
         //Claw
         Target a2t1 = new Target(true, true, true, true);
@@ -57,6 +58,6 @@ public class AIDeck extends Deck {
         this.cardsInDeck.add(a2);
         this.cardsInDeck.add(a3);
         this.cardsInDeck.add(a4);
-        */
+
     }
 }

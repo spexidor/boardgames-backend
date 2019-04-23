@@ -1,11 +1,9 @@
 package se.hiq.boardgamesbackend.monster.ai;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "attack_trigger")
 public class Trigger {
 
     @Id
@@ -22,5 +20,13 @@ public class Trigger {
     public Trigger(boolean afterDamage, boolean afterHit) {
         this.afterDamage = afterDamage;
         this.afterHit = afterHit;
+    }
+
+    public boolean isAfterDamage() {
+        return afterDamage;
+    }
+
+    public boolean isAfterHit() {
+        return afterHit;
     }
 }

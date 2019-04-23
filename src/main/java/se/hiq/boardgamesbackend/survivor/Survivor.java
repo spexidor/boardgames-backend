@@ -5,6 +5,7 @@ import se.hiq.boardgamesbackend.showdown.Showdown;
 import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.game.coordinates.MovementHelper;
 import se.hiq.boardgamesbackend.survivor.gear.GearGrid;
+import se.hiq.boardgamesbackend.survivor.gear.Hitpoints;
 
 import javax.persistence.*;
 import java.util.List;
@@ -60,6 +61,8 @@ public class Survivor {
         this.movement = 5;
         this.gearGrid = new GearGrid();
         this.gearGrid.setSurvivor(this);
+        this.hitpoints = new Hitpoints(this.gearGrid.getGear());
+        this.hitpoints.setSurvivor(this);
         this.knockedDown = false;
         this.survival = 1;
         this.insanity = 0;
@@ -147,7 +150,6 @@ public class Survivor {
         this.insanity = newState.insanity;
         this.lightInjury = newState.lightInjury;
         this.heavyInjury = newState.heavyInjury;
-        this.hitpoints = newState.hitpoints;
     }
 
     public boolean isLightInjury() {

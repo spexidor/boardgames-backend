@@ -1,11 +1,15 @@
-package se.hiq.boardgamesbackend.survivor;
+package se.hiq.boardgamesbackend.survivor.gear;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import se.hiq.boardgamesbackend.survivor.Survivor;
+import se.hiq.boardgamesbackend.survivor.gear.Armour;
+import se.hiq.boardgamesbackend.survivor.gear.Gear;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
+import java.util.List;
 
 @Entity
 public class Hitpoints {
@@ -34,6 +38,24 @@ public class Hitpoints {
         this.arms = arms;
         this.waist = waist;
         this.legs = legs;
+    }
+
+    public Hitpoints(List<Gear> gearList){
+        this.head   = 0;
+        this.torso  = 0;
+        this.arms   = 0;
+        this.waist  = 0;
+        this.legs   = 0;
+
+        for(Gear n: gearList){
+            if(n instanceof Armour){
+                head += ((Armour) n).getHead();
+                torso += ((Armour) n).getTorso();
+                arms += ((Armour) n).getArms();
+                waist += ((Armour) n).getWaist();
+                legs += ((Armour) n).getLegs();
+            }
+        }
     }
 
     public long getId() {

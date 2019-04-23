@@ -63,11 +63,6 @@ public class SurvivorController {
 
             System.out.println("---New survivor state is valid");
 
-            /**
-             * Survivor in request (newSurvivorState) is not valid input in survivorRepository
-             * because the link to parent showdown is missing in it.
-             */
-            //newSurvivorState.setShowdown(currentSurvivorState.get().getShowdown());
             currentSurvivorState.get().updateState(newSurvivorState);
 
             return survivorRepository.save(currentSurvivorState.get());
