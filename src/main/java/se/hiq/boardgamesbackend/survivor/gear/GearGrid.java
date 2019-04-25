@@ -1,6 +1,7 @@
 package se.hiq.boardgamesbackend.survivor.gear;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import se.hiq.boardgamesbackend.dice.HitlocationType;
 import se.hiq.boardgamesbackend.survivor.Survivor;
 
 import javax.persistence.*;
@@ -29,13 +30,13 @@ public class GearGrid {
 
         this.gear = new ArrayList<>();
         this.gear.add(new Weapon("Fist and tooth", 2, 7, 0));
-        this.gear.add(new Armour("Cloth", 0, 0, 0, 1, 0));
+        this.gear.add(new Armour("Cloth", HitlocationType.WAIST, 1));
         this.gear.add(new Weapon("Founding stone", 2, 6, 1));
     }
 
     public Long getId() { return id; }
 
-    public int getMAX_GEAR() { return MAX_GEAR; }
+    //public int getMAX_GEAR() { return MAX_GEAR; }
 
     public Survivor getSurvivor() { return survivor; }
 

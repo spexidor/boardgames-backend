@@ -2,7 +2,7 @@ package se.hiq.boardgamesbackend.monster;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
+import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;

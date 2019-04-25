@@ -1,7 +1,7 @@
-package se.hiq.boardgamesbackend.game;
+package se.hiq.boardgamesbackend.board;
 
 import org.junit.Test;
-import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
+import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
 import static org.junit.Assert.*;
 
 public class CoordinateTest {

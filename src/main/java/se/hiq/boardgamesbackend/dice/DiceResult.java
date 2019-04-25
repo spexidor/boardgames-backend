@@ -13,10 +13,9 @@ public class DiceResult {
     }
 
     public DiceResult(int diceSides, int toHitValue) {
-        Random r = new Random();
 
         this.sides = diceSides;
-        this.result = r.nextInt(diceSides)  + 1;
+        this.result = roll(diceSides);
         this.hit = (this.result >= toHitValue);
     }
 
@@ -38,5 +37,11 @@ public class DiceResult {
 
     public void setHit(boolean hit) {
         this.hit = hit;
+    }
+
+    public static int roll(int diceSides){
+        Random r = new Random();
+
+        return r.nextInt(diceSides)  + 1;
     }
 }

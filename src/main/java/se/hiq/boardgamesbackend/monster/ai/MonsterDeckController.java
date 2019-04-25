@@ -2,7 +2,6 @@ package se.hiq.boardgamesbackend.monster.ai;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.monster.Monster;
 import se.hiq.boardgamesbackend.monster.MonsterRepository;
 import se.hiq.boardgamesbackend.showdown.Showdown;
@@ -26,9 +25,32 @@ public class MonsterDeckController {
     @Autowired
     private AICardRepository cardRepository;
 
-    @GetMapping("/monster/{id}/ai")
+    @Autowired
+    private AIDeckRepository deckRepository;
+
+    @PutMapping("/monster/{id}/ai")
     public  @ResponseBody
-    Deck getMonsterAiDeck(@PathVariable long id, HttpServletResponse response) {
+    AIDeck updateMonsterAiDeck(@PathVariable long id, @RequestBody AIDeck updatedDeck, HttpServletResponse response) {
+        System.out.println("---PUT deck request received, id=" +id +", body=" +updatedDeck);
+        Optional<Monster> monster = monsterRepository.findById(id);
+        System.out.println("---Existing monster loaded, present=" +monster.isPresent());
+
+        if(monster.isPresent()) {
+            System.out.println("---Deck id=" +monster.get().getAiDeck().getId());
+            monster.get().setAiDeck(updatedDeck);
+            System.out.println("---New deck set");
+
+            //monster.get().getAiDeck().updateState(updatedDeck);
+            return monsterRepository.save(monster.get()).getAiDeck();
+        }
+        else {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return null;
+        }
+    }
+
+    @GetMapping("/monster/{id}/ai")
+    public AIDeck getMonsterAiDeck(@PathVariable long id, HttpServletResponse response) {
 
         Optional<Monster> monster = monsterRepository.findById(id);
         if(monster.isPresent()) {

@@ -1,13 +1,15 @@
 package se.hiq.boardgamesbackend.survivor;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import se.hiq.boardgamesbackend.dice.HitlocationType;
 import se.hiq.boardgamesbackend.showdown.Showdown;
-import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
-import se.hiq.boardgamesbackend.game.coordinates.MovementHelper;
+import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
+import se.hiq.boardgamesbackend.board.MovementHelper;
 import se.hiq.boardgamesbackend.survivor.gear.GearGrid;
-import se.hiq.boardgamesbackend.survivor.gear.Hitpoints;
+import se.hiq.boardgamesbackend.survivor.gear.Hitlocation;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,30 +26,26 @@ public class Survivor {
     private String name;
     private boolean isAlive;
     private boolean knockedDown;
-    private boolean lightInjury;
-    private boolean heavyInjury;
 
-    @OneToOne(mappedBy = "survivor", cascade=CascadeType.ALL)
-    private Hitpoints hitpoints;
+    @OneToMany(cascade=CascadeType.ALL)
+    private List<Hitlocation> hitlocations;
 
     @ManyToOne//(cascade=CascadeType.ALL)
     private Coordinate position;
 
     private int activationsLeft;
     private int movesLeft;
-
     private int movement;
-
     private int survival;
     private int insanity;
 
     @OneToOne(mappedBy = "survivor", cascade=CascadeType.ALL)
     private GearGrid gearGrid;
 
+
     public Survivor(){
         this("By default constructor");
     }
-
     public Survivor(String s) {
        this(s, new Coordinate(0,0));
     }
@@ -61,11 +59,22 @@ public class Survivor {
         this.movement = 5;
         this.gearGrid = new GearGrid();
         this.gearGrid.setSurvivor(this);
-        this.hitpoints = new Hitpoints(this.gearGrid.getGear());
-        this.hitpoints.setSurvivor(this);
+        this.hitlocations = createHitLocations();
         this.knockedDown = false;
         this.survival = 1;
         this.insanity = 0;
+    }
+
+    private List<Hitlocation> createHitLocations() {
+        List<Hitlocation> hitlocations = new ArrayList<>();
+
+        hitlocations.add(new Hitlocation(HitlocationType.HEAD, this.gearGrid.getGear(), this));
+        hitlocations.add(new Hitlocation(HitlocationType.BODY, this.gearGrid.getGear(), this));
+        hitlocations.add(new Hitlocation(HitlocationType.ARMS, this.gearGrid.getGear(), this));
+        hitlocations.add(new Hitlocation(HitlocationType.LEGS, this.gearGrid.getGear(), this));
+        hitlocations.add(new Hitlocation(HitlocationType.WAIST, this.gearGrid.getGear(), this));
+
+        return hitlocations;
     }
 
     public Long getId() {
@@ -91,7 +100,16 @@ public class Survivor {
         return insanity;
     }
     public GearGrid getGearGrid() { return gearGrid; }
-
+    public void setId(Long id) { this.id = id; }
+    public void setName(String name) { this.name = name; }
+    public void setAlive(boolean alive) { isAlive = alive; }
+    public void setKnockedDown(boolean knockedDown) { this.knockedDown = knockedDown; }
+    public void setHitlocations(List<Hitlocation> hitlocations) { this.hitlocations = hitlocations; }
+    public void setActivationsLeft(int activationsLeft) { this.activationsLeft = activationsLeft; }
+    public void setMovement(int movement) { this.movement = movement; }
+    public void setSurvival(int survival) { this.survival = survival; }
+    public void setInsanity(int insanity) { this.insanity = insanity; }
+    public void setGearGrid(GearGrid gearGrid) { this.gearGrid = gearGrid; }
 
     public boolean validUpdate(Survivor newSurvivorState) {
 
@@ -140,27 +158,21 @@ public class Survivor {
     public void updateState(Survivor newState){
         System.out.println("Updating values in survivor, position: " +this.position +", id: " +this.id);
 
+        this.name = newState.name;
         this.isAlive = newState.isAlive;
+        this.knockedDown = newState.knockedDown;
+        this.hitlocations = newState.hitlocations;
+
         this.activationsLeft = newState.activationsLeft;
         this.movesLeft = newState.movesLeft;
         this.position = newState.position;
         this.movement = newState.movement;
-        this.knockedDown = newState.knockedDown;
         this.survival = newState.survival;
         this.insanity = newState.insanity;
-        this.lightInjury = newState.lightInjury;
-        this.heavyInjury = newState.heavyInjury;
+        this.gearGrid = newState.gearGrid;
     }
 
-    public boolean isLightInjury() {
-        return lightInjury;
-    }
-
-    public boolean isHeavyInjury() {
-        return heavyInjury;
-    }
-
-    public Hitpoints getHitpoints() {
-        return hitpoints;
+    public List<Hitlocation> getHitlocations() {
+        return hitlocations;
     }
 }

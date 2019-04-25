@@ -1,6 +1,6 @@
 package se.hiq.boardgamesbackend.monster.ai;
 
-import se.hiq.boardgamesbackend.game.coordinates.MovementHelper;
+import se.hiq.boardgamesbackend.board.MovementHelper;
 import se.hiq.boardgamesbackend.monster.Monster;
 import se.hiq.boardgamesbackend.survivor.Survivor;
 
@@ -89,12 +89,6 @@ public class Target {
             return false;
         }
 
-        //Closest?
-        if(this.closest && !chosenSurvivorClosest(monster, survivors, chosenSurvivor)){
-            System.out.println("Target (" +chosenSurvivor.getName() +") not closest");
-            return false;
-        }
-
         //Facing
         if(this.facing && !monster.facingSurvivor(chosenSurvivor)) {
             System.out.println("Target (" +chosenSurvivor.getName() +") not facing");
@@ -119,9 +113,18 @@ public class Target {
             return false;
         }
 
+        //Closest - Refers to closest in case of tie, so only compare with other valid targets
+        if(this.closest && !chosenSurvivorClosestTarget(monster, survivors, chosenSurvivor)){
+            System.out.println("Target (" +chosenSurvivor.getName() +") not closest");
+            return false;
+        }
+
         return true;
     }
 
+    private boolean chosenSurvivorClosestTarget(Monster monster, List<Survivor> survivors, Survivor chosenSurvivor) {
+        return true;
+    }
     private boolean chosenSurvivorClosest(Monster monster, List<Survivor> survivors, Survivor chosenSurvivor) {
         int distance = MovementHelper.distance(chosenSurvivor.getPosition(), monster.getBaseCoordinates());
         //System.out.println("Evaluating "+chosenSurvivor.getName() +" as closest survivor. Distance is " +distance);
@@ -202,5 +205,9 @@ public class Target {
 
     public void setRandom(boolean random) {
         this.random = random;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

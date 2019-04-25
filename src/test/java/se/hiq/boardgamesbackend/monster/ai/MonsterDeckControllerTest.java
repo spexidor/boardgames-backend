@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import se.hiq.boardgamesbackend.monster.Monster;
@@ -14,6 +17,7 @@ import se.hiq.boardgamesbackend.showdown.Showdown;
 import java.util.Optional;
 
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
@@ -27,12 +31,13 @@ public class MonsterDeckControllerTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void getAICardsTest(){
+    public void getAICardsTest() {
         Deck deck = restTemplate.getForObject("/monster/100/ai", Deck.class);
+        assertTrue("No deck found", deck == null); //no ai deck in test data
+    }
 
-        assertTrue("No deck found", deck==null); //no ai deck in test data
-
-        /*
+    @Test
+    public void updateAICardsTest(){
         ResponseEntity<Showdown> response = restTemplate.postForEntity("/showdown", "post from getAICardsTest", Showdown.class);
         String description = response.getBody().getDescription();
         System.out.println("showdown id: " +response.getBody().getId());
@@ -45,9 +50,24 @@ public class MonsterDeckControllerTest {
         String url = "/monster/" +response.getBody().getId() +"/ai";
         System.out.println("url: " +url);
 
-        Optional<Deck> deck2 = restTemplate.getForObject(url, Optional.class);
-        assertTrue("no ai deck found", deck2.isPresent());
-        assertTrue("ai deck to short", deck2.get().cardsInDeck.size()>10);
-        */
+        AIDeck deck2 = restTemplate.getForObject(url, AIDeck.class);
+        assertTrue("ai deck to short", deck2.getCardsInDeck().size()<5);
+        assertTrue("wrong class", deck2.cardsInDeck.get(0) instanceof AICard);
+        System.out.println("deck size: " +deck2.getCardsInDeck().size());
+
+        AIDeck deck3 = response.getBody().getMonster().getAiDeck();
+        Card removedCard = deck3.getCardsInDeck().remove(0);
+        System.out.println("removing card " +removedCard +" of type " +removedCard.getClass());
+        deck3.getCardsInDiscard().add(removedCard);
+        System.out.println("deck size after get: " +deck3.getCardsInDeck().size());
+        System.out.println("discard size: " +deck3.getCardsInDiscard().size());
+
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<Deck> requestEntity = new HttpEntity<>(deck3, headers);
+        HttpEntity<Deck> response2 = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Deck.class);
+        assertEquals("incorrect status code in response", 200, ((ResponseEntity<Deck>) response2).getStatusCodeValue());
+        assertEquals("discard size incorrect", 1, response2.getBody().getCardsInDiscard().size());
+
+
     }
 }

@@ -1,6 +1,6 @@
-package se.hiq.boardgamesbackend.game;
+package se.hiq.boardgamesbackend.board;
 
-import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
+import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
 
 public class Terrain {
     private int width;

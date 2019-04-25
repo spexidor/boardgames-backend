@@ -1,4 +1,4 @@
-package se.hiq.boardgamesbackend.survivor;
+package se.hiq.boardgamesbackend.survivor.injury;
 
 import se.hiq.boardgamesbackend.dice.DiceResult;
 
@@ -27,9 +27,7 @@ public class InjuryTable {
                     break;
             case 10: injury = new Injury("Destroyed tooth", "Head", false, 1, true);
                     break;
-            default: injury = new Injury();
-                    break;
-
+            default: throw new RuntimeException("Unexpected dice result: " +diceResult.getResult() +"(expected 1-10)");
         }
 
         return injury;

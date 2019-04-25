@@ -2,14 +2,13 @@ package se.hiq.boardgamesbackend.monster;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import se.hiq.boardgamesbackend.game.Facing;
 import se.hiq.boardgamesbackend.monster.ai.AIDeck;
 import se.hiq.boardgamesbackend.monster.ai.HLDeck;
 import se.hiq.boardgamesbackend.monster.ai.Target;
 import se.hiq.boardgamesbackend.monster.ai.TargetRule;
 import se.hiq.boardgamesbackend.showdown.Showdown;
-import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
-import se.hiq.boardgamesbackend.game.coordinates.MovementHelper;
+import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
+import se.hiq.boardgamesbackend.board.MovementHelper;
 import se.hiq.boardgamesbackend.monster.types.TestLion;
 import se.hiq.boardgamesbackend.survivor.Survivor;
 
@@ -125,6 +124,10 @@ public class Monster {
         return aiDeck;
     }
 
+    public void setAiDeck(AIDeck aiDeck) {
+        this.aiDeck = aiDeck;
+    }
+
     public HLDeck getHlDeck() {
         return hlDeck;
     }
@@ -156,6 +159,18 @@ public class Monster {
             System.out.println("new statline: " +newMonsterStatus.statline);
             this.statline = newMonsterStatus.statline;
         }
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setActivatedThisTurn(boolean activatedThisTurn) {
+        this.activatedThisTurn = activatedThisTurn;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public boolean validUpdate(Monster newState){

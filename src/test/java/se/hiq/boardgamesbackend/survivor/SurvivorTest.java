@@ -1,7 +1,6 @@
 package se.hiq.boardgamesbackend.survivor;
 
 import org.junit.Test;
-import se.hiq.boardgamesbackend.game.Board;
 import se.hiq.boardgamesbackend.showdown.Showdown;
 
 import java.util.List;

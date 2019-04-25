@@ -8,7 +8,7 @@ public class Weapon extends Gear {
     private int toHitValue;
     private int strengthBonus;
 
-    public Weapon(){
+    private Weapon(){
         this("AUTO-GEN WEAPON", 1,2,10);
     }
     public Weapon(String name, int speed, int toHitValue, int strengthBonus){

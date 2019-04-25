@@ -32,4 +32,12 @@ public class AICard extends Card{
     public Attack getAttack() {
         return attack;
     }
+
+    public void setTargetRule(TargetRule targetRule) {
+        this.targetRule = targetRule;
+    }
+
+    public void setAttack(Attack attack) {
+        this.attack = attack;
+    }
 }

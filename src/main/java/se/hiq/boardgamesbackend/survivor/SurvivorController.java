@@ -2,12 +2,17 @@ package se.hiq.boardgamesbackend.survivor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import se.hiq.boardgamesbackend.dice.DiceResult;
+import se.hiq.boardgamesbackend.dice.HitlocationType;
 import se.hiq.boardgamesbackend.showdown.Showdown;
 import se.hiq.boardgamesbackend.showdown.ShowdownRepository;
-import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
+import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.monster.Monster;
+import se.hiq.boardgamesbackend.survivor.injury.Injury;
+import se.hiq.boardgamesbackend.survivor.injury.InjuryTable;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,6 +85,36 @@ public class SurvivorController {
 
         assert(table.equals("head") || table.equals("torso"));
 
-        return InjuryTable.randomHeadResult();
+        if(table.equals("head")) {
+            return InjuryTable.randomHeadResult();
+        }
+        else{
+            return null;
+        }
+    }
+
+    @GetMapping("/survivor/hitlocation")
+    public  @ResponseBody
+    List<HitlocationType> getHitlocation(@RequestParam(value="numDice", defaultValue="1") int numDice) {
+
+        List<HitlocationType> hits = new ArrayList<>();
+        for (int i = 0; i < numDice; i++) {
+            int roll = DiceResult.roll(6);
+            switch(roll){
+                case 1: hits.add(HitlocationType.HEAD);
+                    break;
+                case 2: hits.add(HitlocationType.ARMS);
+                    break;
+                case 3: hits.add(HitlocationType.LEGS);
+                    break;
+                case 4: hits.add(HitlocationType.BODY);
+                    break;
+                case 5: hits.add(HitlocationType.BODY);
+                    break;
+                case 6: hits.add(HitlocationType.WAIST);
+                    break;
+            }
+        }
+        return hits;
     }
 }

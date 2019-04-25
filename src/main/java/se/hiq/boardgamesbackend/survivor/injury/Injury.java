@@ -1,4 +1,4 @@
-package se.hiq.boardgamesbackend.survivor;
+package se.hiq.boardgamesbackend.survivor.injury;
 
 public class Injury {
     private String location;
@@ -7,7 +7,7 @@ public class Injury {
     private int bleed;
     private boolean knockedDown;
 
-    public Injury() {
+    private Injury() {
         this("AUTO-GEN INJURY", "Head", false, 1);
     }
 

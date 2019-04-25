@@ -54,4 +54,36 @@ class Deck {
     public List<Card> getCardsRemoved() {
         return cardsRemoved;
     }
+
+    public void updateState(Deck updatedDeck) {
+
+        System.out.println("Updating deck");
+        if(updatedDeck.cardsInDeck != null){
+            System.out.println("type check 1: " +this.cardsInDeck.getClass() +", " +updatedDeck.cardsInDeck.getClass());
+            this.cardsInDeck = updatedDeck.cardsInDeck;
+        }
+        if(updatedDeck.cardsInDiscard != null){
+            System.out.println("type check 2: " +this.cardsInDiscard.getClass() +", " +updatedDeck.cardsInDiscard.getClass());
+            this.cardsInDiscard = updatedDeck.cardsInDiscard;
+        }
+        if(updatedDeck.cardsRemoved != null){
+            this.cardsRemoved = updatedDeck.cardsRemoved;
+        }
+    }
+
+    public void setCardsInDeck(List<Card> cardsInDeck) {
+        this.cardsInDeck = cardsInDeck;
+    }
+
+    public void setCardsInDiscard(List<Card> cardsInDiscard) {
+        this.cardsInDiscard = cardsInDiscard;
+    }
+
+    public void setCardsRemoved(List<Card> cardsRemoved) {
+        this.cardsRemoved = cardsRemoved;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }

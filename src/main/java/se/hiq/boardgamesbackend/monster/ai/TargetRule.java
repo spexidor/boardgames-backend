@@ -53,4 +53,16 @@ public class TargetRule {
 
         return str;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setTargetOrder(List<Target> targetOrder) {
+        this.targetOrder = targetOrder;
+    }
 }

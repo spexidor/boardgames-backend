@@ -1,6 +1,4 @@
-package se.hiq.boardgamesbackend.game;
-
-import java.util.List;
+package se.hiq.boardgamesbackend.board;
 
 /**
  * Default size 22x18

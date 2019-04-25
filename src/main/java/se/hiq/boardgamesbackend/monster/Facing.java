@@ -1,4 +1,4 @@
-package se.hiq.boardgamesbackend.game;
+package se.hiq.boardgamesbackend.monster;
 
 public enum Facing {
     UP,

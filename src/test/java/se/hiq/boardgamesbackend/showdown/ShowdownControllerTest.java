@@ -48,13 +48,13 @@ public class ShowdownControllerTest {
 
     @Test
     public void postShowdownTest(){
-        ResponseEntity<Showdown> response = restTemplate.postForEntity("/showdown", "post from test1", Showdown.class);
+        ResponseEntity<Showdown> response = restTemplate.postForEntity("/showdown", "post from postShowdownTest_1", Showdown.class);
         assertEquals(200, response.getStatusCode().value());
         System.out.println("post 1 showdown id: " +response.getBody().getId());
         assertEquals(4, response.getBody().getSurvivors().size());
 
 
-        ResponseEntity<Showdown> response2 = restTemplate.postForEntity("/showdown", "post from test2", Showdown.class);
+        ResponseEntity<Showdown> response2 = restTemplate.postForEntity("/showdown", "post from postShowdownTest_2", Showdown.class);
         assertEquals(200, response2.getStatusCode().value());
         System.out.println("post 2 showdown id: " +response2.getBody().getId());
 

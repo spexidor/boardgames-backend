@@ -1,11 +1,22 @@
 package se.hiq.boardgamesbackend.monster.ai;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.persistence.*;
 
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = AICard.class, name = "aicard"),
+        @JsonSubTypes.Type(value = HLCard.class, name = "hlcard")
+})
+
 @Entity
-public class Card {
+public abstract class Card {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -18,11 +29,13 @@ public class Card {
     protected String title;
 
     public Card(){
-        this("AUTO-GEN CARD");
+        this.title = "AUTO-GEN";
     }
+    /*
     public Card(String title){
         this.title = title;
     }
+    */
 
     public Long getId() {
         return id;
@@ -38,5 +51,13 @@ public class Card {
 
     public void setDeck(Deck deck) {
         this.deck = deck;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

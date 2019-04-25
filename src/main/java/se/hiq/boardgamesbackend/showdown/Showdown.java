@@ -1,8 +1,7 @@
 package se.hiq.boardgamesbackend.showdown;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import se.hiq.boardgamesbackend.game.GameStatus;
-import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
+import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.monster.Monster;
 import se.hiq.boardgamesbackend.survivor.Survivor;
 
@@ -21,6 +20,9 @@ public class Showdown {
 
     @Enumerated(EnumType.STRING)
     private GameStatus gameStatus;
+
+    @Enumerated(EnumType.STRING)
+    private Act act;
 
     private Integer turn;
 
@@ -108,6 +110,26 @@ public class Showdown {
     }
 
     public Integer getTurn() { return turn; }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
+    }
+
+    public Act getAct() {
+        return act;
+    }
+
+    public void setAct(Act act) {
+        this.act = act;
+    }
+
+    public void setTurn(Integer turn) {
+        this.turn = turn;
+    }
 
     public void updateState(Showdown newShowdownState) {
         if(newShowdownState.turn != null){

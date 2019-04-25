@@ -1,6 +1,7 @@
-package se.hiq.boardgamesbackend.game.coordinates;
+package se.hiq.boardgamesbackend.board;
 
-import se.hiq.boardgamesbackend.game.Board;
+import se.hiq.boardgamesbackend.board.Board;
+import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.monster.Monster;
 import se.hiq.boardgamesbackend.survivor.Survivor;
 

@@ -1,4 +1,4 @@
-package se.hiq.boardgamesbackend.game.coordinates;
+package se.hiq.boardgamesbackend.board.coordinates;
 
 import java.io.Serializable;
 

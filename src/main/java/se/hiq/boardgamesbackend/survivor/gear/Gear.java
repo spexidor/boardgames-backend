@@ -10,6 +10,7 @@ import javax.persistence.*;
 public class Gear {
 
     @Id
+    @JsonIgnore
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
@@ -19,7 +20,7 @@ public class Gear {
     @JsonIgnore
     private GearGrid gearGrid; //Parent gearGrid
 
-    public Gear(){
+    private Gear(){
         this("AUTO-GEN GEAR");
     }
     public Gear(String name){

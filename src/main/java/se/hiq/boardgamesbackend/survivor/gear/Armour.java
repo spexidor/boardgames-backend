@@ -1,66 +1,41 @@
 package se.hiq.boardgamesbackend.survivor.gear;
 
+import se.hiq.boardgamesbackend.dice.HitlocationType;
+
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Entity
 public class Armour extends Gear {
 
-    private int head;
-    private int arms;
-    private int torso;
-    private int waist;
-    private int legs;
+    @Enumerated(EnumType.STRING)
+    private HitlocationType type;
+    private int hitpoints;
 
-    public Armour(){
-        this("AUTO-GEN ARMOUR", 0, 0, 0, 0, 0);
+    private Armour(){
+        this("AUTO-GEN ARMOUR", HitlocationType.HEAD, 0);
     }
 
-    public Armour(String name, int head, int arms, int torso, int waist, int legs){
+    public Armour(String name, HitlocationType type, int hitpoints){
      super(name);
-     this.head = head;
-     this.arms = arms;
-     this.torso = torso;
-     this.waist = waist;
-     this.legs = legs;
+     this.type = type;
+     this.hitpoints = hitpoints;
     }
 
-    public int getHead() {
-        return head;
+    public HitlocationType getType() {
+        return type;
     }
 
-    public int getArms() {
-        return arms;
+    public void setType(HitlocationType type) {
+        this.type = type;
     }
 
-    public int getTorso() {
-        return torso;
+    public int getHitpoints() {
+        return hitpoints;
     }
 
-    public int getWaist() {
-        return waist;
-    }
-
-    public int getLegs() {
-        return legs;
-    }
-
-    public void setHead(int head) {
-        this.head = head;
-    }
-
-    public void setArms(int arms) {
-        this.arms = arms;
-    }
-
-    public void setTorso(int torso) {
-        this.torso = torso;
-    }
-
-    public void setWaist(int waist) {
-        this.waist = waist;
-    }
-
-    public void setLegs(int legs) {
-        this.legs = legs;
+    public void setHitpoints(int hitpoints) {
+        this.hitpoints = hitpoints;
     }
 }

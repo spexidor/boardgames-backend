@@ -1,11 +1,10 @@
 package se.hiq.boardgamesbackend.monster;
 
 import org.junit.Test;
-import se.hiq.boardgamesbackend.game.Board;
-import se.hiq.boardgamesbackend.game.Facing;
+import se.hiq.boardgamesbackend.board.Board;
 import se.hiq.boardgamesbackend.showdown.Showdown;
-import se.hiq.boardgamesbackend.game.coordinates.Coordinate;
-import se.hiq.boardgamesbackend.game.coordinates.MovementHelper;
+import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
+import se.hiq.boardgamesbackend.board.MovementHelper;
 import se.hiq.boardgamesbackend.survivor.Survivor;
 
 import java.util.List;
