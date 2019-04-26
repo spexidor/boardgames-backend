@@ -1,7 +1,7 @@
 package se.hiq.boardgamesbackend.survivor.gear;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import se.hiq.boardgamesbackend.dice.HitlocationType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.hiq.boardgamesbackend.survivor.Survivor;
 
 import javax.persistence.*;
@@ -24,6 +24,7 @@ public class GearGrid {
     private Survivor survivor;
 
     @OneToMany(cascade= CascadeType.ALL)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<Gear> gear;
 
     public GearGrid(){
@@ -35,6 +36,7 @@ public class GearGrid {
     }
 
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     //public int getMAX_GEAR() { return MAX_GEAR; }
 
@@ -43,4 +45,22 @@ public class GearGrid {
     public void setSurvivor(Survivor survivor) { this.survivor = survivor; }
 
     public List<Gear> getGear() { return gear; }
+
+
+
+    public int getWIDTH() {
+        return WIDTH;
+    }
+
+    public int getHEIGHT() {
+        return HEIGHT;
+    }
+
+    public int getMAX_GEAR() {
+        return MAX_GEAR;
+    }
+
+    public void setGear(List<Gear> gear) {
+        this.gear = gear;
+    }
 }

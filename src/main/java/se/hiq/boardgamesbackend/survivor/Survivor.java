@@ -1,7 +1,7 @@
 package se.hiq.boardgamesbackend.survivor;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import se.hiq.boardgamesbackend.dice.HitlocationType;
+import se.hiq.boardgamesbackend.survivor.gear.HitlocationType;
 import se.hiq.boardgamesbackend.showdown.Showdown;
 import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.board.MovementHelper;
@@ -24,8 +24,8 @@ public class Survivor {
     private Showdown showdown; //Parent showdown
 
     private String name;
-    private boolean isAlive;
-    private boolean knockedDown;
+    @Enumerated(EnumType.STRING)
+    private SurvivorStatus status;
 
     @OneToMany(cascade=CascadeType.ALL)
     private List<Hitlocation> hitlocations;
@@ -35,9 +35,10 @@ public class Survivor {
 
     private int activationsLeft;
     private int movesLeft;
+
     private int movement;
     private int survival;
-    private int insanity;
+    private int bleed;
 
     @OneToOne(mappedBy = "survivor", cascade=CascadeType.ALL)
     private GearGrid gearGrid;
@@ -52,7 +53,7 @@ public class Survivor {
 
     public Survivor(String s, Coordinate position) {
         this.name = s;
-        this.isAlive = true;
+        this.status = SurvivorStatus.ALIVE;
         this.activationsLeft = 1;
         this.movesLeft = 1;
         this.position = position;
@@ -60,9 +61,8 @@ public class Survivor {
         this.gearGrid = new GearGrid();
         this.gearGrid.setSurvivor(this);
         this.hitlocations = createHitLocations();
-        this.knockedDown = false;
         this.survival = 1;
-        this.insanity = 0;
+        this.bleed = 0;
     }
 
     private List<Hitlocation> createHitLocations() {
@@ -73,6 +73,7 @@ public class Survivor {
         hitlocations.add(new Hitlocation(HitlocationType.ARMS, this.gearGrid.getGear(), this));
         hitlocations.add(new Hitlocation(HitlocationType.LEGS, this.gearGrid.getGear(), this));
         hitlocations.add(new Hitlocation(HitlocationType.WAIST, this.gearGrid.getGear(), this));
+        hitlocations.add(new Hitlocation(HitlocationType.BRAIN, this.gearGrid.getGear(), this));
 
         return hitlocations;
     }
@@ -82,9 +83,6 @@ public class Survivor {
     }
     public String getName() {
         return name;
-    }
-    public boolean isAlive() {
-        return isAlive;
     }
     public int getActivationsLeft() {
         return activationsLeft;
@@ -96,20 +94,17 @@ public class Survivor {
     public int getSurvival() {
         return survival;
     }
-    public int getInsanity() {
-        return insanity;
-    }
     public GearGrid getGearGrid() { return gearGrid; }
     public void setId(Long id) { this.id = id; }
     public void setName(String name) { this.name = name; }
-    public void setAlive(boolean alive) { isAlive = alive; }
-    public void setKnockedDown(boolean knockedDown) { this.knockedDown = knockedDown; }
     public void setHitlocations(List<Hitlocation> hitlocations) { this.hitlocations = hitlocations; }
     public void setActivationsLeft(int activationsLeft) { this.activationsLeft = activationsLeft; }
     public void setMovement(int movement) { this.movement = movement; }
     public void setSurvival(int survival) { this.survival = survival; }
-    public void setInsanity(int insanity) { this.insanity = insanity; }
     public void setGearGrid(GearGrid gearGrid) { this.gearGrid = gearGrid; }
+
+    public int getBleed() { return bleed; }
+    public void setBleed(int bleed) { this.bleed = bleed; }
 
     public boolean validUpdate(Survivor newSurvivorState) {
 
@@ -151,16 +146,12 @@ public class Survivor {
     public void setShowdown(Showdown showdown) {
         this.showdown = showdown;
     }
-    public boolean isKnockedDown() {
-        return knockedDown;
-    }
 
     public void updateState(Survivor newState){
         System.out.println("Updating values in survivor, position: " +this.position +", id: " +this.id);
 
         this.name = newState.name;
-        this.isAlive = newState.isAlive;
-        this.knockedDown = newState.knockedDown;
+        this.status = newState.status;
         this.hitlocations = newState.hitlocations;
 
         this.activationsLeft = newState.activationsLeft;
@@ -168,11 +159,19 @@ public class Survivor {
         this.position = newState.position;
         this.movement = newState.movement;
         this.survival = newState.survival;
-        this.insanity = newState.insanity;
-        this.gearGrid = newState.gearGrid;
+        this.bleed = newState.bleed;
+        //this.gearGrid = newState.gearGrid; //read only in json, update with own controller
     }
 
     public List<Hitlocation> getHitlocations() {
         return hitlocations;
+    }
+
+    public SurvivorStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(SurvivorStatus status) {
+        this.status = status;
     }
 }

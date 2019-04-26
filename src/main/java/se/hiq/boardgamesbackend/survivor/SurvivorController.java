@@ -3,7 +3,8 @@ package se.hiq.boardgamesbackend.survivor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import se.hiq.boardgamesbackend.dice.DiceResult;
-import se.hiq.boardgamesbackend.dice.HitlocationType;
+import se.hiq.boardgamesbackend.showdown.ShowdownService;
+import se.hiq.boardgamesbackend.survivor.gear.HitlocationType;
 import se.hiq.boardgamesbackend.showdown.Showdown;
 import se.hiq.boardgamesbackend.showdown.ShowdownRepository;
 import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
@@ -24,7 +25,7 @@ public class SurvivorController {
     SurvivorRepository survivorRepository;
 
     @Autowired
-    ShowdownRepository showdownRepository;
+    private ShowdownService showdownService;
 
     @GetMapping("/survivor")
     public  @ResponseBody
@@ -37,6 +38,21 @@ public class SurvivorController {
         return survivorRepository.findById(id);
     }
 
+    @DeleteMapping("/survivor/{id}")
+    public void deleteSurvivorById(@PathVariable Long id, HttpServletResponse response){
+        Optional<Survivor> survivor = survivorRepository.findById(id);
+        if(survivor.isPresent()){
+
+            Optional<Showdown> showdown = showdownService.findById(survivor.get().getShowdown().getId());
+            showdown.get().getSurvivors().remove(survivor);
+            showdownService.save(showdown.get());
+            survivorRepository.deleteById(id);
+        }
+        else{
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+    }
+
     @GetMapping("/survivor/{id}/openMoves")
     public @ResponseBody
     List<Coordinate> coordinateList(@PathVariable long id, HttpServletResponse response) {
@@ -44,7 +60,7 @@ public class SurvivorController {
 
         if(optionalSurvivor.isPresent()) {
             if(optionalSurvivor.get().getShowdown()!=null) {
-                Optional<Showdown> showdown = showdownRepository.findById(optionalSurvivor.get().getShowdown().getId());
+                Optional<Showdown> showdown = showdownService.findById(optionalSurvivor.get().getShowdown().getId());
                 if(showdown.get().getId()!=null){
                     List<Survivor> survivors = showdown.get().getSurvivors();
                     //System.out.println("-----num survivors: " +survivors.size() +" in showdown " +showdown.get().getId());
@@ -83,7 +99,7 @@ public class SurvivorController {
     public  @ResponseBody
     Injury getSevereInjury(@RequestParam(value="table", defaultValue="head") String table) {
 
-        assert(table.equals("head") || table.equals("torso"));
+        assert(table.toUpperCase().equals("HEAD") || table.toUpperCase().equals("TORSO"));
 
         if(table.equals("head")) {
             return InjuryTable.randomHeadResult();

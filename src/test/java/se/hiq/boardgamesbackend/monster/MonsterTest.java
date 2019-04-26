@@ -15,8 +15,8 @@ public class MonsterTest {
 
     @Test
     public void newMonsterStatusTest(){
-        Showdown showdown1 = new Showdown();
-        Showdown showdown2 = new Showdown();
+        Showdown showdown1 = new Showdown("Monster Test 1");
+        Showdown showdown2 = new Showdown("Monster Test 2");
 
         Monster monster = showdown1.getMonster();
         Monster monsterStatusInvalid = showdown2.getMonster();
@@ -37,7 +37,7 @@ public class MonsterTest {
 
     @Test
     public void checkFacingTest(){
-        Showdown showdown = new Showdown();
+        Showdown showdown = new Showdown("Check facing test");
         Monster monster = showdown.getMonster();
         List<Survivor> survivors = showdown.getSurvivors();
 

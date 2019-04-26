@@ -10,7 +10,6 @@ import javax.persistence.*;
 public class Gear {
 
     @Id
-    @JsonIgnore
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 

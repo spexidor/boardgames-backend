@@ -34,9 +34,7 @@ public class Showdown {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Survivor> survivors;
 
-    //private Board board;
-
-    public Showdown(){
+    private Showdown(){
         this("AUTO-GEN");
     }
 
@@ -82,6 +80,8 @@ public class Showdown {
     */
 
     public Monster getMonster() { return monster; }
+
+    //public void setId(Long id) { this.id = id; }
 
     public Long getId() { return id; }
 

@@ -1,7 +1,6 @@
 package se.hiq.boardgamesbackend.survivor.gear;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import se.hiq.boardgamesbackend.dice.HitlocationType;
 import se.hiq.boardgamesbackend.survivor.Survivor;
 
 import javax.persistence.*;
@@ -11,7 +10,6 @@ import java.util.List;
 public class Hitlocation {
 
     @Id
-    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
@@ -35,6 +33,9 @@ public class Hitlocation {
     public Hitlocation(HitlocationType type, List<Gear> gearList, Survivor survivor){
 
         this.type = type;
+        if(type == HitlocationType.BRAIN){
+            this.lightInjury = true;
+        }
         for(Gear n: gearList){
             if(n instanceof Armour){
                 if(type == ((Armour) n).getType()){
@@ -42,17 +43,19 @@ public class Hitlocation {
                 }
             }
         }
+        this.lightInjury = true; //TODO: remove this
+        this.heavyInjury = true; //TODO: remove this
         this.survivor = survivor;
     }
 
     public long getId() {
         return id;
     }
+    public void setId(long id) { this.id = id; }
 
     public Survivor getSurvivor() {
         return survivor;
     }
-
     public void setSurvivor(Survivor survivor) {
         this.survivor = survivor;
     }
@@ -60,7 +63,6 @@ public class Hitlocation {
     public HitlocationType getType() {
         return type;
     }
-
     public void setType(HitlocationType type) {
         this.type = type;
     }
@@ -68,7 +70,6 @@ public class Hitlocation {
     public boolean isLightInjury() {
         return lightInjury;
     }
-
     public void setLightInjury(boolean lightInjury) {
         this.lightInjury = lightInjury;
     }
@@ -76,7 +77,6 @@ public class Hitlocation {
     public boolean isHeavyInjury() {
         return heavyInjury;
     }
-
     public void setHeavyInjury(boolean heavyInjury) {
         this.heavyInjury = heavyInjury;
     }
@@ -84,7 +84,6 @@ public class Hitlocation {
     public int getHitpoints() {
         return hitpoints;
     }
-
     public void setHitpoints(int hitpoints) {
         this.hitpoints = hitpoints;
     }

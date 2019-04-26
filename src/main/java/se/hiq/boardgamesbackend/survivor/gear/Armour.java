@@ -1,7 +1,5 @@
 package se.hiq.boardgamesbackend.survivor.gear;
 
-import se.hiq.boardgamesbackend.dice.HitlocationType;
-
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;

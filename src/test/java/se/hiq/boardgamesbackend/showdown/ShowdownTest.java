@@ -12,7 +12,7 @@ public class ShowdownTest {
 
     @Test
     public void newShowdown() {
-        Showdown showdown = new Showdown();
+        Showdown showdown = new Showdown("New showdown Test 1");
 
         assertNotNull(showdown);
         assertNotNull("Unable to get description", showdown.getDescription()); //default no description

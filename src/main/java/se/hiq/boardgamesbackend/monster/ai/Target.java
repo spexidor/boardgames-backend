@@ -3,6 +3,7 @@ package se.hiq.boardgamesbackend.monster.ai;
 import se.hiq.boardgamesbackend.board.MovementHelper;
 import se.hiq.boardgamesbackend.monster.Monster;
 import se.hiq.boardgamesbackend.survivor.Survivor;
+import se.hiq.boardgamesbackend.survivor.SurvivorStatus;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -84,7 +85,7 @@ public class Target {
 
 
         //Threat
-        if(this.threat && chosenSurvivor.isKnockedDown()){
+        if(this.threat && chosenSurvivor.getStatus() == SurvivorStatus.KNOCKED_DOWN){
             System.out.println("Target (" +chosenSurvivor.getName() +") not threat");
             return false;
         }
@@ -102,7 +103,7 @@ public class Target {
         }
 
         //Knocked down
-        if(this.knockedDown && !chosenSurvivor.isKnockedDown()){
+        if(this.knockedDown && chosenSurvivor.getStatus() == SurvivorStatus.KNOCKED_DOWN){
             System.out.println("Target (" +chosenSurvivor.getName() +") not knocked down");
             return false;
         }
@@ -113,27 +114,11 @@ public class Target {
             return false;
         }
 
-        //Closest - Refers to closest in case of tie, so only compare with other valid targets
-        if(this.closest && !chosenSurvivorClosestTarget(monster, survivors, chosenSurvivor)){
-            System.out.println("Target (" +chosenSurvivor.getName() +") not closest");
-            return false;
-        }
+        /**
+         ** NOTE: 'this.closest' Refers to closest in case of multiple valid targets, so need to find all
+         **        valid targets first and then check if closest applies.
+         **/
 
-        return true;
-    }
-
-    private boolean chosenSurvivorClosestTarget(Monster monster, List<Survivor> survivors, Survivor chosenSurvivor) {
-        return true;
-    }
-    private boolean chosenSurvivorClosest(Monster monster, List<Survivor> survivors, Survivor chosenSurvivor) {
-        int distance = MovementHelper.distance(chosenSurvivor.getPosition(), monster.getBaseCoordinates());
-        //System.out.println("Evaluating "+chosenSurvivor.getName() +" as closest survivor. Distance is " +distance);
-        for(Survivor s: survivors){
-            //System.out.println("Checking if " +s.getName() +" is closer. " +MovementHelper.distance(s.getPosition(), monster.getBaseCoordinates()));
-            if(MovementHelper.distance(s.getPosition(), monster.getBaseCoordinates()) < distance){
-                return false;
-            }
-        }
         return true;
     }
 
@@ -210,4 +195,5 @@ public class Target {
     public void setId(long id) {
         this.id = id;
     }
+
 }

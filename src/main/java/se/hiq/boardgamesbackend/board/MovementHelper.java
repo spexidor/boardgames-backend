@@ -4,6 +4,7 @@ import se.hiq.boardgamesbackend.board.Board;
 import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.monster.Monster;
 import se.hiq.boardgamesbackend.survivor.Survivor;
+import se.hiq.boardgamesbackend.survivor.SurvivorStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +14,16 @@ public class MovementHelper {
 
         List<Coordinate> coordinateList = new ArrayList<>();
         coordinateList.add(new Coordinate(survivor.getPosition())); //current position
-        if(survivor.getMovesLeft() > 0) {
+        if(survivor.getMovesLeft() > 0 && !deadOrKnockedDown(survivor)) {
             addSteps(coordinateList, survivor.getMovement(), monster, survivors);
             removeInvalidMovements(coordinateList, monster, survivors); //remove monster and all survivor coordinates
             coordinateList.add(new Coordinate(survivor.getPosition())); //... then add back own position
         }
         return coordinateList;
+    }
+
+    private static boolean deadOrKnockedDown(Survivor survivor){
+        return (survivor.getStatus() == SurvivorStatus.DEAD || survivor.getStatus() == SurvivorStatus.KNOCKED_DOWN);
     }
 
     public static List<Coordinate> getMonsterMovement(Monster monster){
@@ -195,4 +200,17 @@ public class MovementHelper {
         return Math.abs(c1.getX()-c2.getX())+Math.abs(c1.getY()-c2.getY());
     }
 
+    public static boolean survivorClosestToMonster(Monster monster, List<Survivor> survivors, Survivor chosenSurvivor) {
+
+        //Get distance between choseSurvivor and Monster
+        int distance = distance(chosenSurvivor.getPosition(), monster.getBaseCoordinates());
+
+        //Check all survivors. If any distance is shorter, chosen survivor is not closest
+        for(Survivor s: survivors){
+            if(MovementHelper.distance(s.getPosition(), monster.getBaseCoordinates()) < distance){
+                return false;
+            }
+        }
+        return true;
+    }
 }

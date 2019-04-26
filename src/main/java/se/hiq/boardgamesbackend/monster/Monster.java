@@ -199,12 +199,32 @@ public class Monster {
                 }
             }
 
-            if(validTargets.size() > 0){
-                break;
+            if(validTargets.size() > 1){
+                if(targetOption.isClosest()){
+                    List<Survivor> closestValidTargets = new ArrayList<>();
+
+                    for(Survivor s: validTargets){
+                        if(MovementHelper.survivorClosestToMonster(this, validTargets, s)){
+                            closestValidTargets.add(s);
+                        }
+                    }
+                    return closestValidTargets;
+                }
+                else {
+                    break;
+                }
             }
         }
 
         return validTargets;
+    }
+
+    public void setHlDeck(HLDeck hlDeck) {
+        this.hlDeck = hlDeck;
+    }
+
+    public void setStatline(MonsterStatline statline) {
+        this.statline = statline;
     }
 
     public boolean facingSurvivor(Survivor survivor) {

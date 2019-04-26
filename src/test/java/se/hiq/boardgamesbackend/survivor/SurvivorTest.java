@@ -16,7 +16,7 @@ public class SurvivorTest {
         assertNotNull("Survivor null", survivor);
         //assertEquals(21, survivor.getMovementOptions(new Board()).size());
 
-        Showdown showdown = new Showdown();
+        Showdown showdown = new Showdown("Create survivor Test 1");
         List<Survivor> survivors = showdown.getSurvivors();
         Survivor survivor1 = survivors.get(0);
         survivor1.setMovesLeft(0);
