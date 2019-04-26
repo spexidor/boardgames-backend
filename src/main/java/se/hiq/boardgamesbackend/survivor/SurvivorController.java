@@ -44,7 +44,8 @@ public class SurvivorController {
         if(survivor.isPresent()){
 
             Optional<Showdown> showdown = showdownService.findById(survivor.get().getShowdown().getId());
-            showdown.get().getSurvivors().remove(survivor);
+            showdown.get().removeSurvivorById(id);
+
             showdownService.save(showdown.get());
             survivorRepository.deleteById(id);
         }

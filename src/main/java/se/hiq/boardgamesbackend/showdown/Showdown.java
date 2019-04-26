@@ -145,4 +145,18 @@ public class Showdown {
             this.gameStatus = newShowdownState.gameStatus;
         }
     }
+
+    public boolean removeSurvivorById(Long id){
+        Survivor toRemove =null;
+        boolean found = false;
+        for(Survivor s:this.survivors){
+            if(s.getId()==id){
+                toRemove = s;
+                found = true;
+                break;
+            }
+        }
+        this.survivors.remove(toRemove);
+        return found;
+    }
 }

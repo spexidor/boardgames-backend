@@ -199,23 +199,19 @@ public class Monster {
                 }
             }
 
-            if(validTargets.size() > 1){
-                if(targetOption.isClosest()){
-                    List<Survivor> closestValidTargets = new ArrayList<>();
-
-                    for(Survivor s: validTargets){
-                        if(MovementHelper.survivorClosestToMonster(this, validTargets, s)){
-                            closestValidTargets.add(s);
-                        }
+            if(validTargets.size() > 1 && targetOption.isClosest() ){
+                List<Survivor> closestValidTargets = new ArrayList<>();
+                for(Survivor s: validTargets){
+                    if(MovementHelper.survivorClosestToMonster(this, validTargets, s)){
+                        closestValidTargets.add(s);
                     }
-                    return closestValidTargets;
                 }
-                else {
-                    break;
-                }
+                return closestValidTargets;
+            }
+            else if(validTargets.size() > 0) { //target found
+                break;
             }
         }
-
         return validTargets;
     }
 
