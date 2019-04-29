@@ -7,7 +7,6 @@ public class InjuryTable {
     public static Injury randomHeadResult(){
         Injury injury;
         DiceResult diceResult = new DiceResult(10);
-        diceResult.setResult(1); //TODO: remove this
 
         switch (diceResult.getResult()) {
             case 1:

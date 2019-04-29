@@ -20,6 +20,11 @@ public class ShowdownController {
         return showdownService.findAll();
     }
 
+    @GetMapping("/showdown/latest")
+    public  @ResponseBody Showdown getLatestShowdown() {
+        return showdownService.getLatest();
+    }
+
     @GetMapping("/showdown/template")
     public  @ResponseBody Showdown getShowdownTemplate() {
         return new Showdown("Sample showdown");

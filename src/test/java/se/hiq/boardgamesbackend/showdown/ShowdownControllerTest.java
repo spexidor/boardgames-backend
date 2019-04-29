@@ -38,6 +38,15 @@ public class ShowdownControllerTest {
     }
 
     @Test
+    public void getLatestShowdownTest() {
+        Showdown showdown = restTemplate.getForObject("/showdown/latest", Showdown.class);
+        System.out.println("Loaded showdown");
+        System.out.println("Showdown, description=" +showdown.getDescription());
+
+        assertNotNull(showdown);
+    }
+
+    @Test
     public void getShowdownByIdTest() {
         Showdown showdown = restTemplate.getForObject("/showdown/100", Showdown.class);
         System.out.println("Loaded showdown");

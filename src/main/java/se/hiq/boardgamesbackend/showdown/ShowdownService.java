@@ -21,4 +21,8 @@ public class ShowdownService {
 
     public Showdown save(Showdown showdown){ return showdownRepository.save(showdown);
     }
+
+    public Showdown getLatest() {
+        return showdownRepository.findLatest();
+    }
 }

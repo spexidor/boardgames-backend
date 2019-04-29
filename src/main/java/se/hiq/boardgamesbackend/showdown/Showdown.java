@@ -13,7 +13,7 @@ import java.util.List;
 public class Showdown {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private Long id;
 
     private String description;
