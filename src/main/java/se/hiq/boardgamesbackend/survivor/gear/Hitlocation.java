@@ -43,8 +43,6 @@ public class Hitlocation {
                 }
             }
         }
-        this.lightInjury = true; //TODO: remove this
-        this.heavyInjury = true; //TODO: remove this
         this.survivor = survivor;
     }
 

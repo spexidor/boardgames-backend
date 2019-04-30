@@ -1,34 +1,30 @@
 package se.hiq.boardgamesbackend.monster.ai;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.Entity;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "hl_card")
 public class HLCard extends Card{
-    public boolean hasReaction;
+    public boolean hasReflex;
     public boolean hasFailure;
     public boolean hasWound;
     public boolean trap;
 
-    public HLCard(){
+    private HLCard(){
         this("AUTO-GEN HLCARD", false, false, false, false);
     }
-    public HLCard(String title, boolean hasReaction, boolean hasFailure, boolean hasWound, boolean trap){
+    public HLCard(String title, boolean hasReflex, boolean hasFailure, boolean hasWound, boolean trap){
 
         this.title = title;
-        this.hasReaction = hasReaction;
+        this.hasReflex = hasReflex;
         this.hasFailure = hasFailure;
         this.hasWound = hasWound;
         this.trap = trap;
     }
 
-    public boolean isHasReaction() {
-        return hasReaction;
+    public boolean isHasReflex() {
+        return hasReflex;
     }
 
     public boolean isHasFailure() {

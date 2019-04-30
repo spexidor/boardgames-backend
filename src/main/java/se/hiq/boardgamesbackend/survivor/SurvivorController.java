@@ -100,10 +100,27 @@ public class SurvivorController {
     public  @ResponseBody
     Injury getSevereInjury(@RequestParam(value="table", defaultValue="head") String table) {
 
-        assert(table.toUpperCase().equals("HEAD") || table.toUpperCase().equals("TORSO"));
+        assert( table.toUpperCase().equals("HEAD") || table.toUpperCase().equals("BODY")  ||
+                table.toUpperCase().equals("ARMS")  || table.toUpperCase().equals("LEGS")  ||
+                table.toUpperCase().equals("WAIST")  || table.toUpperCase().equals("BRAIN"));
 
         if(table.equals("head")) {
             return InjuryTable.randomHeadResult();
+        }
+        else if(table.equals("body")){
+            return InjuryTable.randomBodyResult();
+        }
+        else if(table.equals("legs")){
+            return InjuryTable.randomLegsResult();
+        }
+        else if(table.equals("arms")){
+            return InjuryTable.randomArmsResult();
+        }
+        else if(table.equals("waist")){
+            return InjuryTable.randomWaistResult();
+        }
+        else if(table.equals("brain")){
+            return InjuryTable.randomBrainResult();
         }
         else{
             return null;

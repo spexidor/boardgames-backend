@@ -31,10 +31,12 @@ public class AICardBuilder {
                 Attack a3a = new Attack(1, 4, monsterLevel);
                 a3a.setIgnoreEvasion(true);
                 a3a.setBrainDamage(true);
+                a3a.setReach(-1);
                 a3a.setTrigger(new Trigger(false, true));
                 TriggerEffect a3te = new TriggerEffect();
                 a3te.setKnockDown(true);
                 AICard a3 = new AICard(title, a3t, a3a);
+                a3.setNoMove(true);
             return a3;
 
             case "Grasp":

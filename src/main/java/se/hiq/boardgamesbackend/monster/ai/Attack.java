@@ -20,6 +20,7 @@ public class Attack {
     private int damage;
     private boolean brainDamage;
     private boolean ignoreEvasion;
+    private int reach; // -1 for unlimited
 
     @OneToOne(cascade = CascadeType.ALL)
     private Trigger trigger;
@@ -35,6 +36,7 @@ public class Attack {
         this.speed = speed;
         this.toHitValue = toHitValue;
         this.damage = damage;
+        this.reach = 1;
     }
 
     public int getSpeed() {
@@ -84,4 +86,16 @@ public class Attack {
     public void setTriggerEffect(TriggerEffect triggerEffect) {
         this.triggerEffect = triggerEffect;
     }
+
+    public AICard getAiCard() { return aiCard; }
+
+    public void setSpeed(int speed) { this.speed = speed; }
+
+    public void setToHitValue(int toHitValue) { this.toHitValue = toHitValue; }
+
+    public void setDamage(int damage) { this.damage = damage; }
+
+    public int getReach() { return reach; }
+
+    public void setReach(int reach) { this.reach = reach; }
 }

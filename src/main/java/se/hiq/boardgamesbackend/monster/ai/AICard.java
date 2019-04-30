@@ -14,6 +14,8 @@ public class AICard extends Card{
     @OneToOne(cascade=CascadeType.ALL)
     private Attack attack;
 
+    private boolean noMove;
+
     public AICard(){
         this("AUTO-GEN AICARD", new TargetRule(), new Attack());
     }
@@ -39,5 +41,13 @@ public class AICard extends Card{
 
     public void setAttack(Attack attack) {
         this.attack = attack;
+    }
+
+    public boolean isNoMove() {
+        return noMove;
+    }
+
+    public void setNoMove(boolean noMove) {
+        this.noMove = noMove;
     }
 }
