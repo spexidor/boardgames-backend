@@ -83,6 +83,14 @@ public class SurvivorControllerTest {
     }
 
     @Test
+    public void getSevereInjuryBodyTest(){
+        Injury bodyInjury = restTemplate.getForObject("/survivor/injury?table=body", Injury.class);
+        System.out.println(bodyInjury.getTitle());
+        assertNotNull("null injury returned", bodyInjury);
+        assertEquals("Body", bodyInjury.getLocation());
+    }
+
+    @Test
     public void updatePostedSurvivorTest(){
         ResponseEntity<Showdown> response = restTemplate.postForEntity("/showdown", "post from updatePostedSurvivorTest", Showdown.class);
         assertEquals(200, response.getStatusCode().value());

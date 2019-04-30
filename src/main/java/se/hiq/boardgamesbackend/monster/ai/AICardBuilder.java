@@ -1,6 +1,5 @@
 package se.hiq.boardgamesbackend.monster.ai;
 
-//Test
 public class AICardBuilder {
 
     public static AICard getCardByName(String title, int monsterLevel){

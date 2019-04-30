@@ -23,11 +23,34 @@ public class InjuryTable {
     }
 
     public static Injury randomBodyResult(){
-        return randomHeadResult();
+        DiceResult diceResult = new DiceResult(10);
+
+        switch (diceResult.getResult()) {
+            case 1:
+            case 2:
+                return new Injury("Instant Death", "Body", true, 0);
+            case 3:
+                return new Injury("Bleeding", "Body", false, 2);
+            case 4:
+                return new Injury("Gaping chest wound", "Body", false, 1);
+            case 5:
+                return new Injury("Destroyed back", "Body", false, 1);
+            case 6:
+                return new Injury("Disemboweled", "Body", false, 1);
+            case 7:
+                return new Injury("Raptured spleen", "Body", false, 2);
+            case 8:
+                return new Injury("Broken rib", "Body", false, 1);
+            case 9:
+                return new Injury("Collapsed lung", "Body", false, 1);
+            case 10:
+                return new Injury("Bowled over", "Body", false, 0, true);
+            default:
+                throw new RuntimeException("Unexpected dice result: " + diceResult.getResult() + "(expected 1-10)");
+        }
     }
 
     public static Injury randomArmsResult() {
-
         DiceResult diceResult = new DiceResult(10);
 
         switch (diceResult.getResult()) {
