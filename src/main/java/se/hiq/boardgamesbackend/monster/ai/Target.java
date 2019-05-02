@@ -103,7 +103,7 @@ public class Target {
         }
 
         //Knocked down
-        if(this.knockedDown && chosenSurvivor.getStatus() == SurvivorStatus.KNOCKED_DOWN){
+        if(this.knockedDown && chosenSurvivor.getStatus() != SurvivorStatus.KNOCKED_DOWN){
             System.out.println("Target (" +chosenSurvivor.getName() +") not knocked down");
             return false;
         }

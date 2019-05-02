@@ -1,9 +1,6 @@
 package se.hiq.boardgamesbackend.monster.ai;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class TriggerEffect {
@@ -18,7 +15,12 @@ public class TriggerEffect {
     private boolean knockDown;
     private boolean grab;
 
+    @OneToOne(cascade=CascadeType.ALL)
+    private Move move;
+
     public TriggerEffect() {
+        this.move = new Move();
+        this.move.setTriggerEffect(this);
     }
 
     public int getBleed() {
@@ -59,5 +61,13 @@ public class TriggerEffect {
 
     public void setGrab(boolean grab) {
         this.grab = grab;
+    }
+
+    public Move getMove() {
+        return move;
+    }
+
+    public void setMove(Move move) {
+        this.move = move;
     }
 }

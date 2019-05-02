@@ -1,7 +1,7 @@
 package se.hiq.boardgamesbackend.survivor;
 
 public enum SurvivorStatus {
-    ALIVE,
+    STANDING,
     DEAD,
     KNOCKED_DOWN
 }

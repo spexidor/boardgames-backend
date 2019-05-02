@@ -46,12 +46,19 @@ public class AICardBuilder {
                 Target a4t2 = new Target(true);
                 a4t2.setInRange(true);
                 TargetRule a4t = new TargetRule(a4t1, a4t2);
+
                 Attack a4a = new Attack(1, 2, 1);
                 a4a.setTrigger(new Trigger(true, false));
                 TriggerEffect a4te = new TriggerEffect();
                 a4te.setDamage(monsterLevel);
+                a4te.setKnockDown(true);
                 a4te.setGrab(true);
+                Move tmpMove = new Move();
+                tmpMove.setDirection(Direction.AWAY_FROM_THREATS);
+                tmpMove.setFullMove(true);
+                a4te.setMove(tmpMove);
                 a4a.setTriggerEffect(a4te);
+
                 AICard a4 = new AICard(title, a4t, a4a);
             return a4;
             default: return null;

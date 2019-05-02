@@ -30,6 +30,7 @@ public class Monster {
 
     private boolean activatedThisTurn;
     private int level;
+    private Long lastWoundedBy;
 
     @OneToOne
     @MapsId
@@ -57,6 +58,7 @@ public class Monster {
         this.hlDeck = new HLDeck();
         this.hlDeck.setMonster(this);
         this.level = 1;
+        this.lastWoundedBy = -1L;
     }
 
     public Long getId() {
@@ -240,5 +242,13 @@ public class Monster {
         else {
             throw new RuntimeException("Facing not set in monster " +this.id);
         }
+    }
+
+    public Long getLastWoundedBy() {
+        return lastWoundedBy;
+    }
+
+    public void setLastWoundedBy(Long lastWoundedBy) {
+        this.lastWoundedBy = lastWoundedBy;
     }
 }

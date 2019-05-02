@@ -53,7 +53,7 @@ public class Survivor {
 
     public Survivor(String s, Coordinate position) {
         this.name = s;
-        this.status = SurvivorStatus.ALIVE;
+        this.status = SurvivorStatus.STANDING;
         this.activationsLeft = 1;
         this.movesLeft = 1;
         this.position = position;

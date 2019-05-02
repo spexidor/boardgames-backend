@@ -45,6 +45,7 @@ public class Showdown {
         this.monster.setShowdown(this);
         this.survivors = createSurvivors();
         this.turn = 1;
+        this.act = Act.MONSTERS; //monster go first
     }
 
     private List<Survivor> createSurvivors() {
@@ -143,6 +144,10 @@ public class Showdown {
         if(newShowdownState.gameStatus != null){
             System.out.println("new status: " +newShowdownState.gameStatus);
             this.gameStatus = newShowdownState.gameStatus;
+        }
+        if(newShowdownState.act != null){
+            System.out.println("new act: " +newShowdownState.act);
+            this.act = newShowdownState.act;
         }
     }
 
