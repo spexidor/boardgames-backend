@@ -28,15 +28,18 @@ public class MovementHelper {
 
     public static List<Coordinate> getMonsterMovement(Monster monster){
 
+        return getMonsterMovement(monster, monster.getStatline().getMovement());
+    }
+
+    public static List<Coordinate> getMonsterMovement(Monster monster, int maxLength) {
+
         List<Coordinate> coordinateList = new ArrayList<>();
         coordinateList.add(new Coordinate(monster.getPosition()));
-        //System.out.println(("Calculating moves for monster with move " +monster.getMonsterStatline().getMovement()));
 
-        addSteps(coordinateList, monster.getStatline().getMovement());
-        //removeCoordinate(coordinateList, monster.getPosition());
-
+        addSteps(coordinateList, maxLength);
         return coordinateList;
     }
+
 
     public static void addSteps(List<Coordinate> coordinateList, int movement, Monster monster, List<Survivor> survivors){
         List<Coordinate> newCoordinates = new ArrayList<>();
@@ -183,7 +186,7 @@ public class MovementHelper {
     }
 
     /**
-     **   Returns closest distance between and and several coordinates
+     **   Returns closest distance between one and several coordinates
      **/
     public static int distance(Coordinate coordinate, List<Coordinate> coordinates){
         int min = Integer.MAX_VALUE;

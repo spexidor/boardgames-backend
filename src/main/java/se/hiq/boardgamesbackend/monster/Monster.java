@@ -2,15 +2,14 @@ package se.hiq.boardgamesbackend.monster;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import se.hiq.boardgamesbackend.monster.ai.AIDeck;
-import se.hiq.boardgamesbackend.monster.ai.HLDeck;
-import se.hiq.boardgamesbackend.monster.ai.Target;
-import se.hiq.boardgamesbackend.monster.ai.TargetRule;
+import se.hiq.boardgamesbackend.board.Board;
+import se.hiq.boardgamesbackend.monster.ai.*;
 import se.hiq.boardgamesbackend.showdown.Showdown;
 import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.board.MovementHelper;
 import se.hiq.boardgamesbackend.monster.types.TestLion;
 import se.hiq.boardgamesbackend.survivor.Survivor;
+import se.hiq.boardgamesbackend.survivor.SurvivorStatus;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class Monster {
     private HLDeck hlDeck;
 
     @Transient
-    public MonsterStatline statline;
+    private MonsterStatline statline;
 
     public Monster(){
         this.position = new Coordinate(6, 1);
@@ -63,6 +62,10 @@ public class Monster {
 
     public Long getId() {
         return id;
+    }
+
+    public List<Coordinate> movementOptions(int maxLength){
+        return MovementHelper.getMonsterMovement(this, maxLength);
     }
 
     public List<Coordinate> movementOptions(){
@@ -135,9 +138,19 @@ public class Monster {
     }
 
     public List<Coordinate> getBaseCoordinates() {
-        List<Coordinate> baseCoordinates = new ArrayList<>();
         int x = this.position.getX();
         int y = this.position.getY();
+
+        return getBaseCoordinates(new Coordinate(x, y));
+    }
+
+    /*
+     Base coordinates if monster is in c
+     */
+    private List<Coordinate> getBaseCoordinates(Coordinate c){
+        List<Coordinate> baseCoordinates = new ArrayList<>();
+        int x = c.getX();
+        int y = c.getY();
 
         for(int i=0;i<this.statline.width; i++){
             for(int j=0;j<this.statline.height; j++){
@@ -160,6 +173,10 @@ public class Monster {
         if(newMonsterStatus.statline != null){
             System.out.println("new statline: " +newMonsterStatus.statline);
             this.statline = newMonsterStatus.statline;
+        }
+        if(newMonsterStatus.lastWoundedBy != -1){
+            System.out.println("new lastWoundedBy: " +newMonsterStatus.lastWoundedBy);
+            this.lastWoundedBy = newMonsterStatus.lastWoundedBy;
         }
     }
 
@@ -250,5 +267,56 @@ public class Monster {
 
     public void setLastWoundedBy(Long lastWoundedBy) {
         this.lastWoundedBy = lastWoundedBy;
+    }
+
+    public List<Coordinate> awayFromThreatsMovement(int length) {
+
+        List<Coordinate> openMoves = this.movementOptions(length);
+        List<Coordinate> furthestCoordinates = new ArrayList<>();
+
+        int maxDist = 0;
+        int tempDist = 0;
+
+        for(Coordinate c: openMoves){
+            //System.out.println("Checking distance between " +c +" and threats");
+            for(Survivor s: this.getShowdown().getSurvivors()){
+                if(s.getStatus().equals(SurvivorStatus.STANDING)){
+                    //System.out.println(s +" is a threat, distance to monster in C is " +MovementHelper.distance(s.getPosition(), this.getBaseCoordinates(c)));
+                    tempDist = tempDist + MovementHelper.distance(s.getPosition(), this.getBaseCoordinates(c));
+                }
+                //System.out.println("Total distance in " +c +" to threats is " +tempDist);
+            }
+            if(tempDist > maxDist){
+                //System.out.println(tempDist +" is furthest, clearing array");
+                maxDist = tempDist;
+
+                furthestCoordinates = new ArrayList<>();
+                furthestCoordinates.add(c);
+            }
+            else if(tempDist == maxDist){
+                //System.out.println(tempDist +" is equally good, adding to array");
+                furthestCoordinates.add(c);
+            }
+            tempDist = 0;
+        }
+
+        return furthestCoordinates;
+    }
+
+    public List<Coordinate> specificMove(Direction direction, int length) {
+        if(direction.equals(Direction.AWAY_FROM_THREATS)){
+            return awayFromThreatsMovement(length);
+        }
+        else if(direction.equals(Direction.FORWARD)){
+            //TODO: implement
+            return null;
+        }
+        else if(direction.equals(Direction.BACKWARDS)){
+            //TODO: implement
+            return null;
+        }
+        else{
+            throw new RuntimeException("Unknown direction: " +direction);
+        }
     }
 }

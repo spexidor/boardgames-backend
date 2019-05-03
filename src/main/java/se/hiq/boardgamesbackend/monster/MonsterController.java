@@ -1,8 +1,10 @@
 package se.hiq.boardgamesbackend.monster;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
+import se.hiq.boardgamesbackend.monster.ai.Direction;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -34,9 +36,22 @@ public class MonsterController {
     @GetMapping("/monster/{id}/openMoves")
     public @ResponseBody
     List<Coordinate> getMonsterOpenMoves(@PathVariable long id, HttpServletResponse response) {
-        Optional<Monster> monsterStatus = monsterRepository.findById(id);
-        if(monsterStatus.isPresent()) {
-            return monsterStatus.get().movementOptions();
+        Optional<Monster> monster = monsterRepository.findById(id);
+        if(monster.isPresent()) {
+            return monster.get().movementOptions();
+        }
+        else {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return null;
+        }
+    }
+
+    @GetMapping("/monster/{id}/specificMove")
+    public @ResponseBody
+    List<Coordinate> getMonsterMovesAwayFromThreat(@PathVariable long id, @RequestParam(value="direction", defaultValue="FORWARD") Direction direction, @RequestParam(value="length", defaultValue="0") int length, HttpServletResponse response) {
+        Optional<Monster> monster = monsterRepository.findById(id);
+        if(monster.isPresent()) {
+            return monster.get().specificMove(direction, length);
         }
         else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);

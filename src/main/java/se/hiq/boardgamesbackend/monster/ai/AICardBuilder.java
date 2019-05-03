@@ -1,5 +1,7 @@
 package se.hiq.boardgamesbackend.monster.ai;
 
+import se.hiq.boardgamesbackend.survivor.gear.HitlocationType;
+
 public class AICardBuilder {
 
     public static AICard getCardByName(String title, int monsterLevel){
@@ -30,7 +32,7 @@ public class AICardBuilder {
                 TargetRule a3t = new TargetRule(a3t1);
                 Attack a3a = new Attack(1, 4, monsterLevel);
                 a3a.setIgnoreEvasion(true);
-                a3a.setBrainDamage(true);
+                a3a.setTargetLocation(HitlocationType.BRAIN);
                 a3a.setReach(-1);
                 a3a.setTrigger(new Trigger(false, true));
                 TriggerEffect a3te = new TriggerEffect();
@@ -50,12 +52,10 @@ public class AICardBuilder {
                 Attack a4a = new Attack(1, 2, 1);
                 a4a.setTrigger(new Trigger(true, false));
                 TriggerEffect a4te = new TriggerEffect();
-                a4te.setDamage(monsterLevel);
-                a4te.setKnockDown(true);
                 a4te.setGrab(true);
                 Move tmpMove = new Move();
                 tmpMove.setDirection(Direction.AWAY_FROM_THREATS);
-                tmpMove.setFullMove(true);
+                tmpMove.setLength(100); //full move. TODO: Better solution?
                 a4te.setMove(tmpMove);
                 a4a.setTriggerEffect(a4te);
 

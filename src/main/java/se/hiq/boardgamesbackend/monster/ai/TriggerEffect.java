@@ -19,8 +19,6 @@ public class TriggerEffect {
     private Move move;
 
     public TriggerEffect() {
-        this.move = new Move();
-        this.move.setTriggerEffect(this);
     }
 
     public int getBleed() {

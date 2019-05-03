@@ -1,6 +1,7 @@
 package se.hiq.boardgamesbackend.monster.ai;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import se.hiq.boardgamesbackend.survivor.gear.HitlocationType;
 
 import javax.persistence.*;
 
@@ -18,9 +19,11 @@ public class Attack {
     private int speed;
     private int toHitValue;
     private int damage;
-    private boolean brainDamage;
     private boolean ignoreEvasion;
     private int reach; // -1 for unlimited
+
+    @Enumerated(EnumType.STRING)
+    private HitlocationType targetLocation;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Trigger trigger;
@@ -53,14 +56,6 @@ public class Attack {
 
     public void setAiCard(AICard aiCard) {
         this.aiCard = aiCard;
-    }
-
-    public boolean isBrainDamage() {
-        return brainDamage;
-    }
-
-    public void setBrainDamage(boolean brainDamage) {
-        this.brainDamage = brainDamage;
     }
 
     public boolean isIgnoreEvasion() {
@@ -98,4 +93,12 @@ public class Attack {
     public int getReach() { return reach; }
 
     public void setReach(int reach) { this.reach = reach; }
+
+    public HitlocationType getTargetLocation() {
+        return targetLocation;
+    }
+
+    public void setTargetLocation(HitlocationType targetLocation) {
+        this.targetLocation = targetLocation;
+    }
 }

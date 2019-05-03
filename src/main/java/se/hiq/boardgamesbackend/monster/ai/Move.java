@@ -13,7 +13,6 @@ public class Move {
 
     @Enumerated(EnumType.STRING)
     private Direction direction;
-    private boolean fullMove;
     private int length;
 
     @JsonIgnore
@@ -35,14 +34,6 @@ public class Move {
 
     public void setDirection(Direction direction) {
         this.direction = direction;
-    }
-
-    public boolean isFullMove() {
-        return fullMove;
-    }
-
-    public void setFullMove(boolean fullMove) {
-        this.fullMove = fullMove;
     }
 
     public int getLength() {
