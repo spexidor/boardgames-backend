@@ -64,7 +64,7 @@ public class Showdown {
             if(n==3){
                 name = "Zachary";
             }
-            Survivor survivor = new Survivor(name, new Coordinate(n+5, 0));
+            Survivor survivor = new Survivor(name, new Coordinate(n+5, 2));
             survivor.setShowdown(this);
             survivors.add(survivor);
 

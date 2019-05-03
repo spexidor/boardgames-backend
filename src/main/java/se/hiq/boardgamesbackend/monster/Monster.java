@@ -48,7 +48,7 @@ public class Monster {
     private MonsterStatline statline;
 
     public Monster(){
-        this.position = new Coordinate(6, 1);
+        this.position = new Coordinate(6, 3);
         this.facing = Facing.UP;
         this.statline = new TestLion();
         this.activatedThisTurn = false;

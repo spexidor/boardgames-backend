@@ -27,18 +27,18 @@ public class Survivor {
     @Enumerated(EnumType.STRING)
     private SurvivorStatus status;
 
-    @OneToMany(cascade=CascadeType.ALL)
-    private List<Hitlocation> hitlocations;
+    private int activationsLeft;
+    private int movesLeft;
 
     @ManyToOne//(cascade=CascadeType.ALL)
     private Coordinate position;
 
-    private int activationsLeft;
-    private int movesLeft;
-
     private int movement;
     private int survival;
     private int bleed;
+
+    @OneToMany(cascade=CascadeType.ALL)
+    private List<Hitlocation> hitlocations;
 
     @OneToOne(mappedBy = "survivor", cascade=CascadeType.ALL)
     private GearGrid gearGrid;
