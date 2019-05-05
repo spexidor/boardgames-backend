@@ -39,6 +39,7 @@ public class AICardBuilder {
                 a3a.setTrigger(new Trigger(false, true));
                 CardEffect a3te = new CardEffect();
                 a3te.setKnockDown(true);
+                a3a.setCardEffect(a3te);
                 AICard a3 = new AICard(title, a3t, a3a);
                 a3.setNoMove(true);
                 a3.setDeck(deck);

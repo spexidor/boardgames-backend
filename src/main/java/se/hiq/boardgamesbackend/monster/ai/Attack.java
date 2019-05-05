@@ -101,4 +101,5 @@ public class Attack {
     public void setTargetLocation(HitlocationType targetLocation) {
         this.targetLocation = targetLocation;
     }
+
 }
