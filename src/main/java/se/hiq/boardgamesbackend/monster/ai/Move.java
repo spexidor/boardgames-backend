@@ -8,17 +8,26 @@ import javax.persistence.*;
 public class Move {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(EnumType.STRING)
     private Direction direction;
     private int length;
+    private boolean fullMove;
 
     @JsonIgnore
     @OneToOne
-    private TriggerEffect triggerEffect;
+    private CardEffect cardEffect;
 
+    private Move() {
+    }
+
+    public Move(Direction direction, boolean fullMove, CardEffect cardEffect) {
+        this.direction = direction;
+        this.fullMove = fullMove;
+        this.cardEffect = cardEffect;
+    }
 
     public Long getId() {
         return id;
@@ -44,11 +53,19 @@ public class Move {
         this.length = length;
     }
 
-    public TriggerEffect getTriggerEffect() {
-        return triggerEffect;
+    public CardEffect getCardEffect() {
+        return cardEffect;
     }
 
-    public void setTriggerEffect(TriggerEffect triggerEffect) {
-        this.triggerEffect = triggerEffect;
+    public void setCardEffect(CardEffect cardEffect) {
+        this.cardEffect = cardEffect;
+    }
+
+    public boolean isFullMove() {
+        return fullMove;
+    }
+
+    public void setFullMove(boolean fullMove) {
+        this.fullMove = fullMove;
     }
 }

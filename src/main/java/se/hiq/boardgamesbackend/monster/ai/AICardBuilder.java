@@ -4,7 +4,7 @@ import se.hiq.boardgamesbackend.survivor.gear.HitlocationType;
 
 public class AICardBuilder {
 
-    public static AICard getCardByName(String title, int monsterLevel){
+    public static AICard getCardByName(String title, int monsterLevel, AIDeck deck){
 
         switch(title) {
 
@@ -14,6 +14,7 @@ public class AICardBuilder {
                 TargetRule targetRule = new TargetRule(target);
                 Attack attack = new Attack(2, 2, 1);
                 AICard aiCard = new AICard(title, targetRule, attack);
+                aiCard.setDeck(deck);
             return aiCard;
 
             case "Claw":
@@ -23,6 +24,7 @@ public class AICardBuilder {
                 TargetRule a2t = new TargetRule(a2t1, a2t2);
                 Attack a2a = new Attack(2, 2, 1);
                 AICard a2 = new AICard(title, a2t, a2a);
+                a2.setDeck(deck);
             return a2;
 
             case "Size Up":
@@ -35,10 +37,11 @@ public class AICardBuilder {
                 a3a.setTargetLocation(HitlocationType.BRAIN);
                 a3a.setReach(-1);
                 a3a.setTrigger(new Trigger(false, true));
-                TriggerEffect a3te = new TriggerEffect();
+                CardEffect a3te = new CardEffect();
                 a3te.setKnockDown(true);
                 AICard a3 = new AICard(title, a3t, a3a);
                 a3.setNoMove(true);
+                a3.setDeck(deck);
             return a3;
 
             case "Grasp":
@@ -51,15 +54,14 @@ public class AICardBuilder {
 
                 Attack a4a = new Attack(1, 2, 1);
                 a4a.setTrigger(new Trigger(true, false));
-                TriggerEffect a4te = new TriggerEffect();
+                CardEffect a4te = new CardEffect();
                 a4te.setGrab(true);
-                Move tmpMove = new Move();
-                tmpMove.setDirection(Direction.AWAY_FROM_THREATS);
-                tmpMove.setLength(100); //full move. TODO: Better solution?
+                Move tmpMove = new Move(Direction.AWAY_FROM_THREATS,true, a4te);
                 a4te.setMove(tmpMove);
-                a4a.setTriggerEffect(a4te);
+                a4a.setCardEffect(a4te);
 
                 AICard a4 = new AICard(title, a4t, a4a);
+                a4.setDeck(deck);
             return a4;
             default: return null;
         }

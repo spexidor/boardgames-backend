@@ -16,17 +16,17 @@ public class AIDeck extends Deck {
     public AIDeck(){
         this(1);
     }
+
     public AIDeck(int monsterLevel){
 
-        this.basicAction = AICardBuilder.getCardByName("Basic Action", monsterLevel);
+        this.basicAction = AICardBuilder.getCardByName("Basic Action", monsterLevel, this);
         //this.cardsInDeck.add(AICardBuilder.getCardByName("Claw", monsterLevel));
         //this.cardsInDeck.add(AICardBuilder.getCardByName("Size Up", monsterLevel));
         //this.cardsInDeck.add(AICardBuilder.getCardByName("Grasp", monsterLevel));
 
-
-        this.cardsInDeck.add(AICardBuilder.getCardByName("Size Up", monsterLevel));
-        this.cardsInDeck.add(AICardBuilder.getCardByName("Size Up", monsterLevel));
-        this.cardsInDeck.add(AICardBuilder.getCardByName("Size Up", monsterLevel));
+        this.cardsInDeck.add(AICardBuilder.getCardByName("Size Up", monsterLevel, this));
+        this.cardsInDeck.add(AICardBuilder.getCardByName("Size Up", monsterLevel, this));
+        this.cardsInDeck.add(AICardBuilder.getCardByName("Size Up", monsterLevel, this));
 
     }
 

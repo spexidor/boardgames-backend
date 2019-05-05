@@ -13,7 +13,7 @@ import java.util.List;
 class Deck {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
     @OneToMany(cascade = CascadeType.ALL)

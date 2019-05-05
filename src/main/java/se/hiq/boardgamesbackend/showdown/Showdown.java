@@ -13,7 +13,7 @@ import java.util.List;
 public class Showdown {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     private String description;
@@ -163,5 +163,9 @@ public class Showdown {
         }
         this.survivors.remove(toRemove);
         return found;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

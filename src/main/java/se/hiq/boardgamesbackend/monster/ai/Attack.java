@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Attack {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
@@ -29,7 +29,7 @@ public class Attack {
     private Trigger trigger;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private TriggerEffect triggerEffect;
+    private CardEffect cardEffect;
 
     public Attack(){
         this(0, 0, 0);
@@ -74,12 +74,12 @@ public class Attack {
         this.trigger = trigger;
     }
 
-    public TriggerEffect getTriggerEffect() {
-        return triggerEffect;
+    public CardEffect getCardEffect() {
+        return cardEffect;
     }
 
-    public void setTriggerEffect(TriggerEffect triggerEffect) {
-        this.triggerEffect = triggerEffect;
+    public void setCardEffect(CardEffect cardEffect) {
+        this.cardEffect = cardEffect;
     }
 
     public AICard getAiCard() { return aiCard; }

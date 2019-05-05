@@ -19,7 +19,7 @@ import javax.persistence.*;
 public abstract class Card {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     protected Long id;
 
     @ManyToOne
@@ -31,11 +31,6 @@ public abstract class Card {
     public Card(){
         this.title = "AUTO-GEN";
     }
-    /*
-    public Card(String title){
-        this.title = title;
-    }
-    */
 
     public Long getId() {
         return id;
