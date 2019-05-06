@@ -76,6 +76,27 @@ public class MonsterDeckController {
         }
     }
 
+    @PutMapping("/monster/{id}/hl")
+    public  @ResponseBody
+    HLDeck updateMonsterHLDeck(@PathVariable long id, @RequestBody HLDeck updatedDeck, HttpServletResponse response) {
+        System.out.println("---PUT hl deck request received, id=" +id +", body=" +updatedDeck);
+        Optional<Monster> monster = monsterRepository.findById(id);
+        System.out.println("---Existing monster loaded, present=" +monster.isPresent());
+
+        if(monster.isPresent()) {
+            System.out.println("---Deck id=" +monster.get().getHlDeck().getId());
+            monster.get().setHlDeck(updatedDeck);
+            System.out.println("---New HL deck set");
+
+            //monster.get().getAiDeck().updateState(updatedDeck);
+            return monsterRepository.save(monster.get()).getHlDeck();
+        }
+        else {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return null;
+        }
+    }
+
     @GetMapping("/monster/{monsterId}/ai/{cardId}/targets")
     public @ResponseBody
     List<Survivor> validTargets(@PathVariable long monsterId, @PathVariable long cardId, HttpServletResponse response) {

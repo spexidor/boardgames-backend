@@ -6,13 +6,6 @@ import javax.persistence.Entity;
 public class HLDeck extends Deck {
 
     public HLDeck(){
-        HLCard card1 = new HLCard("Clever Ploy", this);
-        ((HLCard) card1).setTrap(true);
-        CardEffect cardEffect1 = new CardEffect();
-        cardEffect1.setBasicAttack(true);
-        ((HLCard) card1).setEffect(cardEffect1);
-        this.cardsInDeck.add(card1);
-
 
         HLCard card2 = new HLCard("Straining Neck", this);
         this.cardsInDeck.add(card2);
@@ -22,6 +15,13 @@ public class HLDeck extends Deck {
 
         HLCard card4 = new HLCard("Beast's Knee", this);
         this.cardsInDeck.add(card4);
+
+        HLCard card1 = new HLCard("Clever Ploy", this);
+        ((HLCard) card1).setTrap(true);
+        CardEffect cardEffect1 = new CardEffect();
+        cardEffect1.setBasicAttack(true);
+        ((HLCard) card1).setEffect(cardEffect1);
+        this.cardsInDeck.add(card1);
 
         HLCard card5 = new HLCard("Fuzzy Groin", this);
         this.cardsInDeck.add(card5);
