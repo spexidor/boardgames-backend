@@ -2,7 +2,6 @@ package se.hiq.boardgamesbackend.monster;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import se.hiq.boardgamesbackend.board.Board;
 import se.hiq.boardgamesbackend.monster.ai.*;
 import se.hiq.boardgamesbackend.showdown.Showdown;
 import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
@@ -21,7 +20,7 @@ public class Monster {
     @Id
     private Long id;
 
-    @ManyToOne//(cascade=CascadeType.ALL)
+    @ManyToOne
     private Coordinate position;
 
     @Enumerated(EnumType.STRING)
@@ -38,10 +37,12 @@ public class Monster {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    //@JsonIgnore
     private AIDeck aiDeck;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    //@JsonIgnore
     private HLDeck hlDeck;
 
     @Transient
