@@ -15,6 +15,7 @@ public class CardEffect {
     @OneToOne(cascade=CascadeType.ALL)
     private Move move;
 
+    //negative
     private int bleed;
     private int brainDamage;
     private int damage;
@@ -22,7 +23,13 @@ public class CardEffect {
     private boolean grab;
     private boolean basicAttack;
     private boolean priorityToken; //gives priority target to attacker
+    private int drawAI;
+    private int knockBack;
+
+    //positive
     private int gainSurvival;
+    private int gainUnderstanding;
+    private int gainCourage;
 
     public CardEffect() {
     }
@@ -105,5 +112,35 @@ public class CardEffect {
 
     public void setCondition(Condition condition) {
         this.condition = condition;
+    }
+
+    public int getDrawAI() { return drawAI; }
+
+    public void setDrawAI(int drawAI) {
+        this.drawAI = drawAI;
+    }
+
+    public int getGainUnderstanding() {
+        return gainUnderstanding;
+    }
+
+    public void setGainUnderstanding(int gainUnderstanding) {
+        this.gainUnderstanding = gainUnderstanding;
+    }
+
+    public int getGainCourage() {
+        return gainCourage;
+    }
+
+    public void setGainCourage(int gainCourage) {
+        this.gainCourage = gainCourage;
+    }
+
+    public int getKnockBack() {
+        return knockBack;
+    }
+
+    public void setKnockBack(int knockBack) {
+        this.knockBack = knockBack;
     }
 }

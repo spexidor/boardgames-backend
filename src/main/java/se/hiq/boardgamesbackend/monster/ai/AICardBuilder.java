@@ -4,67 +4,195 @@ import se.hiq.boardgamesbackend.survivor.gear.HitlocationType;
 
 public class AICardBuilder {
 
-    public static AICard getCardByName(String title, int monsterLevel, AIDeck deck){
+    public static AICard getCardByName(String title, int monsterLevel, AIDeck deck) {
+        AICard card = getCardByName(title, monsterLevel);
+        card.setDeck(deck);
+        return card;
+    }
+
+    private static AICard getCardByName(String title, int monsterLevel){
 
         switch(title) {
 
             case "Basic Action":
-                Target target = new Target(true);
-                target.setInFieldOfView(true);
-                TargetRule targetRule = new TargetRule(target);
-                Attack attack = new Attack(2, 2, 1);
-                AICard aiCard = new AICard(title, targetRule, attack);
-                aiCard.setDeck(deck);
-            return aiCard;
+                return basicAction(title);
 
             case "Claw":
-                Target a2t1 = new Target(true, true, true, true);
-                Target a2t2 = new Target(true, true);
-                a2t2.setInFieldOfView(true);
-                TargetRule a2t = new TargetRule(a2t1, a2t2);
-                Attack a2a = new Attack(2, 2, 1);
-                AICard a2 = new AICard(title, a2t, a2a);
-                a2.setDeck(deck);
-            return a2;
+                return claw(title);
 
             case "Size Up":
-                Target a3t1 = new Target();
-                a3t1.setRandom(true);
-                a3t1.setInFieldOfView(true);
-                TargetRule a3t = new TargetRule(a3t1);
-                Attack a3a = new Attack(1, 4, monsterLevel);
-                a3a.setIgnoreEvasion(true);
-                a3a.setTargetLocation(HitlocationType.BRAIN);
-                a3a.setReach(-1);
-                a3a.setTrigger(new Trigger(false, true));
-                CardEffect a3te = new CardEffect();
-                a3te.setKnockDown(true);
-                a3a.setCardEffect(a3te);
-                AICard a3 = new AICard(title, a3t, a3a);
-                a3.setNoMove(true);
-                a3.setDeck(deck);
-            return a3;
+                return sizeUp(title, monsterLevel);
 
             case "Grasp":
-                Target a4t1 = new Target(true);
-                a4t1.setInRange(true);
-                a4t1.setKnockedDown(true);
-                Target a4t2 = new Target(true);
-                a4t2.setInRange(true);
-                TargetRule a4t = new TargetRule(a4t1, a4t2);
+                return grasp(title);
 
-                Attack a4a = new Attack(1, 2, 1);
-                a4a.setTrigger(new Trigger(true, false));
-                CardEffect a4te = new CardEffect();
-                a4te.setGrab(true);
-                Move tmpMove = new Move(Direction.AWAY_FROM_THREATS,true, a4te);
-                a4te.setMove(tmpMove);
-                a4a.setCardEffect(a4te);
+            case "Revenge":
+               return revenge(title);
 
-                AICard a4 = new AICard(title, a4t, a4a);
-                a4.setDeck(deck);
-            return a4;
+            case "Bat Around":
+                return batAround(title, monsterLevel);
+
+            case "Vicious Claw":
+                return viciousClaw(title);
+
+            case "Power Swat":
+                return powerSwat(title);
+
+            case "Combo Claw":
+                return comboClaw(title);
+
+            case "Chomp":
+                return chomp(title);
+
             default: return null;
         }
+    }
+
+    private static AICard chomp(String title) {
+        Target target1 = new Target(true, true, true, true);
+        Target target2 = new Target(true, true);
+        target2.setInFieldOfView(true);
+        TargetRule targetRule = new TargetRule(target1, target2);
+
+        Attack attack = new Attack(1, 2, 1);
+        attack.setTargetLocation(HitlocationType.HEAD);
+
+        return new AICard(title, targetRule, attack);
+    }
+
+    private static AICard comboClaw(String title) {
+        Target target1 = new Target(true, true, true, true);
+        Target target2 = new Target(true, true);
+        target2.setInFieldOfView(true);
+        TargetRule targetRule = new TargetRule(target1, target2);
+
+        Attack attack = new Attack(2, 4, 1);
+        CardEffect cardEffect = new CardEffect();
+        cardEffect.setDrawAI(1);
+        attack.setCardEffect(cardEffect);
+
+        return  new AICard(title, targetRule, attack);
+    }
+
+    static AICard basicAction(String title){
+        Target target = new Target(true);
+        target.setInFieldOfView(true);
+        TargetRule targetRule = new TargetRule(target);
+        Attack attack = new Attack(2, 2, 1);
+        AICard aiCard = new AICard(title, targetRule, attack);
+        return aiCard;
+    }
+
+    static AICard claw(String title){
+        Target target1 = new Target(true, true, true, true);
+        Target target2 = new Target(true, true);
+        target2.setInFieldOfView(true);
+        TargetRule targetRule = new TargetRule(target1, target2);
+        Attack attack = new Attack(2, 2, 1);
+        return  new AICard(title, targetRule, attack);
+    }
+
+    static AICard sizeUp(String title, int monsterLevel){
+        Target target = new Target();
+        target.setRandom(true);
+        target.setInFieldOfView(true);
+        TargetRule targetRule = new TargetRule(target);
+        Attack attack = new Attack(1, 4, monsterLevel);
+        attack.setIgnoreEvasion(true);
+        attack.setTargetLocation(HitlocationType.BRAIN);
+        attack.setReach(-1);
+        attack.setTrigger(new Trigger(false, true));
+        CardEffect cardEffect = new CardEffect();
+        cardEffect.setKnockDown(true);
+        attack.setCardEffect(cardEffect);
+        AICard aiCard = new AICard(title, targetRule, attack);
+        aiCard.setNoMove(true);
+        return aiCard;
+    }
+
+    static AICard grasp(String title){
+        Target target1 = new Target(true);
+        target1.setInRange(true);
+        target1.setKnockedDown(true);
+        Target target2 = new Target(true);
+        target2.setInRange(true);
+        TargetRule targetRule = new TargetRule(target1, target2);
+
+        Attack attack = new Attack(1, 2, 1);
+        attack.setTrigger(new Trigger(true, false));
+        CardEffect cardEffect = new CardEffect();
+        cardEffect.setGrab(true);
+        Move tmpMove = new Move(Direction.AWAY_FROM_THREATS,true, cardEffect);
+        cardEffect.setMove(tmpMove);
+        attack.setCardEffect(cardEffect);
+
+        return new AICard(title, targetRule, attack);
+    }
+
+    static AICard revenge(String title){
+        Target target1 = new Target();
+        target1.setLastToWound(true);
+        target1.setInRange(true);
+        Target target2 = new Target(true, true);
+        target2.setInFieldOfView(true);
+        TargetRule a5t = new TargetRule(target1, target2);
+
+        Attack attack = new Attack(2, 2, 2);
+        attack.setTrigger(new Trigger(true, false));
+        CardEffect cardEffect = new CardEffect();
+        cardEffect.setGrab(true);
+        Move tmpMove5 = new Move(Direction.AWAY_FROM_THREATS,true, cardEffect);
+        cardEffect.setMove(tmpMove5);
+        attack.setCardEffect(cardEffect);
+
+        return new AICard(title, a5t, attack);
+    }
+
+    static AICard batAround(String title, int monsterLevel){
+        Target target1 = new Target(true, true, true, true);
+        Target target2 = new Target(true, true);
+        target2.setInFieldOfView(true);
+        TargetRule targetRule = new TargetRule(target1, target2);
+
+        Attack attack = new Attack(2, 5, 1);
+        attack.setTrigger(new Trigger(true, false));
+        CardEffect cardEffect = new CardEffect();
+        cardEffect.setBrainDamage(monsterLevel);
+        attack.setCardEffect(cardEffect);
+
+        return new AICard(title, targetRule, attack);
+    }
+
+    static AICard viciousClaw(String title){
+
+        Target target = new Target();
+        target.setRandom(true);
+        target.setInRange(true);
+        TargetRule targetRule = new TargetRule(target);
+
+        Attack attack = new Attack(2, 2, 1);
+        attack.setTrigger(new Trigger(true, false));
+        CardEffect cardEffect = new CardEffect();
+        cardEffect.setBleed(1);
+        attack.setCardEffect(cardEffect);
+
+        return new AICard(title, targetRule, attack);
+    }
+
+    static AICard powerSwat(String title){
+
+        Target target1 = new Target(true, true, true, true);
+        Target target2 = new Target(true, true);
+        target2.setInFieldOfView(true);
+        TargetRule targetRule = new TargetRule(target1, target2);
+
+        Attack attack = new Attack(1,2,2);
+        attack.setTrigger(new Trigger(true, false));
+        CardEffect cardEffect = new CardEffect();
+        cardEffect.setKnockBack(6);
+
+        attack.setCardEffect(cardEffect);
+
+        return new AICard(title, targetRule, attack);
     }
 }

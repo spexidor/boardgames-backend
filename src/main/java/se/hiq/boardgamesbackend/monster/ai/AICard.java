@@ -16,6 +16,8 @@ public class AICard extends Card{
 
     private boolean noMove;
 
+    private boolean mood;
+
     private AICard(){
         this("AUTO-GEN AICARD", new TargetRule(), new Attack());
     }

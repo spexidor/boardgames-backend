@@ -26,6 +26,7 @@ public class Target {
     public boolean knockedDown;
     public boolean blindSpot;
     public boolean random;
+    public boolean lastToWound;
 
     public Target(){
         this(false);
@@ -81,6 +82,10 @@ public class Target {
         return blindSpot;
     }
 
+    public boolean isLastToWound() { return lastToWound; }
+
+    public void setLastToWound(boolean lastToWound) { this.lastToWound = lastToWound; }
+
     public boolean validTarget(Monster monster, List<Survivor> survivors, Survivor chosenSurvivor){
 
 
@@ -114,6 +119,19 @@ public class Target {
             return false;
         }
 
+        //Field of view
+        if(this.inFieldOfView && MovementHelper.coordinateInList(monster.getBlindspot(), chosenSurvivor.getPosition())){
+            System.out.println("Target (" +chosenSurvivor.getName() +") not in field of view");
+            return false;
+        }
+
+        //Last to wound
+        if(this.lastToWound && chosenSurvivor.getId() != monster.getLastWoundedBy())
+        {
+            System.out.println("Target (" +chosenSurvivor.getName() +") not last to make wound");
+            return false;
+        }
+
         /**
          ** NOTE: 'this.closest' Refers to closest in case of multiple valid targets, so need to find all
          **        valid targets first and then check if closest applies.
@@ -126,6 +144,9 @@ public class Target {
     public String toString(){
         String str = "";
 
+        if(this.random){
+            str = "random ";
+        }
         if(this.closest){
             str = "closest ";
         }
@@ -135,9 +156,11 @@ public class Target {
         if(this.facing) {
             str = str +" facing, ";
         }
-
         if(this.inRange){
             str = str +" in range, ";
+        }
+        if(this.inFieldOfView){
+            str = str +" in field of view, ";
         }
 
         if(this.knockedDown){
@@ -146,6 +169,9 @@ public class Target {
 
         if(this.blindSpot){
             str = str +" in blindspot";
+        }
+        if(this.lastToWound){
+            str = str +" last to wound";
         }
 
         return str;

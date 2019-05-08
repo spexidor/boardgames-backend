@@ -51,7 +51,7 @@ public class MonsterDeckControllerTest {
         System.out.println("url: " +url);
 
         AIDeck deck2 = restTemplate.getForObject(url, AIDeck.class);
-        assertTrue("ai deck to short", deck2.getCardsInDeck().size()<5);
+        assertTrue("ai deck to short", deck2.getCardsInDeck().size()>3);
         assertTrue("wrong class", deck2.cardsInDeck.get(0) instanceof AICard);
         System.out.println("deck size: " +deck2.getCardsInDeck().size());
 
