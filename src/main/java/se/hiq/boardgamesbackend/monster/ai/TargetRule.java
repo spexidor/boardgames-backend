@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -26,9 +27,7 @@ public class TargetRule {
 
     public TargetRule(Target... targets){
         this.targetOrder = new ArrayList<>();
-        for(Target n: targets){
-            this.targetOrder.add(n);
-        }
+        this.targetOrder.addAll(Arrays.asList(targets));
     }
 
     public List<Target> getTargetOrder() {
@@ -45,13 +44,13 @@ public class TargetRule {
 
     @Override
     public String toString(){
-        String str = "TargetRule id=" +this.id;
+        StringBuilder str = new StringBuilder("TargetRule id=" + this.id);
         int index = 0;
         for(Target n: this.targetOrder){
-            str = str +"Rule " +index +": " +n.toString();
+            str.append("Rule ").append(index).append(": ").append(n.toString());
         }
 
-        return str;
+        return str.toString();
     }
 
     public Long getId() {

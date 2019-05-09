@@ -8,6 +8,7 @@ import se.hiq.boardgamesbackend.survivor.Survivor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Showdown {
@@ -151,18 +152,17 @@ public class Showdown {
         }
     }
 
-    public boolean removeSurvivorById(Long id){
+    public void removeSurvivorById(Long id){
         Survivor toRemove =null;
         boolean found = false;
         for(Survivor s:this.survivors){
-            if(s.getId()==id){
+            if(Objects.equals(s.getId(), id)){
                 toRemove = s;
                 found = true;
                 break;
             }
         }
         this.survivors.remove(toRemove);
-        return found;
     }
 
     public void setId(Long id) {

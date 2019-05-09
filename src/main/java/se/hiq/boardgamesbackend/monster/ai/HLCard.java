@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "hl_card")
-public class HLCard extends Card{
+class HLCard extends Card{
     private boolean trap;
     private boolean impervious;
 
@@ -20,7 +20,7 @@ public class HLCard extends Card{
 
     private HLCard(){
     }
-    public HLCard(String title){
+    HLCard(String title){
 
         this.title = title;
     }
@@ -34,32 +34,32 @@ public class HLCard extends Card{
         return trap;
     }
 
-    public void setTrap(boolean trap) {
-        this.trap = trap;
+    void setTrap() {
+        this.trap = true;
     }
 
     public boolean isImpervious() {
         return impervious;
     }
 
-    public void setImpervious(boolean impervious) {
-        this.impervious = impervious;
+    void setImpervious() {
+        this.impervious = true;
     }
 
     public boolean isWoundEffect() {
         return woundEffect;
     }
 
-    public void setWoundEffect(boolean woundEffect) {
-        this.woundEffect = woundEffect;
+    void setWoundEffect() {
+        this.woundEffect = true;
     }
 
     public boolean isReflexEffect() {
         return reflexEffect;
     }
 
-    public void setReflexEffect(boolean reflexEffect) {
-        this.reflexEffect = reflexEffect;
+    void setReflexEffect() {
+        this.reflexEffect = true;
     }
 
     public boolean isFailureEffect() {
@@ -74,7 +74,7 @@ public class HLCard extends Card{
         return effect;
     }
 
-    public void setEffect(CardEffect effect) {
+    void setEffect(CardEffect effect) {
         this.effect = effect;
     }
 }

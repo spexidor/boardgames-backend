@@ -8,7 +8,6 @@ import javax.persistence.*;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
         property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = AICard.class, name = "aicard"),
@@ -16,11 +15,11 @@ import javax.persistence.*;
 })
 
 @Entity
-public abstract class Card {
+abstract class Card {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    protected Long id;
+    private Long id;
 
     @ManyToOne
     @JsonIgnore
@@ -28,9 +27,9 @@ public abstract class Card {
 
     private int orderInDeck;
 
-    protected String title;
+    String title;
 
-    public Card(){
+    Card(){
         this.title = "AUTO-GEN";
     }
 

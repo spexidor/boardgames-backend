@@ -28,7 +28,7 @@ public class Coordinate {
     public boolean equals(Object a){
         if (a instanceof Coordinate){
             Coordinate ac = (Coordinate) a;
-            return ac.x == this.x && ac.y == this.y ? true:false;
+            return ac.x == this.x && ac.y == this.y;
         }
             else return false;
     }

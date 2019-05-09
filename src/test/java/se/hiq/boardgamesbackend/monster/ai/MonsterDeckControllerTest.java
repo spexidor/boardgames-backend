@@ -11,14 +11,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import se.hiq.boardgamesbackend.monster.Monster;
 import se.hiq.boardgamesbackend.showdown.Showdown;
-
-import java.util.Optional;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -64,8 +60,8 @@ public class MonsterDeckControllerTest {
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Deck> requestEntity = new HttpEntity<>(deck3, headers);
-        HttpEntity<Deck> response2 = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Deck.class);
-        assertEquals("incorrect status code in response", 200, ((ResponseEntity<Deck>) response2).getStatusCodeValue());
+        ResponseEntity<Deck> response2 = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Deck.class);
+        assertEquals("incorrect status code in response", 200, response2.getStatusCodeValue());
         assertEquals("discard size incorrect", 1, response2.getBody().getCardsInDiscard().size());
 
 

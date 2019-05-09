@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Target {
@@ -18,15 +19,15 @@ public class Target {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    public boolean closest;
-    public boolean threat;
-    public boolean facing;
-    public boolean inRange;
-    public boolean inFieldOfView;
-    public boolean knockedDown;
-    public boolean blindSpot;
-    public boolean random;
-    public boolean lastToWound;
+    private boolean closest;
+    private boolean threat;
+    private boolean facing;
+    private boolean inRange;
+    private boolean inFieldOfView;
+    private boolean knockedDown;
+    private boolean blindSpot;
+    private boolean random;
+    private boolean lastToWound;
 
     public Target(){
         this(false);
@@ -37,13 +38,13 @@ public class Target {
     public Target(boolean closest, boolean threat){
         this(closest, threat, false);
     }
-    public Target(boolean closest, boolean threat, boolean facing){
+    private Target(boolean closest, boolean threat, boolean facing){
         this(closest, threat, facing, false);
     }
     public Target(boolean closest, boolean threat, boolean facing, boolean inRange){
         this(closest, threat, facing, inRange, false, false, false, false);
     }
-    public Target(boolean closest, boolean threat, boolean facing, boolean inRange, boolean knockedDown, boolean blindSpot, boolean inFieldOfView, boolean random){
+    private Target(boolean closest, boolean threat, boolean facing, boolean inRange, boolean knockedDown, boolean blindSpot, boolean inFieldOfView, boolean random){
         this.closest = closest;
         this.threat = threat;
         this.facing = facing;
@@ -126,7 +127,7 @@ public class Target {
         }
 
         //Last to wound
-        if(this.lastToWound && chosenSurvivor.getId() != monster.getLastWoundedBy())
+        if(this.lastToWound && !Objects.equals(chosenSurvivor.getId(), monster.getLastWoundedBy()))
         {
             System.out.println("Target (" +chosenSurvivor.getName() +") not last to make wound");
             return false;

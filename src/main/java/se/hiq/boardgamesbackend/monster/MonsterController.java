@@ -1,7 +1,6 @@
 package se.hiq.boardgamesbackend.monster;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.monster.ai.Direction;
@@ -16,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-public class MonsterController {
+class MonsterController {
 
     @Autowired
     private MonsterRepository monsterRepository;

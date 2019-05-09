@@ -41,7 +41,7 @@ public class MovementHelper {
     }
 
 
-    public static void addSteps(List<Coordinate> coordinateList, int movement, Monster monster, List<Survivor> survivors){
+    private static void addSteps(List<Coordinate> coordinateList, int movement, Monster monster, List<Survivor> survivors){
         List<Coordinate> newCoordinates = new ArrayList<>();
         List<Coordinate> blockedCoordinates = monster.getBaseCoordinates();
         List<Coordinate> blockedCoordinatesSurvivors = new ArrayList<>();
@@ -61,7 +61,7 @@ public class MovementHelper {
         }
     }
 
-    public static void addSteps(List<Coordinate> coordinateList, int movement){
+    private static void addSteps(List<Coordinate> coordinateList, int movement){
         List<Coordinate> newCoordinates = new ArrayList<>();
         for(int i=0; i<movement;i++){
             for(int n=0; n<coordinateList.size(); n++){
@@ -153,7 +153,7 @@ public class MovementHelper {
         }
     }
 
-    public static void removeInvalidMovements(List<Coordinate> coordinateList, Monster monster, List<Survivor> otherSurvivors) {
+    private static void removeInvalidMovements(List<Coordinate> coordinateList, Monster monster, List<Survivor> otherSurvivors) {
         //Survivors
         if(otherSurvivors!=null) {
             for (Survivor n : otherSurvivors) {
@@ -199,7 +199,7 @@ public class MovementHelper {
         return min;
     }
 
-    public static int distance(Coordinate c1, Coordinate c2){
+    private static int distance(Coordinate c1, Coordinate c2){
         return Math.abs(c1.getX()-c2.getX())+Math.abs(c1.getY()-c2.getY());
     }
 

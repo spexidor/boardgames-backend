@@ -1,8 +1,8 @@
 package se.hiq.boardgamesbackend.monster.ai;
 
-public class HLCardBuilder {
+class HLCardBuilder {
 
-    public static HLCard getCardByName(String title, int monsterLevel, HLDeck deck) {
+    static HLCard getCardByName(String title, int monsterLevel, HLDeck deck) {
 
         HLCard hlCard = getCardByName(title, monsterLevel);
         hlCard.setDeck(deck);
@@ -44,7 +44,7 @@ public class HLCardBuilder {
 
     private static HLCard beastsFlank(String title){
         HLCard hlCard = new HLCard(title);
-        hlCard.setWoundEffect(true);
+        hlCard.setWoundEffect();
         CardEffect cardEffect = new CardEffect();
         cardEffect.setPriorityToken(true);
         hlCard.setEffect(cardEffect);
@@ -53,7 +53,7 @@ public class HLCardBuilder {
     }
     private static HLCard gloriousMane(String title){
         HLCard hlCard = new HLCard(title);
-        hlCard.setImpervious(true);
+        hlCard.setImpervious();
         return hlCard;
     }
     private static HLCard softBelly(String title){
@@ -64,7 +64,7 @@ public class HLCardBuilder {
     }
     private static HLCard cleverPloy(String title){
         HLCard hlCard = new HLCard(title);
-        hlCard.setTrap(true);
+        hlCard.setTrap();
         CardEffect cardEffect = new CardEffect();
         cardEffect.setBasicAttack(true);
         hlCard.setEffect(cardEffect);
@@ -86,7 +86,7 @@ public class HLCardBuilder {
 
     private static HLCard beastsTail(String title){
         HLCard hlCard = new HLCard(title);
-        hlCard.setReflexEffect(true);
+        hlCard.setReflexEffect();
         CardEffect cardEffect = new CardEffect();
         Move move = new Move(Direction.FORWARD, true, cardEffect);
         cardEffect.setMove(move);
@@ -97,7 +97,7 @@ public class HLCardBuilder {
 
     private static HLCard beastsRib(String title){
         HLCard hlCard = new HLCard(title);
-        hlCard.setWoundEffect(true);
+        hlCard.setWoundEffect();
         CardEffect cardEffect = new CardEffect();
         cardEffect.setGainSurvival(1);
         Condition condition = new Condition(cardEffect, true, false, 0, 3);
@@ -109,7 +109,7 @@ public class HLCardBuilder {
 
     private static HLCard beastsBrow(String title){
         HLCard hlCard = new HLCard(title);
-        hlCard.setWoundEffect(true);
+        hlCard.setWoundEffect();
         CardEffect cardEffect = new CardEffect();
         cardEffect.setBrainDamage(1);
         cardEffect.setBasicAttack(true);

@@ -4,13 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-public class ShowdownController {
+class ShowdownController {
 
     @Autowired
     private ShowdownService showdownService;
@@ -49,7 +48,7 @@ public class ShowdownController {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return null;
         }
-        else if(!showdownService.findById(id).isPresent()){
+        else if(showdownService.findById(id).isEmpty()){
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return null;
         }

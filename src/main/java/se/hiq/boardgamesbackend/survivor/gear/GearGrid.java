@@ -16,7 +16,6 @@ public class GearGrid {
 
     private final int WIDTH=3;
     private final int HEIGHT= 3;
-    private final int MAX_GEAR = WIDTH*HEIGHT+1;
 
     @OneToOne
     @MapsId
@@ -57,7 +56,7 @@ public class GearGrid {
     }
 
     public int getMAX_GEAR() {
-        return MAX_GEAR;
+        return WIDTH * HEIGHT + 1;
     }
 
     public void setGear(List<Gear> gear) {

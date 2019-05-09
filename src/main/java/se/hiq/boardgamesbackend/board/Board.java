@@ -13,7 +13,7 @@ public class Board {
     public  Board(){
         this(22, 18);
     }
-    public Board(int width, int height) throws RuntimeException
+    private Board(int width, int height) throws RuntimeException
     {
         if(width > 0 && height > 0) {
             this.width = width;

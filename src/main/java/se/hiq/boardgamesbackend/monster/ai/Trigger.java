@@ -10,8 +10,8 @@ public class Trigger {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private boolean afterDamage;
-    private boolean afterHit;
+    private final boolean afterDamage;
+    private final boolean afterHit;
 
     public Trigger() {
         this(false, false);

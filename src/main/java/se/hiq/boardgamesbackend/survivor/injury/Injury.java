@@ -7,9 +7,7 @@ public class Injury {
     private int bleed;
     private boolean knockedDown;
 
-    private Injury() {
-        this("AUTO-GEN INJURY", "Head", false, 1);
-    }
+    private Injury() { }
 
     public Injury(String title, String location, boolean dead, int bleed){
         this(title, location, dead, bleed, false);

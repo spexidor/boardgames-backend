@@ -18,13 +18,13 @@ class Deck {
 
     @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("orderInDeck ASC")
-    protected List<Card> cardsInDeck;
+    List<Card> cardsInDeck;
     @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("orderInDeck ASC")
-    protected List<Card> cardsInDiscard;
+    private List<Card> cardsInDiscard;
     @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("orderInDeck ASC")
-    protected List<Card> cardsRemoved;
+    private List<Card> cardsRemoved;
 
     @OneToOne
     @JsonIgnore
@@ -58,7 +58,7 @@ class Deck {
         return cardsRemoved;
     }
 
-    public void initCardOrder(){
+    void initCardOrder(){
         for(int n=0; n<this.getCardsInDeck().size(); n++){
             this.getCardsInDeck().get(n).setOrderInDeck(n);
         }

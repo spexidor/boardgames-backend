@@ -3,7 +3,7 @@ package se.hiq.boardgamesbackend.survivor.gear;
 import javax.persistence.Entity;
 
 @Entity
-public class Weapon extends Gear {
+class Weapon extends Gear {
     private int speed;
     private int toHitValue;
     private int strengthBonus;

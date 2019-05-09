@@ -2,11 +2,13 @@ package se.hiq.boardgamesbackend.monster.ai;
 
 import se.hiq.boardgamesbackend.survivor.gear.HitlocationType;
 
-public class AICardBuilder {
+import java.util.Objects;
+
+class AICardBuilder {
 
     public static AICard getCardByName(String title, int monsterLevel, AIDeck deck) {
         AICard card = getCardByName(title, monsterLevel);
-        card.setDeck(deck);
+        Objects.requireNonNull(card).setDeck(deck);
         return card;
     }
 
@@ -74,16 +76,15 @@ public class AICardBuilder {
         return  new AICard(title, targetRule, attack);
     }
 
-    static AICard basicAction(String title){
+    private static AICard basicAction(String title){
         Target target = new Target(true);
         target.setInFieldOfView(true);
         TargetRule targetRule = new TargetRule(target);
         Attack attack = new Attack(2, 2, 1);
-        AICard aiCard = new AICard(title, targetRule, attack);
-        return aiCard;
+        return new AICard(title, targetRule, attack);
     }
 
-    static AICard claw(String title){
+    private static AICard claw(String title){
         Target target1 = new Target(true, true, true, true);
         Target target2 = new Target(true, true);
         target2.setInFieldOfView(true);
@@ -92,7 +93,7 @@ public class AICardBuilder {
         return  new AICard(title, targetRule, attack);
     }
 
-    static AICard sizeUp(String title, int monsterLevel){
+    private static AICard sizeUp(String title, int monsterLevel){
         Target target = new Target();
         target.setRandom(true);
         target.setInFieldOfView(true);
@@ -110,7 +111,7 @@ public class AICardBuilder {
         return aiCard;
     }
 
-    static AICard grasp(String title){
+    private static AICard grasp(String title){
         Target target1 = new Target(true);
         target1.setInRange(true);
         target1.setKnockedDown(true);
@@ -129,7 +130,7 @@ public class AICardBuilder {
         return new AICard(title, targetRule, attack);
     }
 
-    static AICard revenge(String title){
+    private static AICard revenge(String title){
         Target target1 = new Target();
         target1.setLastToWound(true);
         target1.setInRange(true);
@@ -148,7 +149,7 @@ public class AICardBuilder {
         return new AICard(title, a5t, attack);
     }
 
-    static AICard batAround(String title, int monsterLevel){
+    private static AICard batAround(String title, int monsterLevel){
         Target target1 = new Target(true, true, true, true);
         Target target2 = new Target(true, true);
         target2.setInFieldOfView(true);
@@ -163,7 +164,7 @@ public class AICardBuilder {
         return new AICard(title, targetRule, attack);
     }
 
-    static AICard viciousClaw(String title){
+    private static AICard viciousClaw(String title){
 
         Target target = new Target();
         target.setRandom(true);
@@ -179,7 +180,7 @@ public class AICardBuilder {
         return new AICard(title, targetRule, attack);
     }
 
-    static AICard powerSwat(String title){
+    private static AICard powerSwat(String title){
 
         Target target1 = new Target(true, true, true, true);
         Target target2 = new Target(true, true);

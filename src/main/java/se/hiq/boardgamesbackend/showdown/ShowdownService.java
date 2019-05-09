@@ -9,6 +9,7 @@ import java.util.Optional;
 public class ShowdownService {
 
     @Autowired
+    private
     ShowdownRepository showdownRepository;
 
     public Iterable<Showdown> findAll(){

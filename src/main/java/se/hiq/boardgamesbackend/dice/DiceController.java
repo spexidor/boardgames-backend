@@ -7,7 +7,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-public class DiceController {
+class DiceController {
 
     @GetMapping("/dice")
     public  @ResponseBody

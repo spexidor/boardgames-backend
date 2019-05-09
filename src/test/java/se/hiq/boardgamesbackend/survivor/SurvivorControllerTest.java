@@ -19,6 +19,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+@SuppressWarnings("unchecked")
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class SurvivorControllerTest {
@@ -71,8 +72,8 @@ public class SurvivorControllerTest {
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Survivor> requestEntity = new HttpEntity<>(survivor, headers);
-        HttpEntity<Survivor> response = restTemplate.exchange("/survivor/101", HttpMethod.PUT, requestEntity, Survivor.class);
-        assertEquals(200, ((ResponseEntity<Survivor>) response).getStatusCode().value());
+        ResponseEntity<Survivor> response = restTemplate.exchange("/survivor/101", HttpMethod.PUT, requestEntity, Survivor.class);
+        assertEquals(200, response.getStatusCode().value());
     }
 
     @Test
@@ -105,8 +106,8 @@ public class SurvivorControllerTest {
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Survivor> requestEntity = new HttpEntity<>(survivor, headers);
-        HttpEntity<Survivor> response2 = restTemplate.exchange("/survivor/"+survivor.getId(), HttpMethod.PUT, requestEntity, Survivor.class);
-        assertEquals(200, ((ResponseEntity<Survivor>) response2).getStatusCode().value());
+        ResponseEntity<Survivor> response2 = restTemplate.exchange("/survivor/"+survivor.getId(), HttpMethod.PUT, requestEntity, Survivor.class);
+        assertEquals(200, response2.getStatusCode().value());
         System.out.println("Response hitlocation 0: " +response2.getBody().getHitlocations().get(0).getType());
         assertTrue(response2.getBody().getHitlocations().get(0).isLightInjury());
     }

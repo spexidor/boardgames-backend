@@ -34,7 +34,6 @@ public class ShowdownControllerTest {
         System.out.println("First showdown, description=" +showdown[0].getDescription());
 
         assertNotNull(showdown);
-        assertTrue(showdown.length > 0);
     }
 
     @Test
@@ -76,8 +75,8 @@ public class ShowdownControllerTest {
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Showdown> requestEntity = new HttpEntity<>(showdown, headers);
-        HttpEntity<Showdown> response = restTemplate.exchange("/showdown/999", HttpMethod.PUT, requestEntity, Showdown.class);
+        ResponseEntity<Showdown> response = restTemplate.exchange("/showdown/999", HttpMethod.PUT, requestEntity, Showdown.class);
 
-        assertEquals(404, ((ResponseEntity<Showdown>) response).getStatusCodeValue());
+        assertEquals(404, response.getStatusCodeValue());
     }
 }

@@ -68,7 +68,7 @@ public class Monster {
         return id;
     }
 
-    public List<Coordinate> movementOptions(int maxLength){
+    private List<Coordinate> movementOptions(int maxLength){
         return MovementHelper.getMonsterMovement(this, maxLength);
     }
 
@@ -88,7 +88,7 @@ public class Monster {
         return facing;
     }
 
-    public Showdown getShowdown() {
+    private Showdown getShowdown() {
         return showdown;
     }
 
@@ -273,7 +273,7 @@ public class Monster {
         this.lastWoundedBy = lastWoundedBy;
     }
 
-    public List<Coordinate> awayFromThreatsMovement(int length) {
+    private List<Coordinate> awayFromThreatsMovement(int length) {
 
         List<Coordinate> openMoves = this.movementOptions(length);
         List<Coordinate> furthestCoordinates = new ArrayList<>();

@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class DiceResult {
 
-    private int sides;
+    private final int sides;
     private int result;
     private boolean hit;
 

@@ -6,7 +6,6 @@ import se.hiq.boardgamesbackend.dice.DiceResult;
 import se.hiq.boardgamesbackend.showdown.ShowdownService;
 import se.hiq.boardgamesbackend.survivor.gear.HitlocationType;
 import se.hiq.boardgamesbackend.showdown.Showdown;
-import se.hiq.boardgamesbackend.showdown.ShowdownRepository;
 import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.monster.Monster;
 import se.hiq.boardgamesbackend.survivor.injury.Injury;
@@ -19,9 +18,10 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-public class SurvivorController {
+class SurvivorController {
 
     @Autowired
+    private
     SurvivorRepository survivorRepository;
 
     @Autowired

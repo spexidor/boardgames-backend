@@ -5,7 +5,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @Entity
-public class Armour extends Gear {
+class Armour extends Gear {
 
     @Enumerated(EnumType.STRING)
     private HitlocationType type;
