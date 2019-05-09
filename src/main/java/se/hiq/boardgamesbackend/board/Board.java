@@ -6,29 +6,11 @@ package se.hiq.boardgamesbackend.board;
  * Top left center: (10, 6)
  */
 public class Board {
-    private int width;
-    private int height;
+    public static final int WIDTH = 22;
+    public static final int HEIGHT = 18;
     //private List<Terrain> terrainList;
 
     public  Board(){
-        this(22, 18);
-    }
-    private Board(int width, int height) throws RuntimeException
-    {
-        if(width > 0 && height > 0) {
-            this.width = width;
-            this.height = height;
-        }
-        else{
-            throw new RuntimeException("Positive integers expected, height: " +height +", width: " +width);
-        }
-    }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
     }
 }

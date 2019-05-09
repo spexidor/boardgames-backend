@@ -2,6 +2,7 @@ package se.hiq.boardgamesbackend.monster;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import se.hiq.boardgamesbackend.board.Board;
 import se.hiq.boardgamesbackend.monster.ai.*;
 import se.hiq.boardgamesbackend.showdown.Showdown;
 import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
@@ -312,15 +313,64 @@ public class Monster {
             return awayFromThreatsMovement(length);
         }
         else if(direction.equals(Direction.FORWARD)){
-            //TODO: implement
-            return null;
+            Coordinate coordinate = forwardMovement(length);
+            List<Coordinate> coordinates = new ArrayList<>();
+            coordinates.add(coordinate);
+            return coordinates;
         }
         else if(direction.equals(Direction.BACKWARDS)){
-            //TODO: implement
-            return null;
+            Coordinate coordinate = backwardMovement(length);
+            List<Coordinate> coordinates = new ArrayList<>();
+            coordinates.add(coordinate);
+            return coordinates;
+        }
+        else if(direction.equals(Direction.CLOSEST_BOARD_EDGE)){
+
+            int distanceToUpper = MovementHelper.distance(this.position, new Coordinate(this.position.getX(), 0));
+            int distanceToLower = MovementHelper.distance(this.position, new Coordinate(this.position.getX(), Board.HEIGHT)) - this.statline.width;
+            int distanceToLeft  = MovementHelper.distance(this.position, new Coordinate(0, this.position.getY()));
+            int distanceToRight = MovementHelper.distance(this.position, new Coordinate(Board.WIDTH, this.position.getY())) - this.statline.width;
+
+            int closestDistance = Math.min(Math.min(distanceToUpper, distanceToLower), Math.min(distanceToLeft, distanceToRight));
+
+            List<Coordinate> coordinates = new ArrayList<>();
+            if(distanceToUpper == closestDistance){
+                Facing closestEdge = Facing.UP;
+                Coordinate coordinate =  MovementHelper.coordinateInFacing(this.position, closestEdge, length);
+                coordinates.add(coordinate);
+            }
+            if(distanceToLower == closestDistance){
+                Facing closestEdge = Facing.DOWN;
+                Coordinate coordinate =  MovementHelper.coordinateInFacing(this.position, closestEdge, length);
+                coordinates.add(coordinate);
+            }
+            if(distanceToLeft == closestDistance){
+                Facing closestEdge = Facing.LEFT;
+                Coordinate coordinate =  MovementHelper.coordinateInFacing(this.position, closestEdge, length);
+                coordinates.add(coordinate);
+            }
+            if(distanceToRight == closestDistance){
+                Facing closestEdge = Facing.RIGHT;
+                Coordinate coordinate =  MovementHelper.coordinateInFacing(this.position, closestEdge, length);
+                coordinates.add(coordinate);
+            }
+
+            return coordinates;
         }
         else{
             throw new RuntimeException("Unknown direction: " +direction);
         }
+    }
+
+    private boolean closestDistance(int isThisCloest, int c1, int c2, int c3){
+        return isThisCloest < c1 && isThisCloest < c2 && isThisCloest < c3;
+    }
+
+    private Coordinate backwardMovement(int length) {
+        return MovementHelper.coordinateInFacing(this.position, MovementHelper.flipFacing(this.facing), length);
+    }
+
+    private Coordinate forwardMovement(int length) {
+        return MovementHelper.coordinateInFacing(this.position, this.facing, length);
     }
 }

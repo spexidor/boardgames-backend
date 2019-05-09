@@ -4,4 +4,5 @@ public enum Direction {
     FORWARD,
     BACKWARDS,
     AWAY_FROM_THREATS,
+    CLOSEST_BOARD_EDGE
 }

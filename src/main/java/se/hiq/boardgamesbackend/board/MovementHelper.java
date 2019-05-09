@@ -1,7 +1,7 @@
 package se.hiq.boardgamesbackend.board;
 
-import se.hiq.boardgamesbackend.board.Board;
 import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
+import se.hiq.boardgamesbackend.monster.Facing;
 import se.hiq.boardgamesbackend.monster.Monster;
 import se.hiq.boardgamesbackend.survivor.Survivor;
 import se.hiq.boardgamesbackend.survivor.SurvivorStatus;
@@ -125,14 +125,13 @@ public class MovementHelper {
 
     private static void addAllDirections(List<Coordinate> coordinateList, Coordinate origin) throws RuntimeException{
 
-        Board board = new Board();
         if(origin != null) {
             if (origin.getX() > 0) {
                 Coordinate coordinate = new Coordinate(origin.getX(), origin.getY());
                 coordinate.moveLeft();
                 coordinateList.add(coordinate);
             }
-            if (origin.getX() < board.getWidth()) {
+            if (origin.getX() < Board.WIDTH) {
                 Coordinate coordinate = new Coordinate(origin.getX(), origin.getY());
                 coordinate.moveRight();
                 coordinateList.add(coordinate);
@@ -142,7 +141,7 @@ public class MovementHelper {
                 coordinate.moveUp();
                 coordinateList.add(coordinate);
             }
-            if (origin.getY() < board.getHeight()) {
+            if (origin.getY() < Board.HEIGHT) {
                 Coordinate coordinate = new Coordinate(origin.getX(), origin.getY());
                 coordinate.moveDown();
                 coordinateList.add(coordinate);
@@ -199,7 +198,7 @@ public class MovementHelper {
         return min;
     }
 
-    private static int distance(Coordinate c1, Coordinate c2){
+    public static int distance(Coordinate c1, Coordinate c2){
         return Math.abs(c1.getX()-c2.getX())+Math.abs(c1.getY()-c2.getY());
     }
 
@@ -215,5 +214,37 @@ public class MovementHelper {
             }
         }
         return true;
+    }
+
+    public static Coordinate coordinateInFacing(Coordinate coordinate, Facing facing, int length) throws  RuntimeException{
+        if(facing.equals(Facing.UP)){
+            return new Coordinate(coordinate.getX(), Math.max(coordinate.getY()-length, 0));
+        }
+        else if(facing.equals(Facing.DOWN)){
+            return new Coordinate(coordinate.getX(), Math.min(coordinate.getY()+length, Board.HEIGHT));
+        }
+        else if(facing.equals(Facing.RIGHT)){
+            return new Coordinate(Math.min(coordinate.getX()+length, Board.WIDTH), coordinate.getY());
+        }
+        else if(facing.equals(Facing.LEFT)){
+            return new Coordinate(Math.max(coordinate.getX()-length, 0), coordinate.getY());
+        }
+        throw new RuntimeException("coordinateInFacing: Unexpected facing " +facing);
+    }
+
+    public static Facing flipFacing(Facing facing){
+        if(facing.equals(Facing.UP)){
+            return Facing.DOWN;
+        }
+        else if(facing.equals(Facing.DOWN)){
+            return Facing.UP;
+        }
+        else if(facing.equals(Facing.RIGHT)){
+            return Facing.LEFT;
+        }
+        else if(facing.equals(Facing.LEFT)){
+            return Facing.RIGHT;
+        }
+        throw new RuntimeException("invertedFacing: Unexpected facing " +facing);
     }
 }

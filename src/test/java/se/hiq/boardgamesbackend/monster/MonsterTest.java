@@ -2,6 +2,7 @@ package se.hiq.boardgamesbackend.monster;
 
 import org.junit.Test;
 import se.hiq.boardgamesbackend.board.Board;
+import se.hiq.boardgamesbackend.monster.ai.Direction;
 import se.hiq.boardgamesbackend.showdown.Showdown;
 import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.board.MovementHelper;
@@ -55,5 +56,58 @@ public class MonsterTest {
         monster.setFacing(Facing.DOWN);
         assertTrue(!monster.facingSurvivor(survivors.get(0)));
         assertTrue(monster.facingSurvivor(survivors.get(2)));
+    }
+
+    @Test
+    public void checkClosestEdge(){
+        Showdown showdown = new Showdown("Check closest edge test");
+        Monster monster = showdown.getMonster();
+
+        monster.setPosition(new Coordinate(10, 2)); //Closest: up
+        List<Coordinate> coordinates = monster.specificMove(Direction.CLOSEST_BOARD_EDGE, monster.getStatline().getMovement());
+
+        assertTrue(coordinates.size() == 1);
+        System.out.println("result 1: " +coordinates.get(0));
+        assertTrue(coordinates.get(0).equals(new Coordinate(10, 0)));
+
+
+        monster.setPosition(new Coordinate(10, 16)); //Closest: down
+        coordinates = monster.specificMove(Direction.CLOSEST_BOARD_EDGE, monster.getStatline().getMovement());
+
+        assertTrue(coordinates.size() == 1);
+        System.out.println("result 2: " +coordinates.get(0));
+        assertTrue(coordinates.get(0).equals(new Coordinate(10, 18)));
+
+
+        monster.setPosition(new Coordinate(20, 9)); //Closest: right
+        coordinates = monster.specificMove(Direction.CLOSEST_BOARD_EDGE, monster.getStatline().getMovement());
+
+        assertTrue(coordinates.size() == 1);
+        System.out.println("result 3: " +coordinates.get(0));
+        assertTrue(coordinates.get(0).equals(new Coordinate(22, 9)));
+
+
+        monster.setPosition(new Coordinate(2, 9)); //Closest: left
+        coordinates = monster.specificMove(Direction.CLOSEST_BOARD_EDGE, monster.getStatline().getMovement());
+
+        assertTrue(coordinates.size() == 1);
+        System.out.println("result 4: " +coordinates.get(0));
+        assertTrue(coordinates.get(0).equals(new Coordinate(0, 9)));
+
+
+        monster.setPosition(new Coordinate(1, 1)); //Closest: left and up
+        coordinates = monster.specificMove(Direction.CLOSEST_BOARD_EDGE, monster.getStatline().getMovement());
+
+        assertTrue("wrong size: " +coordinates.size(), coordinates.size() == 2);
+        System.out.println("result 5a: " +coordinates.get(0));
+        System.out.println("result 5b: " +coordinates.get(1));
+        assertTrue(coordinates.get(0).equals(new Coordinate(1, 0)));
+        assertTrue(coordinates.get(1).equals(new Coordinate(0, 1)));
+
+
+        monster.setPosition(new Coordinate(10, 8)); //Closest: up and down
+        coordinates = monster.specificMove(Direction.CLOSEST_BOARD_EDGE, monster.getStatline().getMovement());
+        System.out.println("result 6_2: " +coordinates);
+
     }
 }
