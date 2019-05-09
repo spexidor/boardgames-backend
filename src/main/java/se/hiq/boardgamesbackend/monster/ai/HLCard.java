@@ -20,6 +20,10 @@ public class HLCard extends Card{
 
     private HLCard(){
     }
+    public HLCard(String title){
+
+        this.title = title;
+    }
     public HLCard(String title, Deck deck){
 
         this.title = title;

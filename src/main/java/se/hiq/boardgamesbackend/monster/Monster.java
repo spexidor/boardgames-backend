@@ -49,15 +49,18 @@ public class Monster {
     private MonsterStatline statline;
 
     public Monster(){
+
+        int monsterLevel = 1;
+
         this.position = new Coordinate(6, 3);
         this.facing = Facing.UP;
         this.statline = new TestLion();
         this.activatedThisTurn = false;
         this.aiDeck = new AIDeck();
         this.aiDeck.setMonster(this);
-        this.hlDeck = new HLDeck();
+        this.hlDeck = new HLDeck(monsterLevel);
         this.hlDeck.setMonster(this);
-        this.level = 1;
+        this.level = monsterLevel;
         this.lastWoundedBy = -1L;
     }
 
