@@ -80,7 +80,7 @@ public class SurvivorControllerTest {
     public void getSevereInjuryTest(){
         Injury headInjury = restTemplate.getForObject("/survivor/injury?table=head", Injury.class);
         assertNotNull("null injury returned", headInjury);
-        assertEquals("Head", headInjury.getLocation());
+        assertEquals("HEAD", headInjury.getLocation());
     }
 
     @Test
@@ -88,7 +88,7 @@ public class SurvivorControllerTest {
         Injury bodyInjury = restTemplate.getForObject("/survivor/injury?table=body", Injury.class);
         System.out.println(bodyInjury.getTitle());
         assertNotNull("null injury returned", bodyInjury);
-        assertEquals("Body", bodyInjury.getLocation());
+        assertEquals("BODY", bodyInjury.getLocation());
     }
 
     @Test
