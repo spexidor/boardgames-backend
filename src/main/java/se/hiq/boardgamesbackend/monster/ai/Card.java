@@ -26,6 +26,8 @@ public abstract class Card {
     @JsonIgnore
     private Deck deck;
 
+    private int orderInDeck;
+
     protected String title;
 
     public Card(){
@@ -55,4 +57,8 @@ public abstract class Card {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public int getOrderInDeck() { return orderInDeck; }
+
+    public void setOrderInDeck(int orderInDeck) { this.orderInDeck = orderInDeck; }
 }

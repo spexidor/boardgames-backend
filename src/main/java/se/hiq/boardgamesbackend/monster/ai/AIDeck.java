@@ -29,6 +29,8 @@ public class AIDeck extends Deck {
         this.cardsInDeck.add(AICardBuilder.getCardByName("Power Swat", monsterLevel, this));
         this.cardsInDeck.add(AICardBuilder.getCardByName("Combo Claw", monsterLevel, this));
         this.cardsInDeck.add(AICardBuilder.getCardByName("Chomp", monsterLevel, this));
+
+        this.initCardOrder();
     }
 
     public AICard getBasicAction() {

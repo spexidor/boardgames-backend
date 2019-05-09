@@ -17,10 +17,13 @@ class Deck {
     private long id;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @OrderBy("orderInDeck ASC")
     protected List<Card> cardsInDeck;
     @OneToMany(cascade = CascadeType.ALL)
+    @OrderBy("orderInDeck ASC")
     protected List<Card> cardsInDiscard;
     @OneToMany(cascade = CascadeType.ALL)
+    @OrderBy("orderInDeck ASC")
     protected List<Card> cardsRemoved;
 
     @OneToOne
@@ -53,6 +56,12 @@ class Deck {
 
     public List<Card> getCardsRemoved() {
         return cardsRemoved;
+    }
+
+    public void initCardOrder(){
+        for(int n=0; n<this.getCardsInDeck().size(); n++){
+            this.getCardsInDeck().get(n).setOrderInDeck(n);
+        }
     }
 
     public void updateState(Deck updatedDeck) {
