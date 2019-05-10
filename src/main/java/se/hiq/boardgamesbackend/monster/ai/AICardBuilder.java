@@ -72,6 +72,7 @@ class AICardBuilder {
         CardEffect cardEffect = new CardEffect();
         cardEffect.setDrawAI(1);
         attack.setCardEffect(cardEffect);
+        attack.setTrigger(new Trigger(true, false));
 
         return  new AICard(title, targetRule, attack);
     }

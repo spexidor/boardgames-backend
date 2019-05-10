@@ -14,6 +14,7 @@ import se.hiq.boardgamesbackend.survivor.SurvivorStatus;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Entity
 public class Monster {
@@ -231,6 +232,15 @@ public class Monster {
                     }
                 }
                 return closestValidTargets;
+            }
+            else if(validTargets.size() > 1 && targetOption.isRandom()){
+                Random r = new Random();
+                int randomIndex = r.nextInt(validTargets.size())  + 1;
+                System.out.println("Choosing random survivor, index= " +randomIndex);
+                Survivor randomSurvivor = validTargets.get(randomIndex);
+                validTargets.clear();
+                validTargets.add(randomSurvivor);
+                return validTargets;
             }
             else if(validTargets.size() > 0) { //target found
                 break;
