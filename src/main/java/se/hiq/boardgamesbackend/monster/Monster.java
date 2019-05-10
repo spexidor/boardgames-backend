@@ -235,7 +235,7 @@ public class Monster {
             }
             else if(validTargets.size() > 1 && targetOption.isRandom()){
                 Random r = new Random();
-                int randomIndex = r.nextInt(validTargets.size())  + 1;
+                int randomIndex = r.nextInt(validTargets.size());
                 System.out.println("Choosing random survivor, index= " +randomIndex);
                 Survivor randomSurvivor = validTargets.get(randomIndex);
                 validTargets.clear();
