@@ -17,12 +17,15 @@ public class Condition {
 
     private int minCourage;
     private int minUnderstanding;
+    private int minHits;
 
     @OneToOne
     @JsonIgnore
     private CardEffect cardEffect;
 
-    private Condition(){ }
+    private Condition(){}
+
+    public Condition(CardEffect cardEffect){ }
 
     public Condition(CardEffect cardEffect, boolean survivorAtacking, boolean survivorTargeted, int minCourage, int minUnderstanding) {
         this.survivorAtacking = survivorAtacking;
@@ -78,5 +81,13 @@ public class Condition {
 
     public void setCardEffect(CardEffect cardEffect) {
         this.cardEffect = cardEffect;
+    }
+
+    public int getMinHits() {
+        return minHits;
+    }
+
+    public void setMinHits(int minHits) {
+        this.minHits = minHits;
     }
 }

@@ -15,6 +15,10 @@ public class CardEffect {
     @OneToOne(cascade=CascadeType.ALL)
     private Move move;
 
+    private String name;
+
+    private String description;
+
     //negative
     private int bleed;
     private int brainDamage;
@@ -142,5 +146,21 @@ public class CardEffect {
 
     public void setKnockBack(int knockBack) {
         this.knockBack = knockBack;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

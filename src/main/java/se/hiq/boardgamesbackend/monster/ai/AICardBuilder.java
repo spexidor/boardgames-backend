@@ -9,6 +9,9 @@ class AICardBuilder {
     public static AICard getCardByName(String title, int monsterLevel, AIDeck deck) {
         AICard card = getCardByName(title, monsterLevel);
         Objects.requireNonNull(card).setDeck(deck);
+        CardEffect noTarget = new CardEffect();
+        noTarget.setName("Sniff");
+        card.setNoTarget(noTarget);
         return card;
     }
 
@@ -58,6 +61,11 @@ class AICardBuilder {
 
         Attack attack = new Attack(1, 2, 1);
         attack.setTargetLocation(HitlocationType.HEAD);
+        attack.setTrigger(new Trigger(false, true));
+        CardEffect triggerEffect = new CardEffect();
+        triggerEffect.setName("Head Hunter");
+        triggerEffect.setDescription("Always hits the targets head location");
+        attack.setTriggerEffect(triggerEffect);
 
         return new AICard(title, targetRule, attack);
     }
@@ -70,8 +78,12 @@ class AICardBuilder {
 
         Attack attack = new Attack(2, 4, 1);
         CardEffect cardEffect = new CardEffect();
+        Condition comboCondition = new Condition(cardEffect);
+        comboCondition.setMinHits(2);
+        cardEffect.setCondition(comboCondition);
         cardEffect.setDrawAI(1);
-        attack.setCardEffect(cardEffect);
+        cardEffect.setDescription("If the attack deals damage more than once, draw AI");
+        attack.setTriggerEffect(cardEffect);
         attack.setTrigger(new Trigger(true, false));
 
         return  new AICard(title, targetRule, attack);
@@ -100,13 +112,15 @@ class AICardBuilder {
         target.setInFieldOfView(true);
         TargetRule targetRule = new TargetRule(target);
         Attack attack = new Attack(1, 4, monsterLevel);
+        attack.setName("Intimidate target");
         attack.setIgnoreEvasion(true);
         attack.setTargetLocation(HitlocationType.BRAIN);
         attack.setReach(-1);
         attack.setTrigger(new Trigger(false, true));
         CardEffect cardEffect = new CardEffect();
         cardEffect.setKnockDown(true);
-        attack.setCardEffect(cardEffect);
+        cardEffect.setDescription("The monster stares down its prey. The target is knocked down and suffers ✪ brain damage.");
+        attack.setTriggerEffect(cardEffect);
         AICard aiCard = new AICard(title, targetRule, attack);
         aiCard.setNoMove(true);
         return aiCard;
@@ -123,10 +137,11 @@ class AICardBuilder {
         Attack attack = new Attack(1, 2, 1);
         attack.setTrigger(new Trigger(true, false));
         CardEffect cardEffect = new CardEffect();
+        cardEffect.setDescription("The White Lion isolates it´s prey. Full move the White Lion away from all threats. Targets suffers grab.");
         cardEffect.setGrab(true);
         Move tmpMove = new Move(Direction.AWAY_FROM_THREATS,true, cardEffect);
         cardEffect.setMove(tmpMove);
-        attack.setCardEffect(cardEffect);
+        attack.setTriggerEffect(cardEffect);
 
         return new AICard(title, targetRule, attack);
     }
@@ -142,10 +157,12 @@ class AICardBuilder {
         Attack attack = new Attack(2, 2, 2);
         attack.setTrigger(new Trigger(true, false));
         CardEffect cardEffect = new CardEffect();
+        cardEffect.setDescription("The White Lion isolates it´s prey. Full move the White Lion away from all threats. Targets suffers grab.");
+
         cardEffect.setGrab(true);
         Move tmpMove5 = new Move(Direction.AWAY_FROM_THREATS,true, cardEffect);
         cardEffect.setMove(tmpMove5);
-        attack.setCardEffect(cardEffect);
+        attack.setTriggerEffect(cardEffect);
 
         return new AICard(title, a5t, attack);
     }
@@ -159,8 +176,10 @@ class AICardBuilder {
         Attack attack = new Attack(2, 5, 1);
         attack.setTrigger(new Trigger(true, false));
         CardEffect cardEffect = new CardEffect();
+        cardEffect.setDescription("The White Lion playfully bats the survivor around. They suffer brain damage equal to monster level.");
+
         cardEffect.setBrainDamage(monsterLevel);
-        attack.setCardEffect(cardEffect);
+        attack.setTriggerEffect(cardEffect);
 
         return new AICard(title, targetRule, attack);
     }
@@ -175,8 +194,11 @@ class AICardBuilder {
         Attack attack = new Attack(2, 2, 1);
         attack.setTrigger(new Trigger(true, false));
         CardEffect cardEffect = new CardEffect();
+        cardEffect.setName("Bleed 1");
+        cardEffect.setDescription("Target gains 1 bleeding token");
+
         cardEffect.setBleed(1);
-        attack.setCardEffect(cardEffect);
+        attack.setTriggerEffect(cardEffect);
 
         return new AICard(title, targetRule, attack);
     }
@@ -191,9 +213,12 @@ class AICardBuilder {
         Attack attack = new Attack(1,2,2);
         attack.setTrigger(new Trigger(true, false));
         CardEffect cardEffect = new CardEffect();
+        cardEffect.setName("Knockback 6");
+        cardEffect.setDescription("The target is moved in a straight line directly away from the monster");
+
         cardEffect.setKnockBack(6);
 
-        attack.setCardEffect(cardEffect);
+        attack.setTriggerEffect(cardEffect);
 
         return new AICard(title, targetRule, attack);
     }

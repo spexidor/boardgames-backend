@@ -21,6 +21,7 @@ public class Attack {
     private int damage;
     private boolean ignoreEvasion;
     private int reach; // -1 for unlimited
+    private String name;
 
     @Enumerated(EnumType.STRING)
     private HitlocationType targetLocation;
@@ -29,7 +30,7 @@ public class Attack {
     private Trigger trigger;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private CardEffect cardEffect;
+    private CardEffect triggerEffect;
 
     public Attack(){
         this(0, 0, 0);
@@ -74,12 +75,12 @@ public class Attack {
         this.trigger = trigger;
     }
 
-    public CardEffect getCardEffect() {
-        return cardEffect;
+    public CardEffect getTriggerEffect() {
+        return triggerEffect;
     }
 
-    public void setCardEffect(CardEffect cardEffect) {
-        this.cardEffect = cardEffect;
+    public void setTriggerEffect(CardEffect triggerEffect) {
+        this.triggerEffect = triggerEffect;
     }
 
     public AICard getAiCard() { return aiCard; }
@@ -102,4 +103,11 @@ public class Attack {
         this.targetLocation = targetLocation;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

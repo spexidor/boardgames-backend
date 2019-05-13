@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.showdown.Showdown;
+import se.hiq.boardgamesbackend.survivor.gear.HitlocationType;
 import se.hiq.boardgamesbackend.survivor.injury.Injury;
 
 import java.util.List;
@@ -80,7 +81,7 @@ public class SurvivorControllerTest {
     public void getSevereInjuryTest(){
         Injury headInjury = restTemplate.getForObject("/survivor/injury?table=head", Injury.class);
         assertNotNull("null injury returned", headInjury);
-        assertEquals("HEAD", headInjury.getLocation());
+        assertEquals(HitlocationType.HEAD, headInjury.getLocation());
     }
 
     @Test
@@ -88,7 +89,7 @@ public class SurvivorControllerTest {
         Injury bodyInjury = restTemplate.getForObject("/survivor/injury?table=body", Injury.class);
         System.out.println(bodyInjury.getTitle());
         assertNotNull("null injury returned", bodyInjury);
-        assertEquals("BODY", bodyInjury.getLocation());
+        assertEquals(HitlocationType.BODY, bodyInjury.getLocation());
     }
 
     @Test

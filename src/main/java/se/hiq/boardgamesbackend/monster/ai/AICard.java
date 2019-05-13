@@ -13,6 +13,9 @@ public class AICard extends Card{
     @OneToOne(cascade=CascadeType.ALL)
     private Attack attack;
 
+    @OneToOne(cascade =CascadeType.ALL)
+    public CardEffect noTarget;
+
     private boolean noMove;
 
     private boolean mood;
@@ -50,5 +53,13 @@ public class AICard extends Card{
 
     public void setNoMove(boolean noMove) {
         this.noMove = noMove;
+    }
+
+    public CardEffect getNoTarget() {
+        return noTarget;
+    }
+
+    public void setNoTarget(CardEffect noTarget) {
+        this.noTarget = noTarget;
     }
 }
