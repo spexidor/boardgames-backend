@@ -215,38 +215,51 @@ public class Monster {
     public List<Survivor> targetOptions(List<Survivor> survivors, TargetRule targetRule){
         List<Survivor> validTargets = new ArrayList<>();
 
-        for(int i=0; i<targetRule.getTargetOrder().size(); i++){
+        Survivor priorityTarget = survivorWithPriorityTarget(survivors);
+        if(priorityTarget != null){
+            validTargets.add(priorityTarget);
+        }
+        else {
+            for (int i = 0; i < targetRule.getTargetOrder().size(); i++) {
 
-            Target targetOption = targetRule.getTargetOrder().get(i);
-            for(Survivor s: survivors){
-                if(targetOption.validTarget(this, survivors, s)){
-                    validTargets.add(s);
-                }
-            }
-
-            if(validTargets.size() > 1 && targetOption.isClosest() ){
-                List<Survivor> closestValidTargets = new ArrayList<>();
-                for(Survivor s: validTargets){
-                    if(MovementHelper.survivorClosestToMonster(this, validTargets, s)){
-                        closestValidTargets.add(s);
+                Target targetOption = targetRule.getTargetOrder().get(i);
+                for (Survivor s : survivors) {
+                    if (targetOption.validTarget(this, survivors, s)) {
+                        validTargets.add(s);
                     }
                 }
-                return closestValidTargets;
-            }
-            else if(validTargets.size() > 1 && targetOption.isRandom()){
-                Random r = new Random();
-                int randomIndex = r.nextInt(validTargets.size());
-                System.out.println("Choosing random survivor, index= " +randomIndex);
-                Survivor randomSurvivor = validTargets.get(randomIndex);
-                validTargets.clear();
-                validTargets.add(randomSurvivor);
-                return validTargets;
-            }
-            else if(validTargets.size() > 0) { //target found
-                break;
+
+                if (validTargets.size() > 1 && targetOption.isClosest()) {
+                    List<Survivor> closestValidTargets = new ArrayList<>();
+                    for (Survivor s : validTargets) {
+                        if (MovementHelper.survivorClosestToMonster(this, validTargets, s)) {
+                            closestValidTargets.add(s);
+                        }
+                    }
+                    return closestValidTargets;
+                } else if (validTargets.size() > 1 && targetOption.isRandom()) {
+                    Random r = new Random();
+                    int randomIndex = r.nextInt(validTargets.size());
+                    System.out.println("Choosing random survivor, index= " + randomIndex);
+                    Survivor randomSurvivor = validTargets.get(randomIndex);
+                    validTargets.clear();
+                    validTargets.add(randomSurvivor);
+                    return validTargets;
+                } else if (validTargets.size() > 0) { //target found
+                    break;
+                }
             }
         }
         return validTargets;
+    }
+
+    private Survivor survivorWithPriorityTarget(List<Survivor> survivors) {
+        for (Survivor s: survivors){
+            if(s.isPriorityTarget()){
+                return s;
+            }
+        }
+        return null;
     }
 
     public void setHlDeck(HLDeck hlDeck) {

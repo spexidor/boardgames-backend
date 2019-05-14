@@ -29,9 +29,9 @@ public class GearGrid {
     public GearGrid(){
 
         this.gear = new ArrayList<>();
-        this.gear.add(new Weapon("Fist and tooth", 2, 7, 0));
+        this.gear.add(new Weapon("Fist and tooth", 2, 8, 0));
         this.gear.add(new Armour("Cloth", HitlocationType.WAIST, 1));
-        this.gear.add(new Weapon("Founding stone", 2, 6, 1));
+        this.gear.add(new Weapon("Founding stone", 2, 7, 1));
     }
 
     public Long getId() { return id; }

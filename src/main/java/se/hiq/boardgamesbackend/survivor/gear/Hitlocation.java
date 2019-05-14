@@ -36,6 +36,9 @@ public class Hitlocation {
         if(type == HitlocationType.BRAIN){
             this.lightInjury = true;
         }
+        else if(type == HitlocationType.HEAD){
+            this.lightInjury = true;
+        }
         for(Gear n: gearList){
             if(n instanceof Armour){
                 if(type == ((Armour) n).getType()){

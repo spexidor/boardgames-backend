@@ -29,6 +29,7 @@ public class CardEffect {
     private boolean priorityToken; //gives priority target to attacker
     private int drawAI;
     private int knockBack;
+    private int attackExtraDamage;
 
     //positive
     private int gainSurvival;
@@ -162,5 +163,13 @@ public class CardEffect {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getAttackExtraDamage() {
+        return attackExtraDamage;
+    }
+
+    public void setAttackExtraDamage(int attackExtraDamage) {
+        this.attackExtraDamage = attackExtraDamage;
     }
 }

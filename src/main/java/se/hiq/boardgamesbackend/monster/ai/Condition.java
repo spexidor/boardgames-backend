@@ -19,6 +19,8 @@ public class Condition {
     private int minUnderstanding;
     private int minHits;
 
+    private int diceRolld10;
+
     @OneToOne
     @JsonIgnore
     private CardEffect cardEffect;
@@ -89,5 +91,13 @@ public class Condition {
 
     public void setMinHits(int minHits) {
         this.minHits = minHits;
+    }
+
+    public int getDiceRolld10() {
+        return diceRolld10;
+    }
+
+    public void setDiceRolld10(int diceRolld10) {
+        this.diceRolld10 = diceRolld10;
     }
 }

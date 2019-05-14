@@ -64,4 +64,5 @@ public class TargetRule {
     public void setTargetOrder(List<Target> targetOrder) {
         this.targetOrder = targetOrder;
     }
+
 }

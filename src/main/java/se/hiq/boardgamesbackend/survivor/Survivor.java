@@ -36,6 +36,7 @@ public class Survivor {
     private int movement;
     private int survival;
     private int bleed;
+    private boolean priorityTarget;
 
     @OneToMany(cascade=CascadeType.ALL)
     private List<Hitlocation> hitlocations;
@@ -173,5 +174,13 @@ public class Survivor {
 
     public void setStatus(SurvivorStatus status) {
         this.status = status;
+    }
+
+    public boolean isPriorityTarget() {
+        return priorityTarget;
+    }
+
+    public void setPriorityTarget(boolean priorityTarget) {
+        this.priorityTarget = priorityTarget;
     }
 }
