@@ -12,15 +12,17 @@ class Gear {
     private Long id;
 
     private final String name;
+    private final String type;
 
     @ManyToOne
     @JsonIgnore
     private GearGrid gearGrid; //Parent gearGrid
 
     private Gear(){
-        this("AUTO-GEN GEAR");
+        this("AUTO-GEN GEAR", "GEAR");
     }
-    Gear(String name){
+    Gear(String name, String type){
+        this.type = type;
         this.name = name;
     }
 
@@ -39,4 +41,10 @@ class Gear {
     public void setGearGrid(GearGrid gearGrid) {
         this.gearGrid = gearGrid;
     }
+
+    public String getType() {
+        return type;
+    }
+
+
 }

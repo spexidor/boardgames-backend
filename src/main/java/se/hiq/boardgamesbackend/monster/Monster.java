@@ -22,6 +22,8 @@ public class Monster {
     @Id
     private Long id;
 
+    private String name;
+
     @ManyToOne
     private Coordinate position;
 
@@ -39,12 +41,10 @@ public class Monster {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    //@JsonIgnore
     private AIDeck aiDeck;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    //@JsonIgnore
     private HLDeck hlDeck;
 
     @Transient
@@ -54,6 +54,7 @@ public class Monster {
 
         int monsterLevel = 1;
 
+        this.name = "White Lion";
         this.position = new Coordinate(6, 3);
         this.facing = Facing.UP;
         this.statline = new TestLion();
@@ -105,6 +106,10 @@ public class Monster {
     public boolean isActivatedThisTurn() { return activatedThisTurn; }
 
     public int getLevel() { return level; }
+
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
 
     public List<Coordinate> getBlindspot() {
         List <Coordinate> blindspot= new ArrayList<>();

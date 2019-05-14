@@ -41,7 +41,7 @@ public class Hitlocation {
         }
         for(Gear n: gearList){
             if(n instanceof Armour){
-                if(type == ((Armour) n).getType()){
+                if(type == ((Armour) n).getHitlocationType()){
                  this.hitpoints+=((Armour) n).getHitpoints();
                 }
             }

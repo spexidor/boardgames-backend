@@ -1,10 +1,10 @@
 package se.hiq.boardgamesbackend.survivor;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import se.hiq.boardgamesbackend.board.MovementHelper;
 import se.hiq.boardgamesbackend.survivor.gear.HitlocationType;
 import se.hiq.boardgamesbackend.showdown.Showdown;
 import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
-import se.hiq.boardgamesbackend.board.MovementHelper;
 import se.hiq.boardgamesbackend.survivor.gear.GearGrid;
 import se.hiq.boardgamesbackend.survivor.gear.Hitlocation;
 

@@ -8,7 +8,7 @@ import javax.persistence.Enumerated;
 class Armour extends Gear {
 
     @Enumerated(EnumType.STRING)
-    private HitlocationType type;
+    private HitlocationType hitlocationType;
     private int hitpoints;
 
     private Armour(){
@@ -16,17 +16,17 @@ class Armour extends Gear {
     }
 
     public Armour(String name, HitlocationType type, int hitpoints){
-     super(name);
-     this.type = type;
+     super(name, "ARMOUR");
+     this.hitlocationType = type;
      this.hitpoints = hitpoints;
     }
 
-    public HitlocationType getType() {
-        return type;
+    public HitlocationType getHitlocationType () {
+        return hitlocationType;
     }
 
     public void setType(HitlocationType type) {
-        this.type = type;
+        this.hitlocationType = type;
     }
 
     public int getHitpoints() {
@@ -36,4 +36,6 @@ class Armour extends Gear {
     public void setHitpoints(int hitpoints) {
         this.hitpoints = hitpoints;
     }
+
+
 }
