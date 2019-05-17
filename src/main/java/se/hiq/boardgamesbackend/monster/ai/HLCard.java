@@ -14,6 +14,7 @@ class HLCard extends Card{
     private boolean woundEffect;
     private boolean reflexEffect;
     private boolean failureEffect;
+    private boolean critable;
 
     @OneToOne(cascade = CascadeType.ALL)
     private CardEffect effect;
@@ -21,7 +22,7 @@ class HLCard extends Card{
     private HLCard(){
     }
     HLCard(String title){
-
+        this.critable = true;
         this.title = title;
     }
     public HLCard(String title, Deck deck){
@@ -34,47 +35,55 @@ class HLCard extends Card{
         return trap;
     }
 
-    void setTrap() {
-        this.trap = true;
-    }
-
     public boolean isImpervious() {
         return impervious;
-    }
-
-    void setImpervious() {
-        this.impervious = true;
     }
 
     public boolean isWoundEffect() {
         return woundEffect;
     }
 
-    void setWoundEffect() {
-        this.woundEffect = true;
-    }
-
     public boolean isReflexEffect() {
         return reflexEffect;
-    }
-
-    void setReflexEffect() {
-        this.reflexEffect = true;
     }
 
     public boolean isFailureEffect() {
         return failureEffect;
     }
 
-    public void setFailureEffect(boolean failureEffect) {
-        this.failureEffect = failureEffect;
-    }
-
     public CardEffect getEffect() {
         return effect;
     }
 
-    void setEffect(CardEffect effect) {
+    public boolean isCritable() {
+        return critable;
+    }
+
+    public void setCritable(boolean critable) {
+        this.critable = critable;
+    }
+
+    public void setTrap(boolean trap) {
+        this.trap = trap;
+    }
+
+    public void setImpervious(boolean impervious) {
+        this.impervious = impervious;
+    }
+
+    public void setWoundEffect(boolean woundEffect) {
+        this.woundEffect = woundEffect;
+    }
+
+    public void setReflexEffect(boolean reflexEffect) {
+        this.reflexEffect = reflexEffect;
+    }
+
+    public void setFailureEffect(boolean failureEffect) {
+        this.failureEffect = failureEffect;
+    }
+
+    public void setEffect(CardEffect effect) {
         this.effect = effect;
     }
 }

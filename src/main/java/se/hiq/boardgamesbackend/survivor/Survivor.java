@@ -2,6 +2,7 @@ package se.hiq.boardgamesbackend.survivor;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import se.hiq.boardgamesbackend.board.MovementHelper;
+import se.hiq.boardgamesbackend.survivor.gear.Gear;
 import se.hiq.boardgamesbackend.survivor.gear.HitlocationType;
 import se.hiq.boardgamesbackend.showdown.Showdown;
 import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
@@ -55,12 +56,16 @@ public class Survivor {
     public Survivor(String s, Coordinate position) {
         this.name = s;
         this.status = SurvivorStatus.STANDING;
+
         this.activationsLeft = 1;
         this.movesLeft = 1;
+
         this.position = position;
         this.movement = 5;
+
         this.gearGrid = new GearGrid();
         this.gearGrid.setSurvivor(this);
+
         this.hitlocations = createHitLocations();
         this.survival = 1;
         this.bleed = 0;
@@ -153,15 +158,30 @@ public class Survivor {
 
         this.name = newState.name;
         this.status = newState.status;
-        this.hitlocations = newState.hitlocations;
 
         this.activationsLeft = newState.activationsLeft;
         this.movesLeft = newState.movesLeft;
+
         this.position = newState.position;
         this.movement = newState.movement;
+
+        this.hitlocations = newState.hitlocations;
         this.survival = newState.survival;
         this.bleed = newState.bleed;
-        //this.gearGrid = newState.gearGrid; //read only in json, update with own controller
+
+        //updateGearGrid(newState.getGearGrid()); //fails when persisting.
+    }
+
+    private void updateGearGrid(GearGrid newGearGrid){
+
+        newGearGrid.setSurvivor(this);
+        if(newGearGrid != null) {
+            for (Gear g : newGearGrid.getGear()) {
+                g.setGearGrid(this.gearGrid);
+            }
+
+            this.gearGrid = newGearGrid;
+        }
     }
 
     public List<Hitlocation> getHitlocations() {

@@ -81,7 +81,6 @@ class HLCardBuilder {
         hlCard.setFailureEffect(true);
         CardEffect cardEffect = new CardEffect();
         cardEffect.setBasicAttack(true);
-        cardEffect.setKnockDown(true);
         hlCard.setEffect(cardEffect);
 
         return hlCard;
@@ -103,7 +102,6 @@ class HLCardBuilder {
         CardEffect cardEffect = new CardEffect();
         cardEffect.setBasicAttack(true);
         cardEffect.setAttackExtraDamage(2);
-
         hlCard.setEffect(cardEffect);
 
         return hlCard;
@@ -192,7 +190,7 @@ class HLCardBuilder {
 
     private static HLCard beastsFlank(String title){
         HLCard hlCard = new HLCard(title);
-        hlCard.setWoundEffect();
+        hlCard.setWoundEffect(true);
         CardEffect cardEffect = new CardEffect();
         cardEffect.setPriorityToken(true);
         hlCard.setEffect(cardEffect);
@@ -201,7 +199,7 @@ class HLCardBuilder {
     }
     private static HLCard gloriousMane(String title){
         HLCard hlCard = new HLCard(title);
-        hlCard.setImpervious();
+        hlCard.setImpervious(true);
         return hlCard;
     }
     private static HLCard softBelly(String title){
@@ -212,10 +210,11 @@ class HLCardBuilder {
     }
     private static HLCard cleverPloy(String title){
         HLCard hlCard = new HLCard(title);
-        hlCard.setTrap();
+        hlCard.setTrap(true);
         CardEffect cardEffect = new CardEffect();
         cardEffect.setBasicAttack(true);
         hlCard.setEffect(cardEffect);
+        hlCard.setCritable(false);
 
         return hlCard;
     }
@@ -234,7 +233,7 @@ class HLCardBuilder {
 
     private static HLCard beastsTail(String title){
         HLCard hlCard = new HLCard(title);
-        hlCard.setReflexEffect();
+        hlCard.setReflexEffect(true);
         CardEffect cardEffect = new CardEffect();
         Move move = new Move(Direction.FORWARD, true, cardEffect);
         cardEffect.setMove(move);
@@ -246,7 +245,7 @@ class HLCardBuilder {
 
     private static HLCard beastsRib(String title){
         HLCard hlCard = new HLCard(title);
-        hlCard.setWoundEffect();
+        hlCard.setWoundEffect(true);
         CardEffect cardEffect = new CardEffect();
         cardEffect.setGainSurvival(1);
         Condition condition = new Condition(cardEffect, true, false, 0, 3);
@@ -258,7 +257,7 @@ class HLCardBuilder {
 
     private static HLCard beastsBrow(String title){
         HLCard hlCard = new HLCard(title);
-        hlCard.setWoundEffect();
+        hlCard.setWoundEffect(true);
         CardEffect cardEffect = new CardEffect();
         cardEffect.setBrainDamage(1);
         cardEffect.setBasicAttack(true);

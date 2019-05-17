@@ -1,44 +1,32 @@
 package se.hiq.boardgamesbackend.survivor.gear;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 class Weapon extends Gear {
-    private int speed;
-    private int toHitValue;
-    private int strengthBonus;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<AttackProfile> attackProfiles;
 
     private Weapon(){
         this("AUTO-GEN WEAPON", 1,2,10);
     }
     public Weapon(String name, int speed, int toHitValue, int strengthBonus){
         super(name, "WEAPON");
-        this.toHitValue = toHitValue;
-        this.speed = speed;
-        this.strengthBonus = strengthBonus;
+
+        attackProfiles = new ArrayList<>();
+        attackProfiles.add(new AttackProfile(speed, toHitValue, strengthBonus));
     }
 
-    public int getSpeed() {
-        return speed;
+    public List<AttackProfile> getAttackProfiles() {
+        return attackProfiles;
     }
 
-    public int getToHitValue() {
-        return toHitValue;
-    }
-
-    public int getStrengthBonus() {
-        return strengthBonus;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public void setToHitValue(int toHitValue) {
-        this.toHitValue = toHitValue;
-    }
-
-    public void setStrengthBonus(int strengthBonus) {
-        this.strengthBonus = strengthBonus;
+    public void setAttackProfiles(List<AttackProfile> attackProfiles) {
+        this.attackProfiles = attackProfiles;
     }
 }

@@ -101,7 +101,7 @@ public class SurvivorControllerTest {
 
         Survivor survivor = response.getBody().getSurvivors().get(0);
         System.out.println("Request hitlocation 0: " +survivor.getHitlocations().get(0).getType());
-        System.out.println("Survivor id:: " +survivor.getId());
+        System.out.println("Survivor id: " +survivor.getId());
         assertNotNull(survivor.getId());
         survivor.getHitlocations().get(0).setLightInjury(true);
 

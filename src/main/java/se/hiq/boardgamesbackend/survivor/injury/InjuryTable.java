@@ -59,12 +59,50 @@ public class InjuryTable {
         }
     }
 
-    public static Injury randomLegsResult(){
-        return randomArmsResult();
+    public static Injury randomLegsResult() {
+        DiceResult diceResult = new DiceResult(10);
+
+        switch (diceResult.getResult()) {
+            case 1:
+            case 2:
+                return new Injury("Blood Geyser", HitlocationType.LEGS, true, 0);
+            case 3:
+                return new Injury("Bleeding", HitlocationType.LEGS, false, 2);
+            case 4:
+                return new Injury("Dismembered leg", HitlocationType.LEGS, false, 1);
+            case 5:
+                return new Injury("Hamstrung", HitlocationType.LEGS, false, 1);
+            case 6:
+                return new Injury("Torn achilles tendon", HitlocationType.LEGS, false, 1);
+            case 7:
+                return new Injury("Torn muscle", HitlocationType.LEGS, false, 1);
+            case 8:
+                return new Injury("Broken leg", HitlocationType.LEGS, false, 1);
+            case 9:
+                return new Injury("Bloody thighs", HitlocationType.LEGS, false, 2);
+            case 10:
+                return new Injury("Lost balance", HitlocationType.LEGS, false, 0, true);
+            default:
+                throw new RuntimeException("Unexpected dice result: " + diceResult.getResult() + "(expected 1-10)");
+        }
     }
 
     public static Injury randomWaistResult(){
-        return randomArmsResult();
+            DiceResult diceResult = new DiceResult(10);
+
+            switch (diceResult.getResult()) {
+                case 1:
+                case 2: return new Injury("Final breath", HitlocationType.WAIST, true, 0);
+                case 3: return new Injury("Bleeding kidneys", HitlocationType.WAIST, false, 2);
+                case 4: return new Injury("Intestinal prolapse", HitlocationType.WAIST, false, 1);
+                case 5: return new Injury("Warped pelvis", HitlocationType.WAIST, false, 1);
+                case 6: return new Injury("Destroyed genitals", HitlocationType.WAIST, false, 1);
+                case 7: return new Injury("Broken hip", HitlocationType.WAIST, false, 1);
+                case 8: return new Injury("Slashed back", HitlocationType.WAIST, false, 1);
+                case 9: return new Injury("Bruised tail-bone", HitlocationType.WAIST, false, 1);
+                case 10: return new Injury("Belly-up", HitlocationType.WAIST, false, 0, true);
+                default: throw new RuntimeException("Unexpected dice result: " + diceResult.getResult() + "(expected 1-10)");
+            }
     }
 
     public static Injury randomBrainResult(){

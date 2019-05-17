@@ -1,7 +1,6 @@
 package se.hiq.boardgamesbackend.survivor.gear;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import se.hiq.boardgamesbackend.survivor.Survivor;
 
 import javax.persistence.*;
@@ -23,21 +22,40 @@ public class GearGrid {
     private Survivor survivor;
 
     @OneToMany(cascade= CascadeType.ALL)
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    //@JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<Gear> gear;
 
     public GearGrid(){
 
         this.gear = new ArrayList<>();
-        this.gear.add(new Weapon("Fist and tooth", 2, 8, 0));
-        this.gear.add(new Armour("Cloth", HitlocationType.WAIST, 1));
-        this.gear.add(new Weapon("Founding stone", 2, 7, 1));
+
+        Weapon fistAndTooth = new Weapon("Fist and tooth", 2, 8, 0);
+        fistAndTooth.getAttackProfiles().get(0).setDeadly(true);
+        fistAndTooth.setDescription("Deadly: +1 luck when wounding with this weapon");
+        fistAndTooth.setGearGrid(this);
+
+        Armour cloth = new Armour("Cloth", HitlocationType.WAIST, 1);
+        cloth.setGearGrid(this);
+
+        Weapon foundingStone = new Weapon("Founding stone", 2, 7, 1);
+        foundingStone.setDescription("Spend ⚡ to Sling the stone. Archive this card for 1 automatic hit that inflicts a critical wound.");
+        AttackProfile throwStone = new AttackProfile();
+        throwStone.setActivationCost(new ActivationCost(true, false, true));
+        throwStone.setSpeed(1);
+        throwStone.setAlwaysCrits(true);
+        throwStone.setAlwaysHits(true);
+        throwStone.setInfiniteReach(true);
+        throwStone.setUseName("Sling");
+        foundingStone.getAttackProfiles().add(throwStone);
+        foundingStone.setGearGrid(this);
+
+        this.gear.add(fistAndTooth);
+        this.gear.add(cloth);
+        this.gear.add(foundingStone);
     }
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
-
-    //public int getMAX_GEAR() { return MAX_GEAR; }
 
     public Survivor getSurvivor() { return survivor; }
 

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-class Gear {
+public class Gear {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -18,7 +18,9 @@ class Gear {
     @JsonIgnore
     private GearGrid gearGrid; //Parent gearGrid
 
-    private Gear(){
+    private String description;
+
+    protected Gear(){
         this("AUTO-GEN GEAR", "GEAR");
     }
     Gear(String name, String type){
@@ -46,5 +48,15 @@ class Gear {
         return type;
     }
 
+    public String getDescription() {
+        return description;
+    }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

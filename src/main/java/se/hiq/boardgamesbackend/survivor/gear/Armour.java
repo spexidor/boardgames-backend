@@ -25,10 +25,6 @@ class Armour extends Gear {
         return hitlocationType;
     }
 
-    public void setType(HitlocationType type) {
-        this.hitlocationType = type;
-    }
-
     public int getHitpoints() {
         return hitpoints;
     }
@@ -37,5 +33,7 @@ class Armour extends Gear {
         this.hitpoints = hitpoints;
     }
 
-
+    public void setHitlocationType(HitlocationType hitlocationType) {
+        this.hitlocationType = hitlocationType;
+    }
 }
