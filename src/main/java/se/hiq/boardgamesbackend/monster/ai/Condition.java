@@ -17,7 +17,7 @@ public class Condition {
 
     private int minCourage;
     private int minUnderstanding;
-    private int minHits;
+    private int minHits; //hits after dodge
 
     private int diceRolld10;
 

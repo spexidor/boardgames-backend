@@ -10,11 +10,16 @@ import javax.persistence.Table;
 class HLCard extends Card{
     private boolean trap;
     private boolean impervious;
+    private String description;
 
     private boolean woundEffect;
     private boolean reflexEffect;
     private boolean failureEffect;
     private boolean critable;
+    private boolean persistantInjury;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private CriticalWound criticalWound;
 
     @OneToOne(cascade = CascadeType.ALL)
     private CardEffect effect;
@@ -85,5 +90,29 @@ class HLCard extends Card{
 
     public void setEffect(CardEffect effect) {
         this.effect = effect;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isPersistantInjury() {
+        return persistantInjury;
+    }
+
+    public void setPersistantInjury(boolean persistantInjury) {
+        this.persistantInjury = persistantInjury;
+    }
+
+    public CriticalWound getCriticalWound() {
+        return criticalWound;
+    }
+
+    public void setCriticalWound(CriticalWound criticalWound) {
+        this.criticalWound = criticalWound;
     }
 }

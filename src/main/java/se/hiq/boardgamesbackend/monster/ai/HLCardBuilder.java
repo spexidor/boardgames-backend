@@ -199,6 +199,7 @@ class HLCardBuilder {
     }
     private static HLCard gloriousMane(String title){
         HLCard hlCard = new HLCard(title);
+        hlCard.setDescription("Impervious hit locations cannot be wounded. A wound or critical wound will not remove an AI card or defeat the monster.");
         hlCard.setImpervious(true);
         return hlCard;
     }
@@ -214,7 +215,7 @@ class HLCardBuilder {
         CardEffect cardEffect = new CardEffect();
         cardEffect.setBasicAttack(true);
         hlCard.setEffect(cardEffect);
-        hlCard.setCritable(false);
+        hlCard.setCritable(false); //critable is true by default
 
         return hlCard;
     }
@@ -222,13 +223,28 @@ class HLCardBuilder {
         return new HLCard(title);
     }
     private static HLCard beastsKnee(String title){
-        return new HLCard(title);
+        HLCard hlCard = new HLCard(title);
+        hlCard.setDescription("You hit the White Lion's sturdy knee cap.");
+        CriticalWound criticalWound = new CriticalWound("The White Lions twists unnaturally and shatters.");
+        criticalWound.setNegativeToken(NegativeToken.MOVEMENT);
+        return hlCard;
     }
     private static HLCard beastsFemur(String title){
-        return new HLCard(title);
+        HLCard hlCard = new HLCard(title);
+        hlCard.setDescription("The blow lands on the beast's leg");
+        CriticalWound criticalWound = new CriticalWound("You bruise the White Lions femur, crippling its graceful movements. -1 Movement Token added.");
+        criticalWound.setNegativeToken(NegativeToken.MOVEMENT);
+        hlCard.setCriticalWound(criticalWound);
+        return hlCard;
+
     }
     private static HLCard strainingNeck(String title){
-        return new HLCard(title);
+        HLCard hlCard = new HLCard(title);
+        hlCard.setDescription("You strike at the monsters throat.");
+        CriticalWound criticalWound = new CriticalWound("Random result: 1-9: Paralyzed - The monster is knocked down. 10: The monster cannot breathe. It dies at the start of next turn.");
+
+        hlCard.setCriticalWound(criticalWound);
+        return hlCard;
     }
 
     private static HLCard beastsTail(String title){
