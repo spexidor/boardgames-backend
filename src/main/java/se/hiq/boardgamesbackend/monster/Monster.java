@@ -31,6 +31,9 @@ public class Monster {
     @Enumerated(EnumType.STRING)
     private Facing facing;
 
+    @Enumerated(EnumType.STRING)
+    private MonsterStatus status;
+
     private boolean activatedThisTurn;
     private int level;
     private Long lastWoundedBy;
@@ -71,6 +74,7 @@ public class Monster {
         this.hlDeck.setMonster(this);
         this.level = monsterLevel;
         this.lastWoundedBy = -1L;
+        this.status = MonsterStatus.STANDING;
     }
 
     public Long getId() {
@@ -199,6 +203,11 @@ public class Monster {
             System.out.println("new negativeTokens: " +newMonsterStatus.negativeTokens);
             this.negativeTokens = newMonsterStatus.negativeTokens;
         }
+        if(newMonsterStatus.status != null){
+            System.out.println("new status: " +newMonsterStatus.status);
+            this.status = newMonsterStatus.status;
+        }
+        this.activatedThisTurn = newMonsterStatus.activatedThisTurn;
     }
 
     public void setId(Long id) {
@@ -312,8 +321,7 @@ public class Monster {
         this.lastWoundedBy = lastWoundedBy;
     }
 
-    private List<Coordinate> awayFromThreatsMovement(int length) {
-
+    private List<Coordinate> awayFromSurvivorsMovement(int length, boolean threatsOnly){
         List<Coordinate> openMoves = this.movementOptions(length);
         List<Coordinate> furthestCoordinates = new ArrayList<>();
 
@@ -323,8 +331,13 @@ public class Monster {
         for(Coordinate c: openMoves){
             //System.out.println("Checking distance between " +c +" and threats");
             for(Survivor s: this.getShowdown().getSurvivors()){
-                if(s.getStatus().equals(SurvivorStatus.STANDING)){
-                    //System.out.println(s +" is a threat, distance to monster in C is " +MovementHelper.distance(s.getPosition(), this.getBaseCoordinates(c)));
+                if(threatsOnly) {
+                    if(s.getStatus().equals(SurvivorStatus.STANDING)){
+                        //System.out.println(s +" is a threat, distance to monster in C is " +MovementHelper.distance(s.getPosition(), this.getBaseCoordinates(c)));
+                        tempDist = tempDist + MovementHelper.distance(s.getPosition(), this.getBaseCoordinates(c));
+                    }
+                }
+                else {
                     tempDist = tempDist + MovementHelper.distance(s.getPosition(), this.getBaseCoordinates(c));
                 }
                 //System.out.println("Total distance in " +c +" to threats is " +tempDist);
@@ -348,7 +361,10 @@ public class Monster {
 
     public List<Coordinate> specificMove(Direction direction, int length) {
         if(direction.equals(Direction.AWAY_FROM_THREATS)){
-            return awayFromThreatsMovement(length);
+            return awayFromSurvivorsMovement(length, true);
+        }
+        else if(direction.equals(Direction.AWAY_FROM_SURVIVORS)){
+            return awayFromSurvivorsMovement(length, false);
         }
         else if(direction.equals(Direction.FORWARD)){
             Coordinate coordinate = forwardMovement(length);
@@ -418,5 +434,13 @@ public class Monster {
 
     public void setNegativeTokens(List<NegativeToken> negativeTokens) {
         this.negativeTokens = negativeTokens;
+    }
+
+    public MonsterStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(MonsterStatus status) {
+        this.status = status;
     }
 }

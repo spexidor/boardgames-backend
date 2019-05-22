@@ -10,17 +10,8 @@ public class HLDeck extends Deck {
     }
     public HLDeck(int monsterLevel){
 
-        this.cardsInDeck.add(HLCardBuilder.getCardByName("Beast's Femur", monsterLevel, this));
-        this.cardsInDeck.add(HLCardBuilder.getCardByName("Beast's Femur", monsterLevel, this));
-        this.cardsInDeck.add(HLCardBuilder.getCardByName("Beast's Femur", monsterLevel, this));
-        this.cardsInDeck.add(HLCardBuilder.getCardByName("Beast's Femur", monsterLevel, this));
-        this.cardsInDeck.add(HLCardBuilder.getCardByName("Beast's Femur", monsterLevel, this));
-        this.cardsInDeck.add(HLCardBuilder.getCardByName("Beast's Femur", monsterLevel, this));
-        this.cardsInDeck.add(HLCardBuilder.getCardByName("Beast's Femur", monsterLevel, this));
-
         this.cardsInDeck.add(HLCardBuilder.getCardByName("Clever Ploy", monsterLevel, this)); //TRAP
 
-        /*
         this.cardsInDeck.add(HLCardBuilder.getCardByName("Beast's Tail", monsterLevel, this));
         this.cardsInDeck.add(HLCardBuilder.getCardByName("Beast's Rib", monsterLevel, this));
         this.cardsInDeck.add(HLCardBuilder.getCardByName("Beast's Brow", monsterLevel, this));
@@ -35,7 +26,6 @@ public class HLDeck extends Deck {
         this.cardsInDeck.add(HLCardBuilder.getCardByName("Fuzzy Groin", monsterLevel, this));
 
         this.cardsInDeck.add(HLCardBuilder.getCardByName( "Beast's Knee", monsterLevel, this));
-        this.cardsInDeck.add(HLCardBuilder.getCardByName("Beast's Femur", monsterLevel, this));
         this.cardsInDeck.add(HLCardBuilder.getCardByName("Beast's Elbow", monsterLevel, this));
         this.cardsInDeck.add(HLCardBuilder.getCardByName("Beast's Chest", monsterLevel, this));
         this.cardsInDeck.add(HLCardBuilder.getCardByName("Beast's Scapular Deltoid", monsterLevel, this));
@@ -48,7 +38,6 @@ public class HLDeck extends Deck {
         this.cardsInDeck.add(HLCardBuilder.getCardByName("Beast's Temple", monsterLevel, this));
         this.cardsInDeck.add(HLCardBuilder.getCardByName("Strange Hand", monsterLevel, this));
         this.cardsInDeck.add(HLCardBuilder.getCardByName("Beast's Maw", monsterLevel, this));
-        */
 
         this.initCardOrder();
     }

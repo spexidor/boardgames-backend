@@ -14,6 +14,8 @@ public class CriticalWound {
 
     private String description;
     private NegativeToken negativeToken;
+    private boolean knockedDown;
+    private HLCardTableResult hlCardTableResult;
 
     public CriticalWound() {
     }
