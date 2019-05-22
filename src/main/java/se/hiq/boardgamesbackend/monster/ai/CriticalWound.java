@@ -1,9 +1,6 @@
 package se.hiq.boardgamesbackend.monster.ai;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class CriticalWound {
@@ -14,7 +11,8 @@ public class CriticalWound {
 
     private String description;
     private NegativeToken negativeToken;
-    private boolean knockedDown;
+
+    @OneToOne(cascade = CascadeType.ALL)
     private HLCardTableResult hlCardTableResult;
 
     public CriticalWound() {
@@ -37,5 +35,13 @@ public class CriticalWound {
 
     public void setNegativeToken(NegativeToken negativeToken) {
         this.negativeToken = negativeToken;
+    }
+
+    public HLCardTableResult getHlCardTableResult() {
+        return hlCardTableResult;
+    }
+
+    public void setHlCardTableResult(HLCardTableResult hlCardTableResult) {
+        this.hlCardTableResult = hlCardTableResult;
     }
 }

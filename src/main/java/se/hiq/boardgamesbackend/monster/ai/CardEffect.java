@@ -35,6 +35,8 @@ public class CardEffect {
     private int gainSurvival;
     private int gainUnderstanding;
     private int gainCourage;
+    private boolean monsterKnockDown;
+    private boolean monsterDiesNextTurn;
 
     public CardEffect() {
     }
@@ -171,5 +173,21 @@ public class CardEffect {
 
     public void setAttackExtraDamage(int attackExtraDamage) {
         this.attackExtraDamage = attackExtraDamage;
+    }
+
+    public boolean isMonsterKnockDown() {
+        return monsterKnockDown;
+    }
+
+    public void setMonsterKnockDown(boolean monsterKnockDown) {
+        this.monsterKnockDown = monsterKnockDown;
+    }
+
+    public boolean isMonsterDiesNextTurn() {
+        return monsterDiesNextTurn;
+    }
+
+    public void setMonsterDiesNextTurn(boolean monsterDiesNextTurn) {
+        this.monsterDiesNextTurn = monsterDiesNextTurn;
     }
 }

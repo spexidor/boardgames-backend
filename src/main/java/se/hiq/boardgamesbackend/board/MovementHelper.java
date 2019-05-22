@@ -30,13 +30,14 @@ public class MovementHelper {
     public static List<Coordinate> getMonsterMovement(Monster monster){
 
         int negativeMovementTokens = 0;
-        for(NegativeToken n: monster.getNegativeTokens()){
-            if(n.equals(NegativeToken.MOVEMENT)){
-                negativeMovementTokens++;
-                System.out.println("Monster movement reduced due to negative token");
+        if(monster.getNegativeTokens() != null){
+            for(NegativeToken n: monster.getNegativeTokens()){
+                if(n.equals(NegativeToken.MOVEMENT)){
+                    negativeMovementTokens++;
+                    System.out.println("Monster movement reduced due to negative token");
+                }
             }
         }
-
         return getMonsterMovement(monster, monster.getStatline().getMovement()-negativeMovementTokens);
     }
 

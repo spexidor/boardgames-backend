@@ -1,5 +1,8 @@
 package se.hiq.boardgamesbackend.monster.ai;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class HLCardBuilder {
 
     static HLCard getCardByName(String title, int monsterLevel, HLDeck deck) {
@@ -242,6 +245,35 @@ class HLCardBuilder {
         HLCard hlCard = new HLCard(title);
         hlCard.setDescription("You strike at the monsters throat.");
         CriticalWound criticalWound = new CriticalWound("Random result: 1-9: Paralyzed - The monster is knocked down. 10: The monster cannot breathe. It dies at the start of next turn.");
+
+        HLCardTableResult hlCardTableResult = new HLCardTableResult();
+        List<CardEffect> cardEffects = new ArrayList<>();
+        List<Integer> indexList = new ArrayList<>();
+
+        CardEffect cardEffect1 = new CardEffect();
+        CardEffect cardEffect2 = new CardEffect();
+        cardEffect1.setMonsterKnockDown(true);
+        cardEffect1.setDescription("The monster is knocked down.");
+        cardEffect2.setMonsterDiesNextTurn(true);
+        cardEffect2.setDescription("The monster cannot breathe! It dies at the end of the next turn.");
+
+        indexList.add(0);
+        indexList.add(0);
+        indexList.add(0);
+        indexList.add(0);
+        indexList.add(0);
+        indexList.add(0);
+        indexList.add(0);
+        indexList.add(0);
+        indexList.add(0);
+        indexList.add(0);
+        indexList.add(1);
+
+        cardEffects.add(cardEffect1);
+        cardEffects.add(cardEffect2);
+        hlCardTableResult.setCardEffects(cardEffects);
+        hlCardTableResult.setTableIndexes(indexList);
+        criticalWound.setHlCardTableResult(hlCardTableResult);
 
         hlCard.setCriticalWound(criticalWound);
         return hlCard;

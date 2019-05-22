@@ -208,6 +208,7 @@ public class Monster {
             this.status = newMonsterStatus.status;
         }
         this.activatedThisTurn = newMonsterStatus.activatedThisTurn;
+        this.status = newMonsterStatus.status;
     }
 
     public void setId(Long id) {
