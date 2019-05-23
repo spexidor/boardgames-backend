@@ -19,7 +19,7 @@ public class CardEffect {
 
     private String description;
 
-    //negative
+    //negative for survivors
     private int bleed;
     private int brainDamage;
     private int damage; //direct damage, eg from grab
@@ -31,13 +31,15 @@ public class CardEffect {
     private int drawAI;
     private int knockBack;
     private int attackExtraDamage; // -additional- damage to attack
+    private Token positiveToken; //adds permanent boost
 
-    //positive
+    //positive for survivors
     private int gainSurvival;
     private int gainUnderstanding;
     private int gainCourage;
     private boolean monsterKnockDown;
     private boolean monsterDiesNextTurn;
+    private Token negativeToken;
 
     public CardEffect() {
     }
@@ -198,5 +200,29 @@ public class CardEffect {
 
     void setPermanentPriorityToken(boolean permanentPriorityToken) {
         this.permanentPriorityToken = permanentPriorityToken;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Token getPositiveToken() {
+        return positiveToken;
+    }
+
+    public void setPositiveToken(Token positiveToken) {
+        this.positiveToken = positiveToken;
+    }
+
+    public Token getNegativeToken() {
+        return negativeToken;
+    }
+
+    public void setNegativeToken(Token negativeToken) {
+        this.negativeToken = negativeToken;
     }
 }

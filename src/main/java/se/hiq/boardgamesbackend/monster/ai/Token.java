@@ -1,6 +1,6 @@
 package se.hiq.boardgamesbackend.monster.ai;
 
-public enum NegativeToken {
+public enum Token {
     MOVEMENT,
     ACCURACY,
     DAMAGE,

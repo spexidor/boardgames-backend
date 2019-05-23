@@ -3,7 +3,7 @@ package se.hiq.boardgamesbackend.board;
 import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.monster.Facing;
 import se.hiq.boardgamesbackend.monster.Monster;
-import se.hiq.boardgamesbackend.monster.ai.NegativeToken;
+import se.hiq.boardgamesbackend.monster.ai.Token;
 import se.hiq.boardgamesbackend.survivor.Survivor;
 import se.hiq.boardgamesbackend.survivor.SurvivorStatus;
 
@@ -31,8 +31,8 @@ public class MovementHelper {
 
         int negativeMovementTokens = 0;
         if(monster.getNegativeTokens() != null){
-            for(NegativeToken n: monster.getNegativeTokens()){
-                if(n.equals(NegativeToken.MOVEMENT)){
+            for(Token n: monster.getNegativeTokens()){
+                if(n.equals(Token.MOVEMENT)){
                     negativeMovementTokens++;
                     System.out.println("Monster movement reduced due to negative token");
                 }

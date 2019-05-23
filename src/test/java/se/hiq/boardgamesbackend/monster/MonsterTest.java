@@ -27,7 +27,7 @@ public class MonsterTest {
         List<Coordinate> movementOpts = monster.movementOptions();
 
         assertNotNull(monster);
-        assertEquals(57, movementOpts.size()); //25 possible spaces with move 3 from center
+        assertEquals(60, movementOpts.size()); //25 possible spaces with move 3 from center
 
         assertEquals(false, MovementHelper.coordinateInList(movementOpts, new Coordinate(-1, -1)));
         //assertEquals(false, monster.validUpdate(monsterStatusInvalid));

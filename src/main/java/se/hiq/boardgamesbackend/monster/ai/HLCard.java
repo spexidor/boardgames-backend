@@ -16,7 +16,6 @@ class HLCard extends Card{
     private boolean reflexEffect;
     private boolean failureEffect;
     private boolean critable;
-    private boolean persistantInjury;
 
     @OneToOne(cascade = CascadeType.ALL)
     private CriticalWound criticalWound;
@@ -98,14 +97,6 @@ class HLCard extends Card{
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public boolean isPersistantInjury() {
-        return persistantInjury;
-    }
-
-    public void setPersistantInjury(boolean persistantInjury) {
-        this.persistantInjury = persistantInjury;
     }
 
     public CriticalWound getCriticalWound() {

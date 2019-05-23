@@ -140,7 +140,7 @@ public class Survivor {
     public void setPosition(Coordinate position) {
         this.position = position;
     }
-    List<Coordinate> movementOptions() {
+    public List<Coordinate> movementOptions() {
         return MovementHelper.getSurvivorMovement(this, showdown.getSurvivors(), showdown.getMonster());
     }
 
@@ -183,7 +183,7 @@ public class Survivor {
         this.gearGrid = newGearGrid;
     }
 
-    List<Hitlocation> getHitlocations() {
+    public List<Hitlocation> getHitlocations() {
         return hitlocations;
     }
 

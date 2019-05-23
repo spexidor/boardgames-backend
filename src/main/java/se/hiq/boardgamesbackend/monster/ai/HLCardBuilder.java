@@ -226,14 +226,13 @@ class HLCardBuilder {
 
         HLCard hlCard = new HLCard(title);
         hlCard.setDescription("You hit the monster right in the ding dong.");
-        hlCard.setPersistantInjury(true);
         CriticalWound criticalWound = new CriticalWound();
-        PersistantInjury persistantInjury = new PersistantInjury("Lost Ding Dong");
         CardEffect cardEffect = new CardEffect();
         cardEffect.setAttackExtraDamage(1);
         cardEffect.setPermanentPriorityToken(true);
-        persistantInjury.setCardEffect(cardEffect);
-        criticalWound.setPersistantInjury(persistantInjury);
+        cardEffect.setDescription("Lost Ding Dong");
+        criticalWound.setPersistantInjury(true);
+        criticalWound.setCardEffect(cardEffect);
         hlCard.setCriticalWound(criticalWound);
 
         return hlCard;
@@ -241,8 +240,10 @@ class HLCardBuilder {
     private static HLCard beastsKnee(String title){
         HLCard hlCard = new HLCard(title);
         hlCard.setDescription("You hit the White Lion's sturdy knee cap.");
-        CriticalWound criticalWound = new CriticalWound("The White Lions twists unnaturally and shatters.");
-        criticalWound.setNegativeToken(NegativeToken.MOVEMENT);
+        CriticalWound criticalWound = new CriticalWound("The White Lions twists unnaturally and shatters. -1 Movement Token added.");
+        CardEffect cardEffect = new CardEffect();
+        cardEffect.setNegativeToken(Token.MOVEMENT);
+        criticalWound.setCardEffect(cardEffect);
         hlCard.setCriticalWound(criticalWound);
         return hlCard;
     }
@@ -250,7 +251,9 @@ class HLCardBuilder {
         HLCard hlCard = new HLCard(title);
         hlCard.setDescription("The blow lands on the beast's leg");
         CriticalWound criticalWound = new CriticalWound("You bruise the White Lions femur, crippling its graceful movements. -1 Movement Token added.");
-        criticalWound.setNegativeToken(NegativeToken.MOVEMENT);
+        CardEffect cardEffect = new CardEffect();
+        cardEffect.setNegativeToken(Token.MOVEMENT);
+        criticalWound.setCardEffect(cardEffect);
         hlCard.setCriticalWound(criticalWound);
         return hlCard;
 

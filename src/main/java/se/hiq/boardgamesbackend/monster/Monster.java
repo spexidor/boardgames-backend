@@ -10,7 +10,7 @@ import se.hiq.boardgamesbackend.board.MovementHelper;
 import se.hiq.boardgamesbackend.monster.types.TestLion;
 import se.hiq.boardgamesbackend.survivor.Survivor;
 import se.hiq.boardgamesbackend.survivor.SurvivorStatus;
-import se.hiq.boardgamesbackend.monster.ai.NegativeToken;
+import se.hiq.boardgamesbackend.monster.ai.Token;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -39,9 +39,9 @@ public class Monster {
     private Long lastWoundedBy;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "NegativeToken", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "Token", joinColumns = @JoinColumn(name = "id"))
     @Enumerated(EnumType.STRING)
-    private List<NegativeToken> negativeTokens;
+    private List<Token> negativeTokens;
 
     @OneToOne
     @MapsId
@@ -64,7 +64,7 @@ public class Monster {
         int monsterLevel = 1;
 
         this.name = "White Lion";
-        this.position = new Coordinate(6, 3);
+        this.position = new Coordinate(6, 4);
         this.facing = Facing.UP;
         this.statline = new TestLion();
         this.activatedThisTurn = false;
@@ -429,11 +429,11 @@ public class Monster {
         return MovementHelper.coordinateInFacing(this.position, this.facing, length);
     }
 
-    public List<NegativeToken> getNegativeTokens() {
+    public List<Token> getNegativeTokens() {
         return negativeTokens;
     }
 
-    public void setNegativeTokens(List<NegativeToken> negativeTokens) {
+    public void setNegativeTokens(List<Token> negativeTokens) {
         this.negativeTokens = negativeTokens;
     }
 
