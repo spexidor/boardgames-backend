@@ -22,14 +22,15 @@ public class CardEffect {
     //negative
     private int bleed;
     private int brainDamage;
-    private int damage;
+    private int damage; //direct damage, eg from grab
     private boolean knockDown;
     private boolean grab;
     private boolean basicAttack;
     private boolean priorityToken; //gives priority target to attacker
+    private boolean permanentPriorityToken;
     private int drawAI;
     private int knockBack;
-    private int attackExtraDamage;
+    private int attackExtraDamage; // -additional- damage to attack
 
     //positive
     private int gainSurvival;
@@ -45,7 +46,7 @@ public class CardEffect {
         return bleed;
     }
 
-    public void setBleed(int bleed) {
+    void setBleed(int bleed) {
         this.bleed = bleed;
     }
 
@@ -53,7 +54,7 @@ public class CardEffect {
         return brainDamage;
     }
 
-    public void setBrainDamage(int brainDamage) {
+    void setBrainDamage(int brainDamage) {
         this.brainDamage = brainDamage;
     }
 
@@ -65,11 +66,11 @@ public class CardEffect {
         this.damage = damage;
     }
 
-    public void setKnockDown(boolean knockDown) {
+    void setKnockDown(boolean knockDown) {
         this.knockDown = knockDown;
     }
 
-    public void setGrab(boolean grab) {
+    void setGrab(boolean grab) {
         this.grab = grab;
     }
 
@@ -77,15 +78,15 @@ public class CardEffect {
         return move;
     }
 
-    public void setMove(Move move) {
+    void setMove(Move move) {
         this.move = move;
     }
 
-    public void setBasicAttack(boolean basicAttack) {
+    void setBasicAttack(boolean basicAttack) {
         this.basicAttack = basicAttack;
     }
 
-    public void setPriorityToken(boolean priorityToken) {
+    void setPriorityToken(boolean priorityToken) {
         this.priorityToken = priorityToken;
     }
 
@@ -109,7 +110,7 @@ public class CardEffect {
         return gainSurvival;
     }
 
-    public void setGainSurvival(int gainSurvival) {
+    void setGainSurvival(int gainSurvival) {
         this.gainSurvival = gainSurvival;
     }
 
@@ -117,13 +118,13 @@ public class CardEffect {
         return condition;
     }
 
-    public void setCondition(Condition condition) {
+    void setCondition(Condition condition) {
         this.condition = condition;
     }
 
     public int getDrawAI() { return drawAI; }
 
-    public void setDrawAI(int drawAI) {
+    void setDrawAI(int drawAI) {
         this.drawAI = drawAI;
     }
 
@@ -147,7 +148,7 @@ public class CardEffect {
         return knockBack;
     }
 
-    public void setKnockBack(int knockBack) {
+    void setKnockBack(int knockBack) {
         this.knockBack = knockBack;
     }
 
@@ -171,7 +172,7 @@ public class CardEffect {
         return attackExtraDamage;
     }
 
-    public void setAttackExtraDamage(int attackExtraDamage) {
+    void setAttackExtraDamage(int attackExtraDamage) {
         this.attackExtraDamage = attackExtraDamage;
     }
 
@@ -179,7 +180,7 @@ public class CardEffect {
         return monsterKnockDown;
     }
 
-    public void setMonsterKnockDown(boolean monsterKnockDown) {
+    void setMonsterKnockDown(boolean monsterKnockDown) {
         this.monsterKnockDown = monsterKnockDown;
     }
 
@@ -187,7 +188,15 @@ public class CardEffect {
         return monsterDiesNextTurn;
     }
 
-    public void setMonsterDiesNextTurn(boolean monsterDiesNextTurn) {
+    void setMonsterDiesNextTurn(boolean monsterDiesNextTurn) {
         this.monsterDiesNextTurn = monsterDiesNextTurn;
+    }
+
+    public boolean isPermanentPriorityToken() {
+        return permanentPriorityToken;
+    }
+
+    void setPermanentPriorityToken(boolean permanentPriorityToken) {
+        this.permanentPriorityToken = permanentPriorityToken;
     }
 }

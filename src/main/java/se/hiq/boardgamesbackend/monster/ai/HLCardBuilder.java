@@ -56,7 +56,7 @@ class HLCardBuilder {
             case "Beast's Tricep":
                 return beastsTricep(title);
             case "Beast's Paw":
-                return beatsPaw(title);
+                return beastsPaw(title);
             case "Beast's Temple":
                 return beastsTemple(title);
             case "Strange Hand":
@@ -99,7 +99,7 @@ class HLCardBuilder {
         return hlCard;
     }
 
-    private static HLCard beatsPaw(String title) {
+    private static HLCard beastsPaw(String title) {
         HLCard hlCard = new HLCard(title);
         hlCard.setFailureEffect(true);
         CardEffect cardEffect = new CardEffect();
@@ -223,13 +223,27 @@ class HLCardBuilder {
         return hlCard;
     }
     private static HLCard fuzzyGroin(String title){
-        return new HLCard(title);
+
+        HLCard hlCard = new HLCard(title);
+        hlCard.setDescription("You hit the monster right in the ding dong.");
+        hlCard.setPersistantInjury(true);
+        CriticalWound criticalWound = new CriticalWound();
+        PersistantInjury persistantInjury = new PersistantInjury("Lost Ding Dong");
+        CardEffect cardEffect = new CardEffect();
+        cardEffect.setAttackExtraDamage(1);
+        cardEffect.setPermanentPriorityToken(true);
+        persistantInjury.setCardEffect(cardEffect);
+        criticalWound.setPersistantInjury(persistantInjury);
+        hlCard.setCriticalWound(criticalWound);
+
+        return hlCard;
     }
     private static HLCard beastsKnee(String title){
         HLCard hlCard = new HLCard(title);
         hlCard.setDescription("You hit the White Lion's sturdy knee cap.");
         CriticalWound criticalWound = new CriticalWound("The White Lions twists unnaturally and shatters.");
         criticalWound.setNegativeToken(NegativeToken.MOVEMENT);
+        hlCard.setCriticalWound(criticalWound);
         return hlCard;
     }
     private static HLCard beastsFemur(String title){
@@ -257,7 +271,6 @@ class HLCardBuilder {
         cardEffect2.setMonsterDiesNextTurn(true);
         cardEffect2.setDescription("The monster cannot breathe! It dies at the end of the next turn.");
 
-        indexList.add(0);
         indexList.add(0);
         indexList.add(0);
         indexList.add(0);

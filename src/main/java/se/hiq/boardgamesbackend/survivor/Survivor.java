@@ -38,6 +38,7 @@ public class Survivor {
     private int survival;
     private int bleed;
     private boolean priorityTarget;
+    private boolean permanentPriorityTarget;
 
     @OneToMany(cascade=CascadeType.ALL)
     private List<Hitlocation> hitlocations;
@@ -96,7 +97,7 @@ public class Survivor {
     public int getMovesLeft() {
         return movesLeft;
     }
-    public void setMovesLeft(int movesLeft) { this.movesLeft = movesLeft; }
+    void setMovesLeft(int movesLeft) { this.movesLeft = movesLeft; }
     public int getSurvival() {
         return survival;
     }
@@ -112,7 +113,7 @@ public class Survivor {
     public int getBleed() { return bleed; }
     public void setBleed(int bleed) { this.bleed = bleed; }
 
-    public boolean validUpdate(Survivor newSurvivorState) {
+    boolean validUpdate(Survivor newSurvivorState) {
 
         /*
         System.out.println("Checking survivor valid state...");
@@ -139,7 +140,7 @@ public class Survivor {
     public void setPosition(Coordinate position) {
         this.position = position;
     }
-    public List<Coordinate> movementOptions() {
+    List<Coordinate> movementOptions() {
         return MovementHelper.getSurvivorMovement(this, showdown.getSurvivors(), showdown.getMonster());
     }
 
@@ -153,7 +154,7 @@ public class Survivor {
         this.showdown = showdown;
     }
 
-    public void updateState(Survivor newState){
+    void updateState(Survivor newState){
         System.out.println("Updating values in survivor, position: " +this.position +", id: " +this.id);
 
         this.name = newState.name;
@@ -169,22 +170,20 @@ public class Survivor {
         this.survival = newState.survival;
         this.bleed = newState.bleed;
 
-        //updateGearGrid(newState.getGearGrid()); //fails when persisting.
+        //updateGearGrid(newState.getGearGrid()); //TODO: fails when persisting.
     }
 
     private void updateGearGrid(GearGrid newGearGrid){
 
         newGearGrid.setSurvivor(this);
-        if(newGearGrid != null) {
-            for (Gear g : newGearGrid.getGear()) {
-                g.setGearGrid(this.gearGrid);
-            }
-
-            this.gearGrid = newGearGrid;
+        for (Gear g : newGearGrid.getGear()) {
+            g.setGearGrid(this.gearGrid);
         }
+
+        this.gearGrid = newGearGrid;
     }
 
-    public List<Hitlocation> getHitlocations() {
+    List<Hitlocation> getHitlocations() {
         return hitlocations;
     }
 
@@ -202,5 +201,13 @@ public class Survivor {
 
     public void setPriorityTarget(boolean priorityTarget) {
         this.priorityTarget = priorityTarget;
+    }
+
+    public boolean isPermanentPriorityTarget() {
+        return permanentPriorityTarget;
+    }
+
+    public void setPermanentPriorityTarget(boolean permanentPriorityTarget) {
+        this.permanentPriorityTarget = permanentPriorityTarget;
     }
 }

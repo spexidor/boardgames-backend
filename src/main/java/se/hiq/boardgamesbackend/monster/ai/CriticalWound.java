@@ -15,9 +15,12 @@ public class CriticalWound {
     @OneToOne(cascade = CascadeType.ALL)
     private HLCardTableResult hlCardTableResult;
 
-    public CriticalWound() {
+    @OneToOne(cascade = CascadeType.ALL)
+    private PersistantInjury persistantInjury;
+
+    CriticalWound() {
     }
-    public CriticalWound(String description){
+    CriticalWound(String description){
         this.description = description;
     }
 
@@ -33,7 +36,7 @@ public class CriticalWound {
         return negativeToken;
     }
 
-    public void setNegativeToken(NegativeToken negativeToken) {
+    void setNegativeToken(NegativeToken negativeToken) {
         this.negativeToken = negativeToken;
     }
 
@@ -41,7 +44,15 @@ public class CriticalWound {
         return hlCardTableResult;
     }
 
-    public void setHlCardTableResult(HLCardTableResult hlCardTableResult) {
+    void setHlCardTableResult(HLCardTableResult hlCardTableResult) {
         this.hlCardTableResult = hlCardTableResult;
+    }
+
+    void setPersistantInjury(PersistantInjury persistantInjury) {
+        this.persistantInjury = persistantInjury;
+    }
+
+    public PersistantInjury getPersistantInjury() {
+        return persistantInjury;
     }
 }
