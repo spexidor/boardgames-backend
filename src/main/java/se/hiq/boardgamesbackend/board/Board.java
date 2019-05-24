@@ -3,7 +3,7 @@ package se.hiq.boardgamesbackend.board;
 /**
  * Default size 22x18
  * Top left corner: (0,0)
- * Top left center: (10, 6)
+ * Top left center: (10, 8)
  */
 public class Board {
     public static final int WIDTH = 22;

@@ -228,7 +228,7 @@ class HLCardBuilder {
         hlCard.setDescription("You hit the monster right in the ding dong.");
         CriticalWound criticalWound = new CriticalWound();
         CardEffect cardEffect = new CardEffect();
-        cardEffect.setAttackExtraDamage(1);
+        cardEffect.setMonsterPositiveToken(Token.DAMAGE);
         cardEffect.setPermanentPriorityToken(true);
         cardEffect.setDescription("Lost Ding Dong");
         criticalWound.setPersistantInjury(true);
@@ -242,7 +242,7 @@ class HLCardBuilder {
         hlCard.setDescription("You hit the White Lion's sturdy knee cap.");
         CriticalWound criticalWound = new CriticalWound("The White Lions twists unnaturally and shatters. -1 Movement Token added.");
         CardEffect cardEffect = new CardEffect();
-        cardEffect.setNegativeToken(Token.MOVEMENT);
+        cardEffect.setMonsterNegativeToken(Token.MOVEMENT);
         criticalWound.setCardEffect(cardEffect);
         hlCard.setCriticalWound(criticalWound);
         return hlCard;
@@ -252,7 +252,7 @@ class HLCardBuilder {
         hlCard.setDescription("The blow lands on the beast's leg");
         CriticalWound criticalWound = new CriticalWound("You bruise the White Lions femur, crippling its graceful movements. -1 Movement Token added.");
         CardEffect cardEffect = new CardEffect();
-        cardEffect.setNegativeToken(Token.MOVEMENT);
+        cardEffect.setMonsterNegativeToken(Token.MOVEMENT);
         criticalWound.setCardEffect(cardEffect);
         hlCard.setCriticalWound(criticalWound);
         return hlCard;
@@ -311,7 +311,7 @@ class HLCardBuilder {
         HLCard hlCard = new HLCard(title);
         hlCard.setWoundEffect(true);
         CardEffect cardEffect = new CardEffect();
-        cardEffect.setGainSurvival(1);
+        cardEffect.setSurvivorGainSurvival(1);
         Condition condition = new Condition(cardEffect, true, false, 0, 3);
         cardEffect.setCondition(condition);
         hlCard.setEffect(cardEffect);

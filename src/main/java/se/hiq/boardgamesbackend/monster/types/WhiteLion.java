@@ -5,6 +5,6 @@ import se.hiq.boardgamesbackend.monster.MonsterStatline;
 class WhiteLion extends MonsterStatline {
 
     public WhiteLion(){
-        super(2, 2, 5, 8);
+        super(2, 2, 6, 8);
     }
 }

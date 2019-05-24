@@ -23,7 +23,7 @@ public class CardEffect {
     private int bleed;
     private int brainDamage;
     private int damage; //direct damage, eg from grab
-    private boolean knockDown;
+    private boolean survivorKnockdown;
     private boolean grab;
     private boolean basicAttack;
     private boolean priorityToken; //gives priority target to attacker
@@ -31,15 +31,15 @@ public class CardEffect {
     private int drawAI;
     private int knockBack;
     private int attackExtraDamage; // -additional- damage to attack
-    private Token positiveToken; //adds permanent boost
+    private Token monsterPositiveToken; //adds permanent boost
 
     //positive for survivors
-    private int gainSurvival;
-    private int gainUnderstanding;
-    private int gainCourage;
+    private int survivorGainSurvival;
+    private int survivorGainUnderstanding;
+    private int survivorGainCourage;
     private boolean monsterKnockDown;
     private boolean monsterDiesNextTurn;
-    private Token negativeToken;
+    private Token monsterNegativeToken;
 
     public CardEffect() {
     }
@@ -68,8 +68,8 @@ public class CardEffect {
         this.damage = damage;
     }
 
-    void setKnockDown(boolean knockDown) {
-        this.knockDown = knockDown;
+    void setSurvivorKnockdown(boolean survivorKnockdown) {
+        this.survivorKnockdown = survivorKnockdown;
     }
 
     void setGrab(boolean grab) {
@@ -92,8 +92,8 @@ public class CardEffect {
         this.priorityToken = priorityToken;
     }
 
-    public boolean isKnockDown() {
-        return knockDown;
+    public boolean isSurvivorKnockdown() {
+        return survivorKnockdown;
     }
 
     public boolean isGrab() {
@@ -108,12 +108,12 @@ public class CardEffect {
         return priorityToken;
     }
 
-    public int getGainSurvival() {
-        return gainSurvival;
+    public int getSurvivorGainSurvival() {
+        return survivorGainSurvival;
     }
 
-    void setGainSurvival(int gainSurvival) {
-        this.gainSurvival = gainSurvival;
+    void setSurvivorGainSurvival(int survivorGainSurvival) {
+        this.survivorGainSurvival = survivorGainSurvival;
     }
 
     public Condition getCondition() {
@@ -130,20 +130,20 @@ public class CardEffect {
         this.drawAI = drawAI;
     }
 
-    public int getGainUnderstanding() {
-        return gainUnderstanding;
+    public int getSurvivorGainUnderstanding() {
+        return survivorGainUnderstanding;
     }
 
-    public void setGainUnderstanding(int gainUnderstanding) {
-        this.gainUnderstanding = gainUnderstanding;
+    public void setSurvivorGainUnderstanding(int survivorGainUnderstanding) {
+        this.survivorGainUnderstanding = survivorGainUnderstanding;
     }
 
-    public int getGainCourage() {
-        return gainCourage;
+    public int getSurvivorGainCourage() {
+        return survivorGainCourage;
     }
 
-    public void setGainCourage(int gainCourage) {
-        this.gainCourage = gainCourage;
+    public void setSurvivorGainCourage(int survivorGainCourage) {
+        this.survivorGainCourage = survivorGainCourage;
     }
 
     public int getKnockBack() {
@@ -210,19 +210,19 @@ public class CardEffect {
         this.id = id;
     }
 
-    public Token getPositiveToken() {
-        return positiveToken;
+    public Token getMonsterPositiveToken() {
+        return monsterPositiveToken;
     }
 
-    public void setPositiveToken(Token positiveToken) {
-        this.positiveToken = positiveToken;
+    public void setMonsterPositiveToken(Token monsterPositiveToken) {
+        this.monsterPositiveToken = monsterPositiveToken;
     }
 
-    public Token getNegativeToken() {
-        return negativeToken;
+    public Token getMonsterNegativeToken() {
+        return monsterNegativeToken;
     }
 
-    public void setNegativeToken(Token negativeToken) {
-        this.negativeToken = negativeToken;
+    public void setMonsterNegativeToken(Token monsterNegativeToken) {
+        this.monsterNegativeToken = monsterNegativeToken;
     }
 }

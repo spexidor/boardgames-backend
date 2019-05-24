@@ -43,6 +43,11 @@ public class Monster {
     @Enumerated(EnumType.STRING)
     private List<Token> negativeTokens;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "Token", joinColumns = @JoinColumn(name = "id"))
+    @Enumerated(EnumType.STRING)
+    private List<Token> positiveTokens;
+
     @OneToOne
     @MapsId
     @JsonIgnore
@@ -64,7 +69,7 @@ public class Monster {
         int monsterLevel = 1;
 
         this.name = "White Lion";
-        this.position = new Coordinate(6, 4);
+        this.position = new Coordinate(10, 8);
         this.facing = Facing.UP;
         this.statline = new TestLion();
         this.activatedThisTurn = false;
@@ -203,6 +208,10 @@ public class Monster {
             System.out.println("new negativeTokens: " +newMonsterStatus.negativeTokens);
             this.negativeTokens = newMonsterStatus.negativeTokens;
         }
+        if(newMonsterStatus.positiveTokens.size() > 0){
+            System.out.println("new positiveTokens: " +newMonsterStatus.positiveTokens);
+            this.positiveTokens = newMonsterStatus.positiveTokens;
+        }
         if(newMonsterStatus.status != null){
             System.out.println("new status: " +newMonsterStatus.status);
             this.status = newMonsterStatus.status;
@@ -280,7 +289,7 @@ public class Monster {
 
     private Survivor survivorWithPriorityTarget(List<Survivor> survivors) {
         for (Survivor s: survivors){
-            if(s.isPriorityTarget()){
+            if(s.isPriorityTarget() || s.isPermanentPriorityTarget()){
                 return s;
             }
         }
@@ -443,5 +452,13 @@ public class Monster {
 
     public void setStatus(MonsterStatus status) {
         this.status = status;
+    }
+
+    public List<Token> getPositiveTokens() {
+        return positiveTokens;
+    }
+
+    public void setPositiveTokens(List<Token> positiveTokens) {
+        this.positiveTokens = positiveTokens;
     }
 }

@@ -118,7 +118,7 @@ class AICardBuilder {
         attack.setReach(-1);
         attack.setTrigger(new Trigger(false, true));
         CardEffect cardEffect = new CardEffect();
-        cardEffect.setKnockDown(true);
+        cardEffect.setSurvivorKnockdown(true);
         cardEffect.setDescription("The monster stares down its prey. The target is knocked down and suffers ✪ brain damage.");
         attack.setTriggerEffect(cardEffect);
         AICard aiCard = new AICard(title, targetRule, attack);

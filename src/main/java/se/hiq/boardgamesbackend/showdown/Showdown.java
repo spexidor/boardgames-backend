@@ -53,33 +53,30 @@ public class Showdown {
         List<Survivor> survivors = new ArrayList<>();
         for(int n=0;n<4;n++) {
             String name = "";
+            Coordinate position = new Coordinate(0,0);
             if(n==0){
-                name = "Allister";
+                name = "Zachary";
+                position = new Coordinate(9, 3);
             }
             if(n==1){
-                name = "Lucy";
+                name = "Allister";
+                position = new Coordinate(10, 2);
             }
             if(n==2){
-                name = "Erza";
+                name = "Lucy";
+                position = new Coordinate(11, 2);
             }
             if(n==3){
-                name = "Zachary";
+                name = "Erza";
+                position = new Coordinate(12, 3);
             }
-            Survivor survivor = new Survivor(name, new Coordinate(n+5, 2));
+
+            Survivor survivor = new Survivor(name, position);
             survivor.setShowdown(this);
             survivors.add(survivor);
-
         }
         return survivors;
     }
-
-    /*
-    public void validate(){
-        if(this.monster == null){
-            this.monster = new Monster();
-        }
-    }
-    */
 
     public Monster getMonster() { return monster; }
 

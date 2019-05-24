@@ -103,7 +103,7 @@ public class Target {
         }
 
         //In range
-        if(this.inRange && MovementHelper.distance(chosenSurvivor.getPosition(), monster.getBaseCoordinates()) > monster.getStatline().getMovement()){
+        if(this.inRange && MovementHelper.distance(chosenSurvivor.getPosition(), monster.getBaseCoordinates()) >= monster.getStatline().getMovement()){
             System.out.println("Target (" +chosenSurvivor.getName() +") not in range");
             return false;
         }
