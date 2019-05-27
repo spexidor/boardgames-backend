@@ -4,5 +4,6 @@ public enum Token {
     MOVEMENT,
     ACCURACY,
     DAMAGE,
-    TOUGHNESS
+    TOUGHNESS,
+    STRENGTH
 }

@@ -18,6 +18,7 @@ public class Condition {
     private int minCourage;
     private int minUnderstanding;
     private int minHits; //hits after dodge
+    private int minInsanity;
 
     private int diceRolld10;
 
@@ -99,5 +100,13 @@ public class Condition {
 
     public void setDiceRolld10(int diceRolld10) {
         this.diceRolld10 = diceRolld10;
+    }
+
+    public int getMinInsanity() {
+        return minInsanity;
+    }
+
+    public void setMinInsanity(int minInsanity) {
+        this.minInsanity = minInsanity;
     }
 }

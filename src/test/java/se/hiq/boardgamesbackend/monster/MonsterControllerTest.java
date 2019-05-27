@@ -60,7 +60,7 @@ public class MonsterControllerTest {
     public void getOpenMoves(){
         List<Coordinate> openMoves = restTemplate.getForObject("/monster/100/openMoves", List.class);
 
-        assertEquals(61, openMoves.size());
+        assertEquals(85, openMoves.size());
 
         ResponseEntity response = restTemplate.getForEntity("/monster/999/openMoves", List.class);
         assertEquals("Error 404 expected", 404, response.getStatusCodeValue());

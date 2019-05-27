@@ -37,6 +37,8 @@ public class Survivor {
     private int movement;
     private int survival;
     private int bleed;
+    private int courage;
+    private int understanding;
     private boolean priorityTarget;
     private boolean permanentPriorityTarget;
 
@@ -209,5 +211,21 @@ public class Survivor {
 
     public void setPermanentPriorityTarget(boolean permanentPriorityTarget) {
         this.permanentPriorityTarget = permanentPriorityTarget;
+    }
+
+    public int getCourage() {
+        return courage;
+    }
+
+    public void setCourage(int courage) {
+        this.courage = courage;
+    }
+
+    public int getUnderstanding() {
+        return understanding;
+    }
+
+    public void setUnderstanding(int understanding) {
+        this.understanding = understanding;
     }
 }

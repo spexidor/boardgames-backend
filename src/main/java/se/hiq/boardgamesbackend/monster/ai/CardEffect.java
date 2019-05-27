@@ -19,6 +19,10 @@ public class CardEffect {
 
     private String description;
 
+    //general
+    private boolean repeatEveryTurn;
+    private int repeatOnRoll;
+
     //negative for survivors
     private int bleed;
     private int brainDamage;
@@ -40,6 +44,7 @@ public class CardEffect {
     private boolean monsterKnockDown;
     private boolean monsterDiesNextTurn;
     private Token monsterNegativeToken;
+    private Token survivorPositiveToken;
 
     public CardEffect() {
     }
@@ -224,5 +229,29 @@ public class CardEffect {
 
     public void setMonsterNegativeToken(Token monsterNegativeToken) {
         this.monsterNegativeToken = monsterNegativeToken;
+    }
+
+    public boolean isRepeatEveryTurn() {
+        return repeatEveryTurn;
+    }
+
+    public void setRepeatEveryTurn(boolean repeatEveryTurn) {
+        this.repeatEveryTurn = repeatEveryTurn;
+    }
+
+    public int getRepeatOnRoll() {
+        return repeatOnRoll;
+    }
+
+    public void setRepeatOnRoll(int repeatOnRoll) {
+        this.repeatOnRoll = repeatOnRoll;
+    }
+
+    public Token getSurvivorPositiveToken() {
+        return survivorPositiveToken;
+    }
+
+    public void setSurvivorPositiveToken(Token survivorPositiveToken) {
+        this.survivorPositiveToken = survivorPositiveToken;
     }
 }
