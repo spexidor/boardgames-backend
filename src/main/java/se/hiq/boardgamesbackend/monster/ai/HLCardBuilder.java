@@ -155,6 +155,10 @@ class HLCardBuilder {
         hlCard.setDescription("Full move monster forward in a straight line. Cancel all hits now out of range. Any survivor passed over suffers grab.");
         CardEffect cardEffect = new CardEffect();
         Move move = new Move(Direction.FORWARD, true, cardEffect);
+        Condition condition = new Condition(cardEffect);
+        condition.setSurvivorPassedOver(true);
+        cardEffect.setAffectsAllSurvivors(true);
+        cardEffect.setCondition(condition);
         cardEffect.setMove(move);
         cardEffect.setGrab(true);
         hlCard.setEffect(cardEffect);
@@ -175,6 +179,10 @@ class HLCardBuilder {
         hlCard.setDescription("Full move monster forward in a straight line. Cancel all hits now out of range. Any survivor passed over suffers grab.");
         CardEffect cardEffect = new CardEffect();
         Move move = new Move(Direction.FORWARD, true, cardEffect);
+        Condition condition = new Condition(cardEffect);
+        condition.setSurvivorPassedOver(true);
+        cardEffect.setAffectsAllSurvivors(true);
+        cardEffect.setCondition(condition);
         cardEffect.setMove(move);
         cardEffect.setGrab(true);
         hlCard.setEffect(cardEffect);
@@ -188,6 +196,10 @@ class HLCardBuilder {
         hlCard.setDescription("Full move monster forward in a straight line. Cancel all hits now out of range. Any survivor passed over suffers grab.");
         CardEffect cardEffect = new CardEffect();
         Move move = new Move(Direction.FORWARD, true, cardEffect);
+        Condition condition = new Condition(cardEffect);
+        condition.setSurvivorPassedOver(true);
+        cardEffect.setAffectsAllSurvivors(true);
+        cardEffect.setCondition(condition);
         cardEffect.setMove(move);
         cardEffect.setGrab(true);
         hlCard.setEffect(cardEffect);
@@ -201,9 +213,22 @@ class HLCardBuilder {
         hlCard.setDescription("Full move monster forward in a straight line. Cancel all hits now out of range. Any survivor passed over suffers grab.");
         CardEffect cardEffect = new CardEffect();
         Move move = new Move(Direction.FORWARD, true, cardEffect);
+        Condition condition = new Condition(cardEffect);
+        condition.setSurvivorPassedOver(true);
+        cardEffect.setAffectsAllSurvivors(true);
+        cardEffect.setCondition(condition);
         cardEffect.setMove(move);
         cardEffect.setGrab(true);
         hlCard.setEffect(cardEffect);
+
+        CriticalWound criticalWound = new CriticalWound("The monster howls in pain as the blow breaks the elbow with a sickening crunch. Non deaf survivors gain +3 insanity and may stand if they are knocked down.");
+        CardEffect cardEffectCrit = new CardEffect();
+        Condition conditionCrit = new Condition(cardEffectCrit);
+        conditionCrit.setNonDeaf(true);
+        cardEffectCrit.setCondition(conditionCrit);
+        cardEffectCrit.setAffectsAllSurvivors(true);
+        cardEffectCrit.setSurvivorStand(true);
+        cardEffectCrit.setSurvivorGainInsanity(3);
 
         return hlCard;
     }
@@ -221,6 +246,7 @@ class HLCardBuilder {
         criticalWound.setDescription("White Lion is knocked down.");
         CardEffect cardEffectCrit = new CardEffect();
         cardEffectCrit.setMonsterKnockDown(true);
+        criticalWound.setCardEffect(cardEffectCrit);
         hlCard.setCriticalWound(criticalWound);
 
         return hlCard;
@@ -367,6 +393,10 @@ class HLCardBuilder {
         hlCard.setDescription("Full move monster forward in a straight line. Cancel all hits now out of range. Any survivor passed over suffers grab.");
         CardEffect cardEffect = new CardEffect();
         Move move = new Move(Direction.FORWARD, true, cardEffect);
+        Condition condition = new Condition(cardEffect);
+        condition.setSurvivorPassedOver(true);
+        cardEffect.setCondition(condition);
+        cardEffect.setAffectsAllSurvivors(true);
         cardEffect.setMove(move);
         cardEffect.setGrab(true);
         hlCard.setEffect(cardEffect);

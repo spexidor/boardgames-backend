@@ -22,6 +22,7 @@ public class CardEffect {
     //general
     private boolean repeatEveryTurn;
     private int repeatOnRoll;
+    private boolean affectsAllSurvivors;
 
     //negative for survivors
     private int bleed;
@@ -41,10 +42,12 @@ public class CardEffect {
     private int survivorGainSurvival;
     private int survivorGainUnderstanding;
     private int survivorGainCourage;
+    private int survivorGainInsanity;
     private boolean monsterKnockDown;
     private boolean monsterDiesNextTurn;
     private Token monsterNegativeToken;
     private Token survivorPositiveToken;
+    private boolean survivorStand;
 
     public CardEffect() {
     }
@@ -253,5 +256,29 @@ public class CardEffect {
 
     public void setSurvivorPositiveToken(Token survivorPositiveToken) {
         this.survivorPositiveToken = survivorPositiveToken;
+    }
+
+    public boolean isAffectsAllSurvivors() {
+        return affectsAllSurvivors;
+    }
+
+    public void setAffectsAllSurvivors(boolean affectsAllSurvivors) {
+        this.affectsAllSurvivors = affectsAllSurvivors;
+    }
+
+    public boolean isSurvivorStand() {
+        return survivorStand;
+    }
+
+    public void setSurvivorStand(boolean survivorStand) {
+        this.survivorStand = survivorStand;
+    }
+
+    public int getSurvivorGainInsanity() {
+        return survivorGainInsanity;
+    }
+
+    public void setSurvivorGainInsanity(int survivorGainInsanity) {
+        this.survivorGainInsanity = survivorGainInsanity;
     }
 }

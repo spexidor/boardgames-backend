@@ -204,11 +204,11 @@ public class Monster {
             System.out.println("new lastWoundedBy: " +newMonsterStatus.lastWoundedBy);
             this.lastWoundedBy = newMonsterStatus.lastWoundedBy;
         }
-        if(newMonsterStatus.negativeTokens.size() > 0){
+        if(newMonsterStatus.negativeTokens != null){
             System.out.println("new negativeTokens: " +newMonsterStatus.negativeTokens);
             this.negativeTokens = newMonsterStatus.negativeTokens;
         }
-        if(newMonsterStatus.positiveTokens.size() > 0){
+        if(newMonsterStatus.positiveTokens != null){
             System.out.println("new positiveTokens: " +newMonsterStatus.positiveTokens);
             this.positiveTokens = newMonsterStatus.positiveTokens;
         }
@@ -460,5 +460,20 @@ public class Monster {
 
     public void setPositiveTokens(List<Token> positiveTokens) {
         this.positiveTokens = positiveTokens;
+    }
+
+    public int calculateTokenBonus(Token token){
+        int bonus = 0;
+        for(Token t: this.positiveTokens){
+            if(t.equals(token)){
+                bonus++;
+            }
+        }
+        for(Token t: this.negativeTokens){
+            if(t.equals(token)){
+                bonus--;
+            }
+        }
+        return bonus;
     }
 }

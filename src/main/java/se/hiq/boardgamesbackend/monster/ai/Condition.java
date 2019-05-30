@@ -14,13 +14,15 @@ public class Condition {
 
     private boolean survivorAtacking;
     private boolean survivorTargeted;
+    private boolean survivorPassedOver;
 
     private int minCourage;
     private int minUnderstanding;
     private int minHits; //hits after dodge
     private int minInsanity;
+    private boolean nonDeaf;
 
-    private int diceRolld10;
+    private int diceRolld10; //min value to roll
 
     @OneToOne
     @JsonIgnore
@@ -108,5 +110,21 @@ public class Condition {
 
     public void setMinInsanity(int minInsanity) {
         this.minInsanity = minInsanity;
+    }
+
+    public boolean isNonDeaf() {
+        return nonDeaf;
+    }
+
+    public void setNonDeaf(boolean nonDeaf) {
+        this.nonDeaf = nonDeaf;
+    }
+
+    public boolean isSurvivorPassedOver() {
+        return survivorPassedOver;
+    }
+
+    public void setSurvivorPassedOver(boolean survivorPassedOver) {
+        this.survivorPassedOver = survivorPassedOver;
     }
 }
