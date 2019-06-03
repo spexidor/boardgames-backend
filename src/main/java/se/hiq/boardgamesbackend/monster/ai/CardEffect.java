@@ -37,6 +37,7 @@ public class CardEffect {
     private int knockBack;
     private int attackExtraDamage; // -additional- damage to attack
     private Token monsterPositiveToken; //adds permanent boost
+    private Token survivorNegativeToken;
 
     //positive for survivors
     private int survivorGainSurvival;
@@ -280,5 +281,13 @@ public class CardEffect {
 
     public void setSurvivorGainInsanity(int survivorGainInsanity) {
         this.survivorGainInsanity = survivorGainInsanity;
+    }
+
+    public Token getSurvivorNegativeToken() {
+        return survivorNegativeToken;
+    }
+
+    public void setSurvivorNegativeToken(Token survivorNegativeToken) {
+        this.survivorNegativeToken = survivorNegativeToken;
     }
 }

@@ -2,6 +2,7 @@ package se.hiq.boardgamesbackend.survivor;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import se.hiq.boardgamesbackend.board.MovementHelper;
+import se.hiq.boardgamesbackend.monster.ai.Token;
 import se.hiq.boardgamesbackend.survivor.gear.Gear;
 import se.hiq.boardgamesbackend.survivor.gear.HitlocationType;
 import se.hiq.boardgamesbackend.showdown.Showdown;
@@ -41,6 +42,16 @@ public class Survivor {
     private int understanding;
     private boolean priorityTarget;
     private boolean permanentPriorityTarget;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "Token", joinColumns = @JoinColumn(name = "id"))
+    @Enumerated(EnumType.STRING)
+    private List<Token> negativeTokens;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "Token", joinColumns = @JoinColumn(name = "id"))
+    @Enumerated(EnumType.STRING)
+    private List<Token> positiveTokens;
 
     @OneToMany(cascade=CascadeType.ALL)
     private List<Hitlocation> hitlocations;
@@ -227,5 +238,21 @@ public class Survivor {
 
     public void setUnderstanding(int understanding) {
         this.understanding = understanding;
+    }
+
+    public List<Token> getNegativeTokens() {
+        return negativeTokens;
+    }
+
+    public void setNegativeTokens(List<Token> negativeTokens) {
+        this.negativeTokens = negativeTokens;
+    }
+
+    public List<Token> getPositiveTokens() {
+        return positiveTokens;
+    }
+
+    public void setPositiveTokens(List<Token> positiveTokens) {
+        this.positiveTokens = positiveTokens;
     }
 }
