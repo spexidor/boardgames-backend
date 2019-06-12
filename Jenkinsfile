@@ -14,11 +14,11 @@ pipeline {
                     sh 'pwd'
                     sh 'ls'
 
-                    echo $JAVA_HOME
-                    echo $PATH
-                    which java
-                    java -version
-                    mvn --version
+                    echo "{$JAVA_HOME}"
+                    echo "{$PATH}"
+                    sh 'which java'
+                    sh 'java -version'
+                    sh 'mvn --version'
 
                     echo "${JENKINS_HOME}"
                     sh 'mvn -DskipTests package'
