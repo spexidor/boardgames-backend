@@ -9,7 +9,7 @@ echo "start new rest container"
 
 JENKINS_NODE_COOKIE=dontkillme docker run \
   --name kdm-backend \
-  -p 8081:8081 \
+  -p 8083:8083 \
   --network=docker-network \
   --rm \
   -d  \
