@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-class Weapon extends Gear {
+public class Weapon extends Gear {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<AttackProfile> attackProfiles;

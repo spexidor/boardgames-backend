@@ -3,7 +3,7 @@ package se.hiq.boardgamesbackend.monster.ai;
 import java.util.ArrayList;
 import java.util.List;
 
-class HLCardBuilder {
+public class HLCardBuilder {
 
     static HLCard getCardByName(String title, int monsterLevel, HLDeck deck) {
 

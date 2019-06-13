@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-class SurvivorController {
+public class SurvivorController {
 
     @Autowired
     private

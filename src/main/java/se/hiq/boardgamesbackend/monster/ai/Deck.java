@@ -10,7 +10,7 @@ import java.util.List;
 //Simon och Ines byggplats
 
 @Entity
-class Deck {
+public class Deck {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

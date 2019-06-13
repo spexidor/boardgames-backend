@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-class ShowdownController {
+public class ShowdownController {
 
     @Autowired
     private ShowdownService showdownService;

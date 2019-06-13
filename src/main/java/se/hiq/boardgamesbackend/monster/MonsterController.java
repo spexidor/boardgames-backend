@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-class MonsterController {
+public class MonsterController {
 
     @Autowired
     private MonsterRepository monsterRepository;
