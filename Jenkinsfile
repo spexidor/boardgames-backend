@@ -7,7 +7,7 @@ pipeline {
                 agent {
                     docker {
                         image 'maven:3.6.1-jdk-11-slim'
-                        args '-v /root/.m2:/root/.m2 -v jenkins_data:/var/jenkins_home -d --rm'
+                        args '-v /root/.m2:/root/.m2 -v jenkins_data:/var/jenkins_home'
                     }
                 }
                 steps {
