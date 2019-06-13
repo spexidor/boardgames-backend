@@ -6,7 +6,6 @@ docker stop kdm-backend
 docker build -t kdm-backend .
 
 echo "start new rest container"
-whereis java
 
 JENKINS_NODE_COOKIE=dontkillme2 docker run -d  \
   --name kdm-backend \

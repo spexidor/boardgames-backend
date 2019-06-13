@@ -12,8 +12,8 @@ pipeline {
                 }
                 steps {
                     sh 'pwd'
-                    sh 'ls'
 
+                    echo "RUNNING BUILD STEP"
                     echo "{$JAVA_HOME}"
                     echo "{$PATH}"
                     sh 'which java'
@@ -21,6 +21,7 @@ pipeline {
                     sh 'mvn --version'
 
                     echo "${JENKINS_HOME}"
+
                     sh 'mvn -DskipTests package'
                     sh 'ls'
                 }
@@ -33,9 +34,16 @@ pipeline {
                     }
                 }
                 steps {
-                    sh 'pwd'
-                    sh 'ls'
+
+                    echo "RUNNING DEPLOY STEP"
+                    echo "{$JAVA_HOME}"
+                    echo "{$PATH}"
+                    sh 'which java'
+                    sh 'java -version'
+                    sh 'mvn --version'
+
                     echo "${JENKINS_HOME}"
+
                     sh './jenkins/deploy.sh'
                     }
                 }
