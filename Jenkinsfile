@@ -40,7 +40,6 @@ pipeline {
                     echo "{$PATH}"
                     sh 'which java'
                     sh 'java -version'
-                    sh 'mvn --version'
 
                     echo "${JENKINS_HOME}"
 
