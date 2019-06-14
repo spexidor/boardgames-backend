@@ -1,6 +1,8 @@
 package se.hiq.boardgamesbackend.monster;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.monster.ai.Direction;
@@ -8,6 +10,8 @@ import se.hiq.boardgamesbackend.monster.ai.Direction;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.http.ResponseEntity.notFound;
 
 /**
  * Funny name of class. Haha.
@@ -34,14 +38,13 @@ public class MonsterController {
 
     @GetMapping("/monster/{id}/openMoves")
     public @ResponseBody
-    List<Coordinate> getMonsterOpenMoves(@PathVariable long id, HttpServletResponse response) {
+    ResponseEntity<List<Coordinate>> getMonsterOpenMoves(@PathVariable long id) {
         Optional<Monster> monster = monsterRepository.findById(id);
         if(monster.isPresent()) {
-            return monster.get().movementOptions();
+            return new ResponseEntity<>(monster.get().movementOptions(), HttpStatus.OK);
         }
         else {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            return null;
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 

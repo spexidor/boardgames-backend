@@ -1,6 +1,8 @@
 package se.hiq.boardgamesbackend.monster.ai;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.hiq.boardgamesbackend.monster.Monster;
 import se.hiq.boardgamesbackend.monster.MonsterRepository;
@@ -99,7 +101,7 @@ public class MonsterDeckController {
 
     @GetMapping("/monster/{monsterId}/ai/{cardId}/targets")
     public @ResponseBody
-    List<Survivor> validTargets(@PathVariable long monsterId, @PathVariable long cardId, HttpServletResponse response) {
+    ResponseEntity<List<Survivor>> validTargets(@PathVariable long monsterId, @PathVariable long cardId) {
 
         Optional<Showdown> showdown = showdownRepository.findById(monsterId);
 
@@ -110,17 +112,15 @@ public class MonsterDeckController {
                 System.out.println("*****   Finding open targets according to targetRule " +targetRule);
 
                 List<Survivor> survivors = showdown.get().getSurvivors();
-                return showdown.get().getMonster().targetOptions(survivors, targetRule);
+                return new ResponseEntity<>(showdown.get().getMonster().targetOptions(survivors, targetRule), HttpStatus.OK);
             }
             else {
-                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                return null;
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             }
 
         }
         else {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            return null;
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 }
