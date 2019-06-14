@@ -11,4 +11,4 @@ RUN mkdir /opt/app
 
 COPY target/boardgames-backend-0.0.1-SNAPSHOT.jar /opt/app
 
-CMD ["java", "-jar", "/opt/app/boardgames-backend-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "-Dspring.profiles.active=azuretest", "/opt/app/boardgames-backend-0.0.1-SNAPSHOT.jar"]
