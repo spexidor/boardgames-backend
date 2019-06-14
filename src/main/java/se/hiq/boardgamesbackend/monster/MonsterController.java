@@ -8,6 +8,7 @@ import se.hiq.boardgamesbackend.board.coordinates.Coordinate;
 import se.hiq.boardgamesbackend.monster.ai.Direction;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +37,7 @@ public class MonsterController {
         return monsterRepository.findById(id);
     }
 
+    /*
     @GetMapping("/monster/{id}/openMoves")
     public @ResponseBody
     ResponseEntity<List<Coordinate>> getMonsterOpenMoves(@PathVariable long id) {
@@ -45,6 +47,19 @@ public class MonsterController {
         }
         else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+    */
+
+    @GetMapping("/monster/{id}/openMoves")
+    public @ResponseBody
+    List<Coordinate> getMonsterOpenMoves(@PathVariable long id) {
+        Optional<Monster> monster = monsterRepository.findById(id);
+        if(monster.isPresent()) {
+            return monster.get().movementOptions();
+        }
+        else {
+            return new ArrayList<>();
         }
     }
 
