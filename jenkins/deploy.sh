@@ -1,11 +1,15 @@
 echo "starting awesome java spring docker deployment script"
-echo "start by building new backend java image"
 
+echo "stopping old container"
 docker stop kdm-backend
 
+echo "removing old container"
+docker rm kdm-backend
+
+echo "building new container"
 docker build -t kdm-backend .
 
-echo "start new rest container"
+echo "starting new container"
 
 JENKINS_NODE_COOKIE=dontkillme docker run \
   --name kdm-backend \
