@@ -31,7 +31,7 @@ public class AIDeck extends Deck {
         this.cardsInDeck.add(AICardBuilder.getCardByName("Power Swat", monsterLevel, this));
         this.cardsInDeck.add(AICardBuilder.getCardByName("Chomp", monsterLevel, this));
 
-        this.initCardOrder();
+        this.initCardOrderRandom();
     }
 
     public AICard getBasicAction() {

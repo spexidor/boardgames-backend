@@ -64,6 +64,30 @@ public class Deck {
         }
     }
 
+    void initCardOrderRandom(){
+        int deckLength = this.getCardsInDeck().size();
+        int[] randomNumbers = new int[deckLength];
+
+        //create numbers
+        for(int m=0; m<deckLength; m++){
+            randomNumbers[m] = m;
+        }
+
+        //shuffle
+        for(int m=0; m<deckLength; m++){
+            int j = (int) Math.floor(Math.random() * (m + 1)); // random index from 0 to m
+
+            //swap
+            int tmp = randomNumbers[m];
+            randomNumbers[m] = randomNumbers[j];
+            randomNumbers[j] = tmp;
+        }
+
+        for(int n=0; n<deckLength; n++){
+            this.getCardsInDeck().get(n).setOrderInDeck(randomNumbers[n]);
+        }
+    }
+
     public void updateState(Deck updatedDeck) {
 
         System.out.println("Updating deck");

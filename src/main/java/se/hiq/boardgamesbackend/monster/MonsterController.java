@@ -37,7 +37,7 @@ public class MonsterController {
         return monsterRepository.findById(id);
     }
 
-    /*
+
     @GetMapping("/monster/{id}/openMoves")
     public @ResponseBody
     ResponseEntity<List<Coordinate>> getMonsterOpenMoves(@PathVariable long id) {
@@ -49,11 +49,10 @@ public class MonsterController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-    */
 
+    /*
     @GetMapping("/monster/{id}/openMoves")
-    public @ResponseBody
-    List<Coordinate> getMonsterOpenMoves(@PathVariable long id) {
+    public List<Coordinate> getMonsterOpenMoves(@PathVariable long id) {
         Optional<Monster> monster = monsterRepository.findById(id);
         if(monster.isPresent()) {
             return monster.get().movementOptions();
@@ -62,6 +61,7 @@ public class MonsterController {
             return new ArrayList<>();
         }
     }
+    */
 
     @GetMapping("/monster/{id}/specificMove")
     public @ResponseBody

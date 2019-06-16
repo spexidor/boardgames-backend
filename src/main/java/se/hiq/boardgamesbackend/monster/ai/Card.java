@@ -15,7 +15,7 @@ import javax.persistence.*;
 })
 
 @Entity
-abstract class Card {
+abstract public class Card {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

@@ -39,6 +39,6 @@ public class HLDeck extends Deck {
 
         this.cardsInDeck.add(HLCardBuilder.getCardByName("Clever Ploy", monsterLevel, this)); //TRAP
 
-        this.initCardOrder();
+        this.initCardOrderRandom();
     }
 }
