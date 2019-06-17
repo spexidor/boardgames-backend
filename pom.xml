@@ -51,33 +51,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>buildnumber-maven-plugin</artifactId>
-				<version>1.4</version>
-				<executions>
-					<execution>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>create</goal>
-							<goal>create-metadata</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<outputDirectory>./src/main/resources</outputDirectory>
-					<outputName>buildNumber.properties</outputName>
-					<addOutputDirectoryToResources>true</addOutputDirectoryToResources>
-					<timestampPropertyName>buildDatetime</timestampPropertyName>
-					<doCheck>true</doCheck>
-					<doUpdate>true</doUpdate>
-					<timestampFormat>MM/dd/yyyy HH:mm:ss</timestampFormat>
-					<properties>
-						<buildNumber>${buildNumber}</buildNumber>
-					</properties>
-					<revisionOnScmFailure>true</revisionOnScmFailure>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 
