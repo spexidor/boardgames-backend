@@ -35,8 +35,8 @@ public class ShowdownController {
     }
 
     @PostMapping("/showdown")
-    public Showdown createShowdown(@RequestBody String name){
-        Showdown showdown = new Showdown(name);
+    public Showdown createShowdown(){
+        Showdown showdown = new Showdown("Game created from POST request");
 
         return showdownService.save(showdown);
     }
