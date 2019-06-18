@@ -132,13 +132,19 @@ public class Deck {
             if(this.getCardsInDeck().get(n).getTitle().equals(cardToSetFirst)){
                 cardToSetFirstIndex = n;
             }
-            else if(this.getCardsInDeck().get(n).getOrderInDeck() == 0){
+            if(this.getCardsInDeck().get(n).getOrderInDeck() == 0){
                 currentFirstCardIndex = n;
             }
+            //System.out.println("Card: " +this.getCardsInDeck().get(n).getTitle() +", order in deck: " +this.getCardsInDeck().get(n).getOrderInDeck());
         }
 
         currentSwapCardOrder = this.getCardsInDeck().get(cardToSetFirstIndex).getOrderInDeck();
+
+        //System.out.println("cardToSetFirstIndex: " +cardToSetFirstIndex);
+        //System.out.println("currentFirstCardIndex: " +currentFirstCardIndex);
+        //System.out.println("currentSwapCardOrder: " +currentSwapCardOrder);
+
         this.getCardsInDeck().get(cardToSetFirstIndex).setOrderInDeck(0);
-        this.getCardsInDeck().get(currentSwapCardOrder).setOrderInDeck(currentSwapCardOrder);
+        this.getCardsInDeck().get(currentFirstCardIndex).setOrderInDeck(currentSwapCardOrder);
     }
 }

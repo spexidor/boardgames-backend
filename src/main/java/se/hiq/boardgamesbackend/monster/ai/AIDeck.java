@@ -19,21 +19,23 @@ public class AIDeck extends Deck {
 
     public AIDeck(int monsterLevel){
 
+        //Prologue:
         this.basicAction = AICardBuilder.getCardByName("Basic Action", monsterLevel, this);
-        this.cardsInDeck.add(AICardBuilder.getCardByName("Combo Claw", monsterLevel, this));
-        this.cardsInDeck.add(AICardBuilder.getCardByName("Grasp", monsterLevel, this)); //
-
         this.cardsInDeck.add(AICardBuilder.getCardByName("Claw", monsterLevel, this)); //1
-        this.cardsInDeck.add(AICardBuilder.getCardByName("Size Up", monsterLevel, this)); //
-        this.cardsInDeck.add(AICardBuilder.getCardByName("Revenge", monsterLevel, this));
-        this.cardsInDeck.add(AICardBuilder.getCardByName("Bat Around", monsterLevel, this));
-        this.cardsInDeck.add(AICardBuilder.getCardByName("Vicious Claw", monsterLevel, this));
-        this.cardsInDeck.add(AICardBuilder.getCardByName("Power Swat", monsterLevel, this)); //
-        this.cardsInDeck.add(AICardBuilder.getCardByName("Chomp", monsterLevel, this)); //
-
+        this.cardsInDeck.add(AICardBuilder.getCardByName("Size Up", monsterLevel, this));
+        this.cardsInDeck.add(AICardBuilder.getCardByName("Power Swat", monsterLevel, this));
+        this.cardsInDeck.add(AICardBuilder.getCardByName("Chomp", monsterLevel, this));
+        this.cardsInDeck.add(AICardBuilder.getCardByName("Grasp", monsterLevel, this));
         //maul
         //terrifying roar
         //enraged
+
+
+        //Remaining basic:
+        this.cardsInDeck.add(AICardBuilder.getCardByName("Combo Claw", monsterLevel, this));
+        this.cardsInDeck.add(AICardBuilder.getCardByName("Revenge", monsterLevel, this));
+        this.cardsInDeck.add(AICardBuilder.getCardByName("Bat Around", monsterLevel, this));
+        this.cardsInDeck.add(AICardBuilder.getCardByName("Vicious Claw", monsterLevel, this));
 
         this.initCardOrderRandom();
         this.setCardFirst("Claw");

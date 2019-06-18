@@ -12,7 +12,7 @@
 	<artifactId>boardgames-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>boardgames-backend</name>
-	<description>Backend to control board game</description>
+	<description>Backend to store state of KDM-Prologue Web App</description>
 
 	<properties>
 		<java.version>8</java.version>
