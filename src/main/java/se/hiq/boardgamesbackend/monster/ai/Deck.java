@@ -119,4 +119,26 @@ public class Deck {
     public void setId(long id) {
         this.id = id;
     }
+
+    /*
+     Swaps order in deck with card in input and first card
+     */
+    protected void setCardFirst(String cardToSetFirst) {
+        int cardToSetFirstIndex = -1;
+        int currentFirstCardIndex = -1;
+        int currentSwapCardOrder = -1;
+
+        for(int n=0; n<this.getCardsInDeck().size(); n++){
+            if(this.getCardsInDeck().get(n).getTitle().equals(cardToSetFirst)){
+                cardToSetFirstIndex = n;
+            }
+            else if(this.getCardsInDeck().get(n).getOrderInDeck() == 0){
+                currentFirstCardIndex = n;
+            }
+        }
+
+        currentSwapCardOrder = this.getCardsInDeck().get(cardToSetFirstIndex).getOrderInDeck();
+        this.getCardsInDeck().get(cardToSetFirstIndex).setOrderInDeck(0);
+        this.getCardsInDeck().get(currentSwapCardOrder).setOrderInDeck(currentSwapCardOrder);
+    }
 }

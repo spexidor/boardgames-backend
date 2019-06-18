@@ -1,15 +1,13 @@
 package se.hiq.boardgamesbackend;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@CrossOrigin
 public class CommitInfoController {
 
     @Value("${git.commit.message.short}")
@@ -24,9 +22,9 @@ public class CommitInfoController {
     @GetMapping("/commitId")
     public @ResponseBody Map<String, String> getCommitId() {
         Map<String, String> result = new HashMap<>();
-        result.put("Commit message",commitMessage);
-        result.put("Commit branch", buildTime);
-        result.put("Commit id", commitId);
+        result.put("commit_message",commitMessage);
+        result.put("commit_time", buildTime);
+        result.put("commit_id", commitId);
         return result;
     }
 }
