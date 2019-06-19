@@ -10,13 +10,13 @@ import java.util.Map;
 @CrossOrigin
 public class CommitInfoController {
 
-    @Value("${git.X.commit.message.short}")
+    @Value("${git.commit.message.short}")
     private String commitMessage;
 
-    @Value("${git.X.build.time}")
+    @Value("${git.build.time}")
     private String buildTime;
 
-    @Value("${git.X.commit.id}")
+    @Value("${git.commit.id}")
     private String commitId;
 
     @GetMapping("/commitId")
