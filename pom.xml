@@ -12,10 +12,10 @@
 	<artifactId>boardgames-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>boardgames-backend</name>
-	<description>Backend to control board game</description>
+	<description>Backend to store state of KDM-Prologue Web App</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 	</properties>
 
 	<dependencies>
@@ -50,6 +50,28 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<id>get-the-git-infos</id>
+						<goals>
+							<goal>revision</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>validate-the-git-infos</id>
+						<goals>
+							<goal>validateRevision</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<!-- ... -->
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

@@ -10,7 +10,7 @@ import java.util.List;
 //Simon och Ines byggplats
 
 @Entity
-class Deck {
+public class Deck {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -64,6 +64,30 @@ class Deck {
         }
     }
 
+    void initCardOrderRandom(){
+        int deckLength = this.getCardsInDeck().size();
+        int[] randomNumbers = new int[deckLength];
+
+        //create numbers
+        for(int m=0; m<deckLength; m++){
+            randomNumbers[m] = m;
+        }
+
+        //shuffle
+        for(int m=0; m<deckLength; m++){
+            int j = (int) Math.floor(Math.random() * (m + 1)); // random index from 0 to m
+
+            //swap
+            int tmp = randomNumbers[m];
+            randomNumbers[m] = randomNumbers[j];
+            randomNumbers[j] = tmp;
+        }
+
+        for(int n=0; n<deckLength; n++){
+            this.getCardsInDeck().get(n).setOrderInDeck(randomNumbers[n]);
+        }
+    }
+
     public void updateState(Deck updatedDeck) {
 
         System.out.println("Updating deck");
@@ -94,5 +118,33 @@ class Deck {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    /*
+     Swaps order in deck with card in input and first card
+     */
+    protected void setCardFirst(String cardToSetFirst) {
+        int cardToSetFirstIndex = -1;
+        int currentFirstCardIndex = -1;
+        int currentSwapCardOrder = -1;
+
+        for(int n=0; n<this.getCardsInDeck().size(); n++){
+            if(this.getCardsInDeck().get(n).getTitle().equals(cardToSetFirst)){
+                cardToSetFirstIndex = n;
+            }
+            if(this.getCardsInDeck().get(n).getOrderInDeck() == 0){
+                currentFirstCardIndex = n;
+            }
+            //System.out.println("Card: " +this.getCardsInDeck().get(n).getTitle() +", order in deck: " +this.getCardsInDeck().get(n).getOrderInDeck());
+        }
+
+        currentSwapCardOrder = this.getCardsInDeck().get(cardToSetFirstIndex).getOrderInDeck();
+
+        //System.out.println("cardToSetFirstIndex: " +cardToSetFirstIndex);
+        //System.out.println("currentFirstCardIndex: " +currentFirstCardIndex);
+        //System.out.println("currentSwapCardOrder: " +currentSwapCardOrder);
+
+        this.getCardsInDeck().get(cardToSetFirstIndex).setOrderInDeck(0);
+        this.getCardsInDeck().get(currentFirstCardIndex).setOrderInDeck(currentSwapCardOrder);
     }
 }

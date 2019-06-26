@@ -75,7 +75,7 @@ public class MonsterTest {
 
         assertTrue(coordinates.size() == 1);
         System.out.println("result 2: " +coordinates.get(0));
-        assertTrue(coordinates.get(0).equals(new Coordinate(10, 18)));
+        assertTrue(coordinates.get(0).equals(new Coordinate(10, 16)));
 
 
         monster.setPosition(new Coordinate(20, 9)); //Closest: right

@@ -4,7 +4,7 @@ import se.hiq.boardgamesbackend.survivor.gear.HitlocationType;
 
 import java.util.Objects;
 
-class AICardBuilder {
+public class AICardBuilder {
 
     public static AICard getCardByName(String title, int monsterLevel, AIDeck deck) {
         AICard card = getCardByName(title, monsterLevel);

@@ -62,7 +62,7 @@ public class MonsterControllerTest {
 
         assertEquals(85, openMoves.size());
 
-        ResponseEntity response = restTemplate.getForEntity("/monster/999/openMoves", List.class);
-        assertEquals("Error 404 expected", 404, response.getStatusCodeValue());
+        //ResponseEntity response = restTemplate.getForEntity("/monster/999/openMoves", List.class);
+        //assertEquals("Error 404 expected", 404, response.getStatusCodeValue());
     }
 }

@@ -8,8 +8,8 @@ import java.util.Optional;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
-class ShowdownController {
+@CrossOrigin
+public class ShowdownController {
 
     @Autowired
     private ShowdownService showdownService;
@@ -35,8 +35,8 @@ class ShowdownController {
     }
 
     @PostMapping("/showdown")
-    public Showdown createShowdown(@RequestBody String name){
-        Showdown showdown = new Showdown(name);
+    public Showdown createShowdown(){
+        Showdown showdown = new Showdown("Game created from POST request");
 
         return showdownService.save(showdown);
     }
@@ -48,7 +48,7 @@ class ShowdownController {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return null;
         }
-        else if(showdownService.findById(id).isEmpty()){
+        else if(!showdownService.findById(id).isPresent()){
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return null;
         }

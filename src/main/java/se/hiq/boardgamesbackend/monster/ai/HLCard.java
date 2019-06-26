@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "hl_card")
-class HLCard extends Card{
+public class HLCard extends Card{
     private boolean trap;
     private boolean impervious;
     private String description;

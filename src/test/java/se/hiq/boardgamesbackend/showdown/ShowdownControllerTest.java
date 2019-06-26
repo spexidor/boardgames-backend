@@ -12,9 +12,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+import se.hiq.boardgamesbackend.monster.ai.AICard;
+import se.hiq.boardgamesbackend.monster.ai.AIDeck;
+import se.hiq.boardgamesbackend.monster.ai.Card;
 
 
 import static org.junit.Assert.*;
+import java.util.Set;
+import java.util.HashSet;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -64,12 +69,38 @@ public class ShowdownControllerTest {
         assertNotNull(response.getBody().getSurvivors().get(0).getHitlocations());
         assertTrue(response.getBody().getSurvivors().get(0).getHitlocations().size() > 0);
 
+        AIDeck aiDeck = response.getBody().getMonster().getAiDeck();
+        assertTrue("no aiDeck in response", aiDeck != null);
+        System.out.println("Ai deck length: " +aiDeck.getCardsInDeck().size());
 
+        int[] deckOrderNums = new int[aiDeck.getCardsInDeck().size()];
+        int n =0;
+        for(Card aiCard:aiDeck.getCardsInDeck()){
+            System.out.println("Card: " +aiCard.getTitle() +", order: " +aiCard.getOrderInDeck());
+            deckOrderNums[n] = aiCard.getOrderInDeck();
+            n++;
+        }
+        assertTrue("not shuffled properly", distinctValues(deckOrderNums));
+
+
+        //second post
         ResponseEntity<Showdown> response2 = restTemplate.postForEntity("/showdown", "post from postShowdownTest_2", Showdown.class);
         assertEquals(200, response2.getStatusCode().value());
         System.out.println("post 2 showdown id: " +response2.getBody().getId());
 
     }
+
+    public static boolean distinctValues(int[] arr){
+        Set<Integer> foundNumbers = new HashSet<Integer>();
+        for (int num : arr) {
+            if(foundNumbers.contains(num)){
+                return false;
+            }
+            foundNumbers.add(num);
+        }
+        return true;
+    }
+
 
     @Test
     public void putShowdownNoIdExistTest(){ //need id in input when updating showdown

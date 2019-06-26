@@ -69,7 +69,7 @@ public class Monster {
         int monsterLevel = 1;
 
         this.name = "White Lion";
-        this.position = new Coordinate(10, 8);
+        this.position = new Coordinate(10, 7);
         this.facing = Facing.UP;
         this.statline = new TestLion();
         this.activatedThisTurn = false;
